@@ -9,9 +9,9 @@ type EventView = {
 };
 
 const selector = (r: any): EventView => ({
-  count: r.event.count,
-  perSec: r.event.perSec,
-  gateFrozen: r.event.gateFrozen,
+  count: r.event?.count ?? 0,
+  perSec: r.event?.perSec ?? 0,
+  gateFrozen: r.event?.gateFrozen ?? false,
   state: r.state,
 });
 

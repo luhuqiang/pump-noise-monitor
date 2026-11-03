@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUi } from "../store/ui";
 import { engine } from "../audio/engine.ts";
-import { getSetting, setSetting } from "../db/repositories/settings.ts";
+import { getSetting, setSetting } from "../db/local.ts";
 import { ALGORITHM_VERSION } from "../audio/diagnose.ts";
 import { BackIcon } from "./icons";
 
@@ -21,10 +21,10 @@ const DEFAULTS: DeviceSettings = {
 
 /**
  * 设置页：5 组（设备、采集、模型、数据、关于）。
- * 设备参数写入 PGlite 并同步到 engine 配置。
+ * 设备参数本地持久化（S2 过渡层 db/local，PGlite 移除属 S3）并同步到 engine 配置。
  */
 export default function Settings() {
-  const { setView, theme, toggleTheme, setGuideDone } = useUi();
+  const { setView, theme, toggleTheme, replayGuide } = useUi();
   const [dev, setDev] = useState<DeviceSettings>(DEFAULTS);
 
   useEffect(() => {
@@ -131,21 +131,28 @@ export default function Settings() {
           </Field>
         </Section>
 
+        {/* 数据 */}
+        <Section title="数据">
+          <Field label="片段留存">
+            <span className="mono" style={{ color: "var(--mist)" }}>每工况 10 s</span>
+          </Field>
+          <Field label="导出格式">
+            <span className="mono" style={{ color: "var(--mist)" }}>.html + .json（manifest）</span>
+          </Field>
+          <Field label="仅本机">
+            <span style={{ color: "var(--mist)" }}>音频不上传，无网络权限</span>
+          </Field>
+        </Section>
+
         {/* 关于 */}
         <Section title="关于">
           <Field label="版本">
-            <span className="mono">v1.4 (Build 5)</span>
+            <span className="mono">v2.0.0 (Build 6)</span>
           </Field>
           <Field label="联系">
             <span style={{ color: "var(--mist)" }}>luhuqiang@foxmail.com</span>
           </Field>
-          <button
-            onClick={() => {
-              localStorage.removeItem("tzp.guide.v1");
-              setGuideDone();
-            }}
-            style={rowBtnStyle}
-          >
+          <button onClick={replayGuide} style={rowBtnStyle}>
             重看引导
           </button>
           <button onClick={toggleTheme} style={rowBtnStyle}>

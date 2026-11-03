@@ -52,7 +52,7 @@ console.log(`已拷贝到 ${WWW}`);
 console.log("\n=== 3/5 apktool 回编译 ===");
 mkdirSync(BUILD_DIR, { recursive: true });
 if (existsSync(UNALIGNED)) rmSync(UNALIGNED);
-run(`java -jar ${join(ROOT, "apkwork", "tools", "apktool", "apktool.jar")} b ${APK_MONITOR} -o ${UNALIGNED}`);
+run(`java -jar ${join(ROOT, "apkwork", "tools", "apktool", "apktool.jar")} b -nc ${APK_MONITOR} -o ${UNALIGNED}`);
 
 // 4) zipalign + 签名
 console.log("\n=== 4/5 对齐 + 签名 ===");
