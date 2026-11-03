@@ -1,0 +1,6 @@
+item,path,bytes,mib,bucket,action,sha256,migrated_at,operator
+根目录交付包 zip,stethoscope-delivery.zip,11683595,11.14,cold,迁冷存储（先 robocopy 校验后删除）,ddfa90a3ecbf1effb1ff632aafae5ba342dd48f540c732af90849461537b993f,未执行（仅立项）,执行人（自检）
+交付包内 legacy zip,stethoscope-delivery/听诊仪-交付包/legacy/pump-noise-handover-20261102.zip,11520080,10.99,cold,迁冷存储（先 robocopy 校验后删除）,e0b1bdb8b556df7885ad16e3442b501e0aa6c1da1bf84393d720c5279aa425f4,未执行（仅立项）,执行人（自检）
+解包工作目录,apkwork/unzip-check/,11985515,11.43,cold,迁冷存储（可重建；先校验后删除）,07d5a8e1c65f0a062f6e9a31488874aa642de325ed2a418dc7546d872d0486f3,未执行（仅立项）,执行人（自检）
+legacy 证据源,legacy/pump-noise-handover-20261102/,20221491,19.28,keep,保留（只读）不迁移,2bc0953822498f527a35627f4aa90e9410db193fb86b31fa1918bb083c9e90fc,不适用,执行人（自检）
+授权 APK 旧资产,听诊仪授权.apk（含 .idsig 42493 B）,4655632,4.44,keep,归入 legacy/ 存档；不参与构建,1cdfcbdc3f21c8a97f8b7636d8db941d0496d56a207db8e6b695782259c6f36a,未执行（仅立项）,执行人（自检）

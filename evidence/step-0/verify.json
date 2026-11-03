@@ -1,0 +1,147 @@
+﻿[
+    {
+        "Detail":  "S0 不重装依赖；前置条件以现有 node_modules 可构建为准",
+        "Status":  "N/A",
+        "Check":  "npm-ci"
+    },
+    {
+        "Detail":  "exit=0",
+        "Status":  "Pass",
+        "Check":  "typecheck"
+    },
+    {
+        "Detail":  "pass=30 fail=0 need\u003e=30",
+        "Status":  "Pass",
+        "Check":  "tests"
+    },
+    {
+        "Detail":  "exit=0 dist/index.html=True",
+        "Status":  "Pass",
+        "Check":  "vite-build"
+    },
+    {
+        "Detail":  "exit=0 apk=True",
+        "Status":  "Pass",
+        "Check":  "apk-build"
+    },
+    {
+        "Detail":  "exit=0 ok=true brokenRefs=[]",
+        "Status":  "Pass",
+        "Check":  "check-apk"
+    },
+    {
+        "Detail":  "vc=5 vn=1.4 expect=5/1.4",
+        "Status":  "Pass",
+        "Check":  "version-baseline"
+    },
+    {
+        "Detail":  "S0 冻结 1.4 基线 vc5/1.4；vc6/2.0.0 自 S1 生效（D-08）",
+        "Status":  "N/A",
+        "Check":  "version-vc6"
+    },
+    {
+        "Detail":  "cert=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f（S0 首建基线）",
+        "Status":  "Pass",
+        "Check":  "cert-sha256"
+    },
+    {
+        "Detail":  "136.5 KB (need 120-160)",
+        "Status":  "Pass",
+        "Check":  "apk-size"
+    },
+    {
+        "Detail":  "252A2623B60BD1E6C45730F629F8F5F3ED07F8351C54663CF02ACF8060A2306A",
+        "Status":  "Pass",
+        "Check":  "apk-sha256"
+    },
+    {
+        "Detail":  "S0 无 UI 字符串门禁；字符串门禁自 S2 起",
+        "Status":  "N/A",
+        "Check":  "ui-strings"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:AndroidManifest.xml"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:classes.dex"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:assets/www/index.html"
+    },
+    {
+        "Detail":  "S0 不设包内禁止项",
+        "Status":  "N/A",
+        "Check":  "forbidden-entry"
+    },
+    {
+        "Detail":  "PGlite 移除属 S3；S0 禁止代码改动，只冻结 D-01 裁决",
+        "Status":  "N/A",
+        "Check":  "no-pglite"
+    },
+    {
+        "Detail":  "S0 不涉及样本；样本验收在 S10（≥300 段）",
+        "Status":  "N/A",
+        "Check":  "samples"
+    },
+    {
+        "Detail":  "S0 不涉及评审回填；评审 12/15/16 在 S11",
+        "Status":  "N/A",
+        "Check":  "reviews"
+    },
+    {
+        "Detail":  "dirty=0",
+        "Status":  "Pass",
+        "Check":  "git-clean-code"
+    },
+    {
+        "Detail":  "evidence/step-0",
+        "Status":  "Pass",
+        "Check":  "evidence-dir"
+    },
+    {
+        "Detail":  "true",
+        "Status":  "Pass",
+        "Check":  "git-repo"
+    },
+    {
+        "Detail":  "baseline-1.4-vc5",
+        "Status":  "Pass",
+        "Check":  "git-tag-baseline"
+    },
+    {
+        "Detail":  "10/10",
+        "Status":  "Pass",
+        "Check":  "decisions-10"
+    },
+    {
+        "Detail":  "10/10",
+        "Status":  "Pass",
+        "Check":  "doc-fixups-10"
+    },
+    {
+        "Detail":  "rows=5 coldSum=33.56",
+        "Status":  "Pass",
+        "Check":  "asset-inventory"
+    },
+    {
+        "Detail":  "6/6",
+        "Status":  "Pass",
+        "Check":  "key-rotation-6"
+    },
+    {
+        "Detail":  "14/14",
+        "Status":  "Pass",
+        "Check":  "sample-request-14"
+    },
+    {
+        "Detail":  "7/7",
+        "Status":  "Pass",
+        "Check":  "gitignore-7"
+    }
+]
