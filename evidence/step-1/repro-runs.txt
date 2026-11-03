@@ -1,0 +1,10 @@
+# S1 可复现性对照（同提交多次构建）
+# 生成方式：npm ci → npm run apk → node scripts/check-apk.mjs .\听诊仪.apk
+# 结论口径：APK 外部字节 SHA-256 受 zip 条目时间戳影响而变化；包内容指纹 contentSha256 稳定。
+
+run  apk_sha256                                                        contentSha256                                                     size(bytes)  checkedAt
+A    b0cbec4658385a935c006faa40065107a95378f6388b3452d056146353804f96  495fdf4c510d397db4ce180516c7ac254be4730f887c49486fb8068b06f68ee8  139778       2026-11-03T21:22:26Z
+B    b3e0d053e6da875c005c540b0aceeb30918c3813e8b915cb11c2183f7e4c7577  495fdf4c510d397db4ce180516c7ac254be4730f887c49486fb8068b06f68ee8  139778       2026-11-03T21:21:39Z
+
+判定：contentSha256 2/2 次一致（495fdf4c…8ee8），包内容可重建；
+      apk_sha256 每次不同，字节级复现未达成，记为 S1 已知偏差（signoff §8）。

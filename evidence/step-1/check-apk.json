@@ -1,0 +1,43 @@
+﻿
+> stethoscope@2.0.0 check:apk
+> node scripts/check-apk.mjs .\听诊仪.apk
+
+{
+  "ok": true,
+  "apk": "D:\\Users\\Documents\\Trae-CN\\pump-noise-monitor\\听诊仪.apk",
+  "checkedAt": "2026-11-03T21:22:26.263Z",
+  "size": 139778,
+  "sha256": "b0cbec4658385a935c006faa40065107a95378f6388b3452d056146353804f96",
+  "build": {
+    "package": "com.luhuqiang.pumpnoise",
+    "versionCode": 6,
+    "versionName": "2.0.0",
+    "contentSha256": "495fdf4c510d397db4ce180516c7ac254be4730f887c49486fb8068b06f68ee8"
+  },
+  "entries": {
+    "index": true,
+    "js": [
+      "assets/www/assets/index-D6C-80yZ.js"
+    ],
+    "css": [
+      "assets/www/assets/index-CfiidCuW.css"
+    ],
+    "manifest": false,
+    "referenced": [
+      "assets/index-D6C-80yZ.js",
+      "assets/index-CfiidCuW.css"
+    ],
+    "brokenRefs": []
+  },
+  "signature": {
+    "tool": "D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools\\35.0.0\\lib\\apksigner.jar",
+    "schemes": {
+      "v1": false,
+      "v2": true,
+      "v3": true
+    },
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+    "error": null
+  }
+}
+

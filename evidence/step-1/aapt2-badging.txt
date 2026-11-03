@@ -1,0 +1,4 @@
+﻿package: name='com.luhuqiang.pumpnoise' versionCode='6' versionName='2.0.0' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'
+targetSdkVersion:'35'
+application-label:'听诊仪'
+launchable-activity: name='com.luhuqiang.pumpnoise.MainActivity'  label='' icon=''
