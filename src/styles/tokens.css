@@ -1,0 +1,85 @@
+/* 听诊仪 · 设计 Token v3 —— PRD 浅色为默认（#EFECE3 纸底 / #1B211E 墨色） */
+:root {
+  /* ========== PRD §2.1 浅色默认 ========== */
+  --bg: #efece3;          /* 页面底（paper） */
+  --fg: #1b211e;          /* 墨色（ink）——正文、主按钮底 */
+  --ink: #1b211e;
+  --paper: #efece3;
+  --paper-2: #e6e2d6;     /* 仪表台底（比页面低一级） */
+  --surface: #e6e2d6;
+  --raised: #efece3;
+  --line: #d5d0c1;        /* 1px 分隔线 */
+  --mist: #5c635c;        /* 次要文字、轴标签 */
+  --muted: #5c635c;
+  /* 状态色（纸底 ≥4.5:1） */
+  --brass: #9c7b3f;       /* 仅状态点/顶帽，不用于文字 */
+  --amber: #9c7b3f;
+  --ok: #33584a;          /* 三态：有把握 */
+  --signal: #33584a;
+  --low: #7a5c24;         /* 三态：证据不足 */
+  --bad: #8a3f32;         /* 三态：不作结论 */
+  --alarm: #8a3f32;
+
+  /* 字阶 */
+  --fs-display: 34px;
+  --fs-mono-lg: 30px;
+  --fs-h1: 22px;
+  --fs-h2: 17px;
+  --fs-body: 15px;
+  --fs-sm: 13px;
+  --fs-xs: 11.5px;
+  --lh-tight: 1.1;
+  --lh-body: 1.7;
+
+  /* 间距（8 点栅格） */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s7: 32px;
+  --s8: 40px;
+  --tap: 56px;
+
+  /* 圆角语义 */
+  --r-panel: 0px;  /* R1：面板硬角 */
+  --r-chip: 2px;
+  --r-dot: 50%;
+
+  /* 线 */
+  --hair: 1px;
+
+  /* 动效 */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-swap: 160ms;
+  --t-enter: 200ms;
+  --t-state: 120ms;
+  --t-hold: 800ms;
+
+  /* 尺寸 */
+  --dock-h: 64px;
+  --dock-gap: 24px;
+  --page-x: 20px;
+}
+
+/* ========== PRD §2.1 深色反转：只交换 ink/paper，三态整体提亮 ========== */
+[data-theme="dark"] {
+  --bg: #141816;
+  --fg: #e7e4db;
+  --ink: #e7e4db;
+  --paper: #141816;
+  --paper-2: #1b211e;
+  --surface: #1b211e;
+  --raised: #141816;
+  --line: #2c332f;
+  --mist: #8c948c;
+  --muted: #8c948c;
+  --brass: #c39a54;
+  --amber: #c39a54;
+  --ok: #82ae97;
+  --signal: #82ae97;
+  --low: #cba46a;
+  --bad: #c98b7e;
+  --alarm: #c98b7e;
+}

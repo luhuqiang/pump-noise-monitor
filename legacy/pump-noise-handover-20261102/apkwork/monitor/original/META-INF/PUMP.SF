@@ -1,0 +1,59 @@
+Signature-Version: 1.0
+Created-By: 1.0 (Android)
+SHA-256-Digest-Manifest: r2DJ8DsAXKzifDxiwmAeEHPjl/80weaIwhdfyEFJlL0=
+X-Android-APK-Signed: 2, 3
+
+Name: AndroidManifest.xml
+SHA-256-Digest: SVSD+n9KWHASdfPEG7Sdj5Ej4CFuK1pK8BSHcOX2+ws=
+
+Name: assets/www/__grok/icon-180.png
+SHA-256-Digest: GvkIjkuWrUXqoho1x+4/QjCSQ1xbUHNVwdBnfyr0FHI=
+
+Name: assets/www/__grok/install/assets/homescreen/glass-puzzle.svg
+SHA-256-Digest: i+NBMnNvi0gclHLms9snCHHLlFhGSEZGoW+U2GSOSjs=
+
+Name: assets/www/__grok/install/assets/homescreen/glass-share.svg
+SHA-256-Digest: qMdqCHk8vnSRMyZmup7LYT8rZ5yvbEDCbHDv9DLx0Lg=
+
+Name: assets/www/__grok/install/assets/homescreen/logo-grok.svg
+SHA-256-Digest: w0jyxLKu7UnXW4zsra/5VBTDMaGWTpymauvSJ22upig=
+
+Name: assets/www/__grok/install/assets/homescreen/ob-ipad.png
+SHA-256-Digest: XUTJ95gBr+ci7hWqFLdMGP0YTIlm6xP0OCv1wC3M5c0=
+
+Name: assets/www/__grok/install/assets/homescreen/ob-phone.png
+SHA-256-Digest: 3n6/393GQKt80rwMfvwLNHwIR0Cj8NrQmpTDqhC5gcM=
+
+Name: assets/www/__grok/install/assets/homescreen/plus.svg
+SHA-256-Digest: JZhmpcOqG6DC4WBryrWE8cd53hxUikT8/EFpFE4RgP0=
+
+Name: assets/www/__grok/install/styles.css
+SHA-256-Digest: +DXSHSZpFksekJIxoYnwftkWdeUyfIRp4vMJX0Z1Fwg=
+
+Name: assets/www/assets/index-DTOXxC2K.js
+SHA-256-Digest: IzMgrEjnerLmnXKe94E6tzwwT4tZfWMvGAL5ArH95Aw=
+
+Name: assets/www/assets/routes-DXfZevl-.js
+SHA-256-Digest: XEwtRA29sYc69FUn2sPcC8uk7rLN+V4+ECHyTBNZwa0=
+
+Name: assets/www/assets/styles-D9CVXCCt.css
+SHA-256-Digest: 4aKevDFyebPU/RAqXXtQaByV6OhKr3TBK9whZQUvjyI=
+
+Name: assets/www/favicon.svg
+SHA-256-Digest: A70Qi39yOF+ruCX4fLewA2ygUx0ROteeNOIwQtmM7Ys=
+
+Name: assets/www/index.html
+SHA-256-Digest: eYgnXINSchkNwVyG15uLZ0mB23WttphyqdS43Gv8Hs0=
+
+Name: assets/www/og.jpg
+SHA-256-Digest: hDNgJsWSrhZJ1hTImgS/LqJDCFLERGidphpJkV/+/NU=
+
+Name: classes.dex
+SHA-256-Digest: B0gjYEG/gkmrqddm5wtFDq5RMWus/jAvI2BjNOPkR40=
+
+Name: res/mipmap-xxxhdpi-v4/ic_launcher.png
+SHA-256-Digest: TUZFh7MIf5S/Pp4PgFpm4ugBZF3U9T70UKfoWFzYDA4=
+
+Name: resources.arsc
+SHA-256-Digest: UKAnCEqu1k8g67in0uq0dZmGfJrHrWnI8w7xq8SLmFY=
+
