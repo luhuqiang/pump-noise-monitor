@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * APK 签名辅助脚本：从密钥交底文档中读取口令，
- * 通过环境变量传给 apksigner（口令不出现在命令行 / 日志中）。
+ * APK 签名辅助脚本：口令只从环境变量读取（PUMP_KS_PASS / PUMP_KEY_PASS），
+ * 通过 env: 形式传给 apksigner（口令不出现在命令行 / 日志 / 仓库）。
  *
  * 用法：node scripts/sign-apk.mjs <aligned.apk> <signed.apk>
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, rmSync, readdirSync } from "node:fs";
+import { existsSync, rmSync, readdirSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -24,28 +24,13 @@ if (!existsSync(aligned)) {
   process.exit(1);
 }
 
-// 1) 从密钥交底文档提取口令（keystore 口令 / key 口令）
-const handoverDir = join(ROOT, "stethoscope-keys", "听诊仪-密钥包-20261103");
-const handoverFile = join(handoverDir, "secrets", "04_密钥与敏感文件交底（限内部）.md");
-if (!existsSync(handoverFile)) {
-  console.error(`找不到密钥交底文档：${handoverFile}`);
-  process.exit(1);
-}
-const doc = readFileSync(handoverFile, "utf8");
-
-// 匹配形如：--ks-pass pass:xxx / --key-pass pass:xxx / -storepass xxx / -keypass xxx
-const ksMatch =
-  doc.match(/--ks-pass\s+pass:(\S+)/i) ??
-  doc.match(/-storepass\s+(\S+)/i);
-const keyMatch =
-  doc.match(/--key-pass\s+pass:(\S+)/i) ??
-  doc.match(/-keypass\s+(\S+)/i);
-
-const ksPass = ksMatch?.[1];
-const keyPass = keyMatch?.[1] ?? ksPass;
+// 1) 口令只从环境变量读取（口令不进脚本、不进仓库、不进日志）
+const ksPass = process.env.PUMP_KS_PASS;
+const keyPass = process.env.PUMP_KEY_PASS ?? ksPass;
 
 if (!ksPass) {
-  console.error("无法从交底文档中解析 keystore 口令。");
+  console.error("缺少环境变量 PUMP_KS_PASS（keystore 口令）；PUMP_KEY_PASS 可选，缺省复用 PUMP_KS_PASS。");
+  console.error("示例（PowerShell，口令不落盘）：$env:PUMP_KS_PASS = '<从密钥交底文档读取>'");
   process.exit(1);
 }
 
@@ -55,7 +40,6 @@ function findSdkBuildTools() {
     join(process.env.LOCALAPPDATA ?? "", "Android", "Sdk", "build-tools"),
     join(process.env.ANDROID_HOME ?? "", "build-tools"),
     join(process.env.ANDROID_SDK_ROOT ?? "", "build-tools"),
-    "D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools",
   ].filter((p) => p && existsSync(p));
   for (const base of candidates) {
     const dirs = readdirSync(base).filter((d) => /^\d/.test(d)).sort().reverse();
@@ -75,9 +59,11 @@ const apksignerBat = bt
   ? (existsSync(join(bt, "apksigner.bat")) ? join(bt, "apksigner.bat") : join(bt, "apksigner"))
   : null;
 
-const jks = join(handoverDir, "secrets", "android", "pump-release.jks");
+const jks = process.env.PUMP_KEYSTORE
+  ? resolve(process.env.PUMP_KEYSTORE)
+  : join(ROOT, "stethoscope-keys", "听诊仪-密钥包-20261103", "secrets", "android", "pump-release.jks");
 if (!existsSync(jks)) {
-  console.error(`找不到签名密钥：${jks}`);
+  console.error(`找不到签名密钥：${jks}（可用环境变量 PUMP_KEYSTORE 指定绝对路径）`);
   process.exit(1);
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "stethoscope",
   "private": true,
-  "version": "1.4.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "听诊仪 — 泵体噪声现场诊断（纯本地，Android WebView 壳）",
   "scripts": {

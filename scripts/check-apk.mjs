@@ -27,7 +27,6 @@ function findSdkBuildTools() {
     join(process.env.LOCALAPPDATA ?? "", "Android", "Sdk", "build-tools"),
     join(process.env.ANDROID_HOME ?? "", "build-tools"),
     join(process.env.ANDROID_SDK_ROOT ?? "", "build-tools"),
-    "D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools",
   ].filter((p) => p && existsSync(p));
   for (const base of candidates) {
     const dirs = readdirSync(base).filter((d) => /^\d/.test(d)).sort().reverse();

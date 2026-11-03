@@ -1,4 +1,4 @@
-!!brut.androlib.meta.MetaInfo
+﻿!!brut.androlib.meta.MetaInfo
 apkFileName: 听诊仪.apk
 compressionType: false
 doNotCompress:
@@ -33,5 +33,5 @@ usesFramework:
   tag: null
 version: 2.7.0-dirty
 versionInfo:
-  versionCode: '5'
-  versionName: '1.4'
+  versionCode: '6'
+  versionName: '2.0.0'

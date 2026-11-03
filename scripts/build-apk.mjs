@@ -62,7 +62,6 @@ const SDK_BT = (() => {
     join(process.env.LOCALAPPDATA ?? "", "Android", "Sdk", "build-tools"),
     join(process.env.ANDROID_HOME ?? "", "build-tools"),
     join(process.env.ANDROID_SDK_ROOT ?? "", "build-tools"),
-    "D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools",
   ].filter((p) => p && existsSync(p));
   for (const base of candidates) {
     const dirs = readdirSync(base).filter((d) => /^\d/.test(d)).sort().reverse();
@@ -86,7 +85,7 @@ if (SDK_BT) {
 }
 
 if (existsSync(SIGNED)) rmSync(SIGNED);
-// 调用签名辅助脚本：从密钥交底文档读取口令，经环境变量传给 apksigner
+// 调用签名辅助脚本：口令只从环境变量读取，经 env: 传给 apksigner
 run(`node scripts/sign-apk.mjs "${ALIGNED}" "${SIGNED}"`);
 
 // 5) 自检
@@ -94,5 +93,3 @@ console.log("\n=== 5/5 APK 自检 ===");
 run(`node scripts/check-apk.mjs ${SIGNED}`);
 
 console.log("\n✅ 构建完成: " + SIGNED);
-console.log("   versionCode: 5  versionName: 1.4");
-console.log("   证书 SHA-256: 4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f");
