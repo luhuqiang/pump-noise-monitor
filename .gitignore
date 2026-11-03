@@ -21,6 +21,8 @@ apkwork/*.png
 *.apk
 *.idsig
 !apkwork/monitor/**
+apkwork/monitor/assets/www/
+apkwork/monitor/build/
 
 # 样本与本地数据（样本走 samples/，见 推进计划 §4）
 samples/
