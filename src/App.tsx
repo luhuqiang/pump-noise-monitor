@@ -37,7 +37,8 @@ function synthBands(): number[] {
 }
 
 function injectCapture() {
-  Object.assign(engine.readout, {
+  // 必须整体替换对象：useReadoutSelector 以引用判变
+  engine.readout = Object.assign({}, engine.readout, {
     running: true,
     state: "capturing",
     sampleRate: 48000,
@@ -53,7 +54,7 @@ function injectCapture() {
     quality: { sampleRateOk: true, snr: 28, clip: false, agc: false, status: "ok" },
     micStatus: "ok",
     phase: "steady",
-  });
+  }) as typeof engine.readout;
 }
 
 function synthDiagnosis(status: TriState): Diagnosis {
@@ -171,7 +172,8 @@ export default function App() {
   useEffect(() => {
     const qs = new URLSearchParams(location.search);
     const t = qs.get("t");
-    if (qs.get("theme") === "dark") setTheme("dark");
+    const th = qs.get("theme");
+    if (th === "dark" || th === "light") setTheme(th);
     if (!t) {
       if (qs.get("probe") === "1") installProbe();
       return;
@@ -188,8 +190,10 @@ export default function App() {
     } else if (t === "result") {
       const s = (qs.get("s") ?? "ok") as TriState;
       injectCapture();
-      engine.readout.state = "ended";
-      engine.readout.diagnosis = synthDiagnosis(s);
+      engine.readout = Object.assign({}, engine.readout, {
+        state: "ended",
+        diagnosis: synthDiagnosis(s),
+      }) as typeof engine.readout;
       setView("result");
     } else if (t === "settings") {
       setView("settings");

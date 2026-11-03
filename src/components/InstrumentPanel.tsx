@@ -68,7 +68,6 @@ const fmtTime = (s: number) =>
 export function InstrumentPanel() {
   const {
     modules,
-    view,
     setView,
     setSheet,
     points,
@@ -81,16 +80,12 @@ export function InstrumentPanel() {
 
   const point = points.find((p) => p.id === currentPoint) ?? points[0];
 
-  // 首帧后淡入（200ms，PRD §2.6）
-  const mountedRef = useRef(false);
+  // 首帧后淡入（200ms，PRD §2.6）—— 仅挂载一次；view 变化不取消
   const [enter, setEnter] = useState(false);
   useEffect(() => {
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      const id = window.setTimeout(() => setEnter(true), 30);
-      return () => window.clearTimeout(id);
-    }
-  }, [view]);
+    const id = window.setTimeout(() => setEnter(true), 30);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const capturing = state === "capturing";
 
@@ -110,7 +105,7 @@ export function InstrumentPanel() {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
         background: "var(--paper)",
@@ -233,18 +228,25 @@ export function InstrumentPanel() {
                     aria-label="切换模块"
                     onClick={() => setSheet("mods")}
                     style={{
-                      width: 32,
-                      height: 32,
-                      fontSize: 17,
-                      lineHeight: 1,
+                      width: 44,
+                      height: 44,
                       color: "var(--mist)",
-                      border: "var(--hair) solid var(--line)",
-                      borderRadius: "var(--r-chip)",
                       display: "grid",
                       placeItems: "center",
                     }}
                   >
-                    <PlusIcon size={14} />
+                    <span
+                      style={{
+                        width: 32,
+                        height: 32,
+                        border: "var(--hair) solid var(--line)",
+                        borderRadius: "var(--r-chip)",
+                        display: "grid",
+                        placeItems: "center",
+                      }}
+                    >
+                      <PlusIcon size={14} />
+                    </span>
                   </button>
                 </div>
               </div>
