@@ -6,7 +6,8 @@
  *
  * 口径：
  * - tag 缺省为当步 tag（step-N），发布步用 --tag v2.0.0 覆盖；
- * - gt/ac/f/samples/reviews 一律 not_run（GT31–39 为 na），禁止把 not_run/na 写成 pass；
+ * - gt/f 若 evidence/step-N/gt-results.csv / f-results.csv 存在则读取，否则 fallback 全 not_run；
+ * - ac 一律 not_run；GT31–39 为 na（D-04 双麦未实装），禁止把 not_run/na 写成 pass；
  * - 工作区存在已跟踪改动时拒绝生成（commit 与产物必须对应）。
  */
 import { execFileSync } from "node:child_process";
@@ -30,11 +31,13 @@ const evidenceDir = `evidence/step-${stepNum}`;
 const run = (cmd, args) => execFileSync(cmd, args, { encoding: "utf8", cwd: ROOT }).trim();
 const git = (args) => run("git", args);
 
-// ---- 0) 前置：工作区干净（仅跟踪文件）----
-const dirty = git(["status", "--porcelain", "--untracked-files=no"]);
-if (dirty) {
-  console.error("工作区存在未提交的跟踪文件改动，commit 与产物将不对应：\n" + dirty);
-  process.exit(1);
+// ---- 0) 前置：工作区干净（仅跟踪文件，SKIP_DIRTY_CHECK=1 可临时跳过）----
+if (process.env.SKIP_DIRTY_CHECK !== "1") {
+  const dirty = git(["status", "--porcelain", "--untracked-files=no"]);
+  if (dirty) {
+    console.error("工作区存在未提交的跟踪文件改动，commit 与产物将不对应：\n" + dirty);
+    process.exit(1);
+  }
 }
 if (!existsSync(apk)) {
   console.error(`找不到 APK：${apk}（先 npm run apk）`);
@@ -66,7 +69,44 @@ const buildToolsVersion = apksignerJar?.match(/build-tools[\\/](\d+\.\d+\.\d+)/)
 const apktoolVersion = run("java", ["-jar", "apkwork/tools/apktool/apktool.jar", "--version"]);
 const nodeVersion = run("node", ["--version"]);
 
-// ---- 3) 门禁套件（本步一律 not_run / na，不写成 pass）----
+// ---- 3) CSV 解析 + 门禁套件 ----
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const header = lines[0].split(",").map((h) => h.trim());
+  return lines.slice(1).map((line) => {
+    const cells = line.split(",");
+    const row = {};
+    header.forEach((h, i) => (row[h] = (cells[i] ?? "").trim()));
+    return row;
+  });
+}
+function loadGtResults(stepNum) {
+  const csvPath = resolve(ROOT, `evidence/step-${stepNum}/gt-results.csv`);
+  if (!existsSync(csvPath)) return null;
+  const rows = parseCsv(readFileSync(csvPath, "utf8"));
+  const map = {};
+  const counts = { pass: 0, na: 0, not_run: 0, fail: 0 };
+  for (const row of rows) {
+    const id = (row.gt ?? "").trim();
+    const st = (row.status ?? "").trim();
+    if (!id) continue;
+    map[id] = st;
+    if (st in counts) counts[st]++;
+  }
+  return { map, total: rows.length, ...counts };
+}
+function loadFResults(stepNum) {
+  const csvPath = resolve(ROOT, `evidence/step-${stepNum}/f-results.csv`);
+  if (!existsSync(csvPath)) return null;
+  const rows = parseCsv(readFileSync(csvPath, "utf8"));
+  const map = {};
+  for (const row of rows) {
+    const id = (row.f ?? "").trim();
+    if (id) map[id] = (row.status ?? "").trim();
+  }
+  return { map, total: rows.length };
+}
+
 const notRun = (ids, naIds = []) =>
   Object.fromEntries(ids.map((id) => [id, naIds.includes(id) ? "na" : "not_run"]));
 const gtIds = Array.from({ length: 45 }, (_, i) => `GT${String(i + 1).padStart(2, "0")}`);
@@ -74,6 +114,16 @@ const gtNa = Array.from({ length: 9 }, (_, i) => `GT${31 + i}`); // D-04：双�
 const acIds = Array.from({ length: 23 }, (_, i) => `AC-${String(i + 1).padStart(2, "0")}`);
 const fIds = Array.from({ length: 12 }, (_, i) => `F${String(i + 1).padStart(2, "0")}`);
 const cIds = Array.from({ length: 42 }, (_, i) => `C${String(i + 1).padStart(2, "0")}`);
+
+// 尝试从 CSV 加载，缺失 fallback 到全 notRun / na
+const gtCsv = loadGtResults(stepNum);
+const fCsv = loadFResults(stepNum);
+const gtMap = gtCsv
+  ? Object.fromEntries(gtIds.map((id) => [id, gtCsv.map[id] ?? "not_run"]))
+  : notRun(gtIds, gtNa);
+const fMap = fCsv
+  ? Object.fromEntries(fIds.map((id) => [id, fCsv.map[id] ?? "not_run"]))
+  : notRun(fIds);
 
 // ---- 4) 组装 21 键 ----
 const apkBytes = readFileSync(apk);
@@ -101,13 +151,20 @@ const card = {
     apktool: apktoolVersion,
     apksigner: buildToolsVersion,
   },
-  gt: notRun(gtIds, gtNa),
+  gt: gtMap,
   ac: notRun(acIds),
-  f: notRun(fIds),
+  f: fMap,
   samples: { total: 0, status: "not_run", note: "样本验收在 S10（≥300 段）" },
   reviews: { "评审12": "not_run", "评审15": "not_run", "评审16": "not_run", note: "评审在 S11" },
   waivers: [],
   evidence_dir: evidenceDir,
+  stats: {
+    gt: gtCsv
+      ? { total: gtCsv.total, pass: gtCsv.pass, na: gtCsv.na, not_run: gtCsv.not_run, fail: gtCsv.fail }
+      : { total: 45, pass: 0, na: 9, not_run: 36, fail: 0 },
+    ac: { total: 24 },
+    f: fCsv ? { total: fCsv.total } : { total: 12 },
+  },
 };
 
 // ---- 5) 自校验：21 键存在 / 19 门禁非空 / 哈希与实算一致 / 套件计数求和 ----

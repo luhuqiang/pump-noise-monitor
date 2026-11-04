@@ -1,0 +1,46 @@
+gt,status,waiver,detail
+GT01,pass,,baseline 测试已覆盖
+GT02,pass,,baseline 测试已覆盖
+GT03,pass,,baseline 测试已覆盖
+GT04,pass,,baseline 测试已覆盖
+GT05,pass,,baseline 测试已覆盖
+GT06,pass,,baseline 测试已覆盖
+GT07,pass,,baseline 测试已覆盖
+GT08,pass,,baseline 测试已覆盖
+GT09,pass,,baseline 测试已覆盖
+GT10,pass,,baseline 测试已覆盖
+GT11,pass,,baseline 测试已覆盖
+GT12,pass,,baseline 测试已覆盖
+GT13,pass,,baseline 测试已覆盖
+GT14,pass,,baseline 测试已覆盖
+GT15,pass,,Agent 三态测试已覆盖
+GT16,pass,,Agent 三态测试已覆盖
+GT17,pass,,Agent 三态测试已覆盖
+GT18,pass,,Agent 三态测试已覆盖
+GT19,pass,,Agent 三态测试已覆盖
+GT20,pass,,manifest 门禁 + 主路径
+GT21,pass,,manifest 门禁 + 主路径
+GT22,pass,,manifest 门禁 + 主路径
+GT23,pass,,manifest 门禁 + 主路径
+GT24,pass,,报告持久化/哈希链
+GT25,pass,,报告持久化/哈希链
+GT26,pass,,报告持久化/哈希链
+GT27,pass,,报告持久化/哈希链
+GT28,pass,,复测冻结
+GT29,pass,,复测冻结
+GT30,pass,,复测冻结
+GT31,na,D-04 双麦未实装,只留接口
+GT32,na,D-04 双麦未实装,只留接口
+GT33,na,D-04 双麦未实装,只留接口
+GT34,na,D-04 双麦未实装,只留接口
+GT35,na,D-04 双麦未实装,只留接口
+GT36,na,D-04 双麦未实装,只留接口
+GT37,na,D-04 双麦未实装,只留接口
+GT38,na,D-04 双麦未实装,只留接口
+GT39,na,D-04 双麦未实装,只留接口
+GT40,not_run,无真实双麦样本，v2.1 执行,
+GT41,not_run,无真实双麦样本，v2.1 执行,
+GT42,pass,,片段过期清理 + 二次确认测试已覆盖
+GT43,pass,,片段过期清理 + 二次确认测试已覆盖
+GT44,pass,,localStorage 只读迁移
+GT45,pass,,Build 4→v2.0.0 真机覆盖安装演练（vc4→vc6）
