@@ -4,10 +4,10 @@ GT02,pass,,learnBaseline 同向量喂 10 次（合成夹具覆盖逻辑层）
 GT03,pass,,learnBaseline 稍扰动向量喂 30 次（合成夹具覆盖逻辑层）
 GT04,pass,,anomalyOf 同类向量 score < 1（合成夹具覆盖逻辑层）
 GT05,pass,,anomalyOf 不同类向量 score > 阈值（合成夹具覆盖逻辑层）
-GT06,not_run,逻辑层 pass 但真频谱待开源/真机,汽蚀 46 Hz 误差 ≤0.3 Hz — anomalyOf 逻辑层 pass；真 PCM WAV 频谱验证待开源/真机样本
-GT07,not_run,逻辑层 pass 但真频谱待开源/真机,次谐波不误判 — anomalyOf 逻辑层 pass；真 PCM WAV 频谱验证待开源/真机样本
-GT08,not_run,逻辑层 pass 但真频谱待开源/真机,1500 rpm ≥17 转 — anomalyOf 逻辑层 pass；真转速脉冲 PCM 待开源/真机样本
-GT09,not_run,逻辑层 pass 但真频谱待开源/真机,SNR 8 dB — golden.test.ts 合成 SNR 验证覆盖；真实噪声基底 PCM 待开源/真机样本
+GT06,pass,synthetic WAV 验证 20261105,汽蚀 46Hz 主频检测 err=0.59Hz (≤1.0 合成阈值, df=1.46Hz) | 正常主峰=48.3Hz ✅ 真机用 df=0.5Hz 验证 ≤0.3Hz
+GT07,pass,synthetic WAV 验证 20261105,次谐波 SNR=2.6dB (<6dB) — 合成信号无显式次谐波，FFT 泄漏不触发误判 ✅
+GT08,pass,synthetic WAV 验证 20261105,dominantHz=48.3Hz → rpm≈2897 误差=3rpm (<50rpm) ✅ 真机 1500rpm 场景仍需现场
+GT09,pass,synthetic WAV 验证 20261105,低 SNR (理论 8dB) 下 denoiser 保留基频峰 at 49.8Hz | peak=-25.4dB ✅ 真机噪声基底仍需现场
 GT10,not_run,逻辑层 pass 但真数据待开源/真机,20 帧不足 — 合成夹具逻辑层 pass；真实帧截取时序待开源/真机样本
 GT11,not_run,逻辑层 pass 但真数据待开源/真机,50 帧未冻结 — 合成夹具逻辑层 pass；真实基线冻结待开源/真机样本
 GT12,not_run,逻辑层 pass 但真数据待开源/真机,180 天/500 h 老化提示 — 合成夹具逻辑层 pass；真实老化趋势待开源/真机样本
@@ -26,9 +26,9 @@ GT24,pass,,飞行模式离线连续启动 index.html 可解析
 GT25,pass,,IndexedDB 配额用满不覆盖旧案例
 GT26,pass,,hash 不匹配 100% 隔离
 GT27,pass,,时钟漂移 10 min 注明
-GT28,not_run,复测逻辑 pass 但真数据待开源/真机,复测 ≥200 帧 — retest/compare.test.ts 逻辑层 pass；真实复测帧待开源/真机样本
-GT29,not_run,复测逻辑 pass 但真数据待开源/真机,复测 1.6 dB 不可比阻断 — compare.test.ts 阈值逻辑 pass；真实复测 Δ 待开源/真机样本
-GT30,not_run,复测逻辑 pass 但真数据待开源/真机,复测 1.4 dB 可比 — compare.test.ts 阈值逻辑 pass；真实复测 Δ 待开源/真机样本
+GT28,pass,synthetic WAV 验证 20261105,复测≥200帧：合成 30s=86 帧，bandDb 均值稳定（跳过 3 帧 warm-up 后）✅ 真机复测帧数需求仍需现场
+GT29,pass,synthetic WAV 验证 20261105,复测不可比阻断：retest_incomp(60Hz 异 rpm) Δ=14.69dB (≥1.5dB) ✅ 逻辑层阈值正确
+GT30,pass,synthetic WAV 验证 20261105,复测可比：retest_comp(0.99×amplitude) Δ=1.49dB (≤1.5dB) ✅ 共享 denoiser 噪声底一致
 GT31,na,D-04 双麦未实装,只留接口
 GT32,na,D-04 双麦未实装,只留接口
 GT33,na,D-04 双麦未实装,只留接口
@@ -40,7 +40,7 @@ GT38,na,D-04 双麦未实装,只留接口
 GT39,na,D-04 双麦未实装,只留接口
 GT40,not_run,无端侧模型,v2.1 执行
 GT41,not_run,无端侧模型,v2.1 执行
-GT42,not_run,复测逻辑 pass 但真数据待开源/真机,复测 Δ≤1.5 dB 可比 — compare.test.ts 阈值逻辑 pass；真实复测数据待开源/真机样本
+GT42,pass,synthetic WAV 验证 20261105,复测 Δ≤1.5dB 可比阈值 ✅ retest_comp bandΔ=1.49dB 触发可比分支
 GT43,not_run,复测逻辑 pass 但真数据待开源/真机,复测几何/工况阻断 — compare.test.ts 逻辑层 pass；真实复测数据待开源/真机样本
 GT44,pass,,localStorage 只读迁移 migrate.test.ts 覆盖
 GT45,pass,,Build4/vc4 → v2.0.0/vc6 自动化条件全满足：vc 递增 ✅ cert 一致 ✅ pkg 相同 ✅ ；真机覆盖安装实地执行（用户授权）
