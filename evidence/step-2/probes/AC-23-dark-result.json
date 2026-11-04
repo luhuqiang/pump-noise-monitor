@@ -1,0 +1,38 @@
+{
+  "readyState": "complete",
+  "rootChildren": 1,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "bodyTextLen": 316,
+  "primaryBtn": {
+    "w": 350,
+    "h": 56,
+    "y": 663,
+    "bottomGap": 125
+  },
+  "guideSheetRatio": null,
+  "guideBtnVisible": null,
+  "modulesVisible": [],
+  "tapTargets": [
+    {
+      "label": "返回",
+      "w": 56,
+      "h": 56
+    },
+    {
+      "label": "生成报告",
+      "w": 350,
+      "h": 56
+    },
+    {
+      "label": "生成交接包›",
+      "w": 350,
+      "h": 48
+    }
+  ],
+  "theme": "dark",
+  "storage": {
+    "guide": "1",
+    "modules": null
+  }
+}

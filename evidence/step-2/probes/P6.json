@@ -1,0 +1,33 @@
+{
+  "readyState": "complete",
+  "rootChildren": 1,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "bodyTextLen": 203,
+  "primaryBtn": null,
+  "guideSheetRatio": null,
+  "guideBtnVisible": null,
+  "modulesVisible": [],
+  "tapTargets": [
+    {
+      "label": "返回",
+      "w": 56,
+      "h": 56
+    },
+    {
+      "label": "重看引导",
+      "w": 348,
+      "h": 51
+    },
+    {
+      "label": "切换深色",
+      "w": 348,
+      "h": 51
+    }
+  ],
+  "theme": "light",
+  "storage": {
+    "guide": "1",
+    "modules": null
+  }
+}

@@ -1,0 +1,17 @@
+AC-24 品牌标记与 icon_final.svg 同源核对
+
+header 品牌标记：src/components/icons.tsx MarkIcon（P1.png 左上角可见）
+  viewBox 0 0 1024 1024
+  circle cx=432 cy=512 r=200
+  rect   x=626 y=232 width=146 height=560 rx=28
+
+stethoscope-delivery/听诊仪-交付包/design/icon_final.svg（权威源）
+  viewBox 0 0 1024 1024
+  circle cx=432 cy=512 r=200
+  rect   x=626 y=232 width=146 height=560 rx=28
+
+结论：几何逐参数一致（同源），未重新绘制。AC-24.svg 为 header 实际渲染的标记导出。
+launcher 图标（apkwork/monitor/res/mipmap-*）亦由同一几何渲染：
+  adaptive foreground = android_foreground.svg 同款变换（translate(54,54) scale(0.094) translate(-502,-512)）
+  legacy/round = icon_final.svg 同款 1024 几何 + 纸底 #EFECE3
+  渲染脚本：apkwork/tools/gen_icons.py（4x 超采样 + 盒滤波，纯标准库）

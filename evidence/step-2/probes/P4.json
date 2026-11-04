@@ -1,0 +1,38 @@
+{
+  "readyState": "complete",
+  "rootChildren": 1,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "bodyTextLen": 345,
+  "primaryBtn": {
+    "w": 350,
+    "h": 56,
+    "y": 726,
+    "bottomGap": 62
+  },
+  "guideSheetRatio": null,
+  "guideBtnVisible": null,
+  "modulesVisible": [],
+  "tapTargets": [
+    {
+      "label": "返回",
+      "w": 56,
+      "h": 56
+    },
+    {
+      "label": "补测一次",
+      "w": 350,
+      "h": 56
+    },
+    {
+      "label": "生成草稿报告›",
+      "w": 350,
+      "h": 48
+    }
+  ],
+  "theme": "light",
+  "storage": {
+    "guide": "1",
+    "modules": null
+  }
+}

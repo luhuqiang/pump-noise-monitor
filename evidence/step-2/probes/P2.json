@@ -1,0 +1,17 @@
+{
+  "readyState": "complete",
+  "rootChildren": 0,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "bodyTextLen": 0,
+  "primaryBtn": null,
+  "guideSheetRatio": null,
+  "guideBtnVisible": null,
+  "modulesVisible": [],
+  "tapTargets": [],
+  "theme": null,
+  "storage": {
+    "guide": null,
+    "modules": null
+  }
+}
