@@ -275,3 +275,40 @@ export function download(filename: string, content: string, mime: string) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+// ============ S5：Report 2.0 + Manifest ============
+import { buildManifest, type ManifestInput, type ReportManifest } from "./manifest";
+import { put } from "../db/idb";
+
+export type ReportBundle = {
+  report: Report;
+  reportJson: string;
+  manifest: ReportManifest;
+};
+
+/** 带 Manifest 的报告构造：同时持久化到 IndexedDB reports store。 */
+export async function buildWithManifest(
+  readout: Readout,
+  ctx: ReportContext,
+  manifestInput: Omit<ManifestInput, "reportJson">,
+): Promise<ReportBundle> {
+  const report = buildReport(readout, ctx);
+  const reportJson = toJson(report);
+  const manifest = await buildManifest({ ...manifestInput, reportJson });
+
+  // S3：持久化到 IndexedDB reports store（如果 DB 还没初始化，静默跳过——UI 首次使用时 idb.ts 会自动 openDB）
+  try {
+    await put("reports", {
+      id: `rep_${Date.now()}`,
+      session_id: manifestInput.geometry.baselineKey ?? "",
+      report_json: reportJson,
+      manifest_json: JSON.stringify(manifest),
+      created_at: new Date().toISOString(),
+      sha256: manifest.reportSha256,
+    });
+  } catch {
+    // IndexedDB 不可用时跳过持久化，不阻塞报告生成
+  }
+
+  return { report, reportJson, manifest };
+}
