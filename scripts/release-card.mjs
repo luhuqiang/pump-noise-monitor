@@ -94,7 +94,8 @@ function loadGtResults(stepNum) {
     if (!id) continue;
     map[id] = st;
     if (st in counts) counts[st]++;
-    if (wv) waiversRaw.push({ id, status: st, reason: wv });
+    // 第 3 列在 pass 行记录的是"证据来源"，只有未通过项才算 waiver
+    if (wv && st !== "pass") waiversRaw.push({ id, status: st, reason: wv });
   }
   return { map, total: rows.length, ...counts, waiversRaw };
 }

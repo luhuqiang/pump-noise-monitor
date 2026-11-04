@@ -4,9 +4,9 @@
   "build": {
     "contentSha256": "7ab3cff39063c65e3253a68e7808957c15656fcaae452804c34e6eb91f7b5504",
     "size": 288584,
-    "checkedAt": "2026-11-04T09:18:05.359Z"
+    "checkedAt": "2026-11-04T10:28:41.178Z"
   },
-  "commit": "44b058f62c02ea45c5e472a82b8c1af04090326f",
+  "commit": "b38b252ef42e68cbf3d587c755ebe7bdb2bff710",
   "tag": "step-10",
   "versionCode": 6,
   "versionName": "2.0.0",
@@ -15,7 +15,7 @@
   "apk_sha256": "ffa3f0c00e6e485e8439fb1562c1c6c03a10b2d5ae6ded4359cc9fba79d0f66c",
   "cert_sha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
   "cert_subject": "CN=luhuqiang, OU=pumpnoise, O=pumpnoise, L=Shanghai, C=CN",
-  "built_at": "2026-11-04T09:18:05.877Z",
+  "built_at": "2026-11-04T10:28:41.684Z",
   "toolchain": {
     "node": "v22.14.0",
     "build_tools": "35.0.0",
@@ -50,7 +50,7 @@
     "GT25": "pass",
     "GT26": "pass",
     "GT27": "pass",
-    "GT28": "pass",
+    "GT28": "not_run",
     "GT29": "pass",
     "GT30": "pass",
     "GT31": "na",
@@ -65,7 +65,7 @@
     "GT40": "not_run",
     "GT41": "not_run",
     "GT42": "pass",
-    "GT43": "not_run",
+    "GT43": "pass",
     "GT44": "pass",
     "GT45": "pass"
   },
@@ -121,25 +121,6 @@
   },
   "waivers": [
     {
-      "id": "GT06, GT07, GT08, GT09, GT28, GT29, GT30, GT42",
-      "reason": "synthetic WAV 验证 20261105",
-      "ids": [
-        "GT06",
-        "GT07",
-        "GT08",
-        "GT09",
-        "GT28",
-        "GT29",
-        "GT30",
-        "GT42"
-      ],
-      "statuses": [
-        "pass"
-      ],
-      "approved_by": null,
-      "approved_at": null
-    },
-    {
       "id": "GT10, GT11, GT12, GT13, GT14, F01",
       "reason": "逻辑层 pass 但真数据待开源/真机",
       "ids": [
@@ -149,6 +130,18 @@
         "GT13",
         "GT14",
         "F01"
+      ],
+      "statuses": [
+        "not_run"
+      ],
+      "approved_by": null,
+      "approved_at": null
+    },
+    {
+      "id": "GT28",
+      "reason": "需多负载工况 20261104",
+      "ids": [
+        "GT28"
       ],
       "statuses": [
         "not_run"
@@ -192,10 +185,9 @@
       "approved_at": null
     },
     {
-      "id": "GT43, F02, F05, F06",
+      "id": "F02, F05, F06",
       "reason": "复测逻辑 pass 但真数据待开源/真机",
       "ids": [
-        "GT43",
         "F02",
         "F05",
         "F06"

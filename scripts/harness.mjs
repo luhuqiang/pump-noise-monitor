@@ -77,51 +77,44 @@ function record(gt, status, detail) {
   verdicts.push({ gt, status, detail });
 }
 
-// ====== GT06：汽蚀 46 Hz 主频检测误差 ≤1.0 Hz ======
-// 说明：合成数据 FFT 分辨率 df=1.46Hz，单 bin 误差已在 ~1.5Hz 量级，
-//       此处阈值放宽至 1.0Hz 是对合成分辨率约束的诚实承认；真机用 8192→0.3Hz
+// ====== GT06：汽蚀 46 Hz 主频误差 ≤0.3 Hz（规格硬阈值） ======
+// 说明：对数域抛物线插值可获得亚 bin 精度（df=1.46Hz 下仍可达 0.05Hz 级）
 {
   const { frames } = analyzeWav(resolve(SAMP, "cavitation.wav"));
-  const power = frames[0].denoised.cleanPower;
+  const mid = frames[Math.floor(frames.length / 2)].spec.power;
   const df = SR / FFT_SIZE;
-  let peakI = 0, peakV = 0;
-  for (let i = Math.floor(40 / df); i < Math.floor(55 / df); i++) {
-    if (power[i] > peakV) { peakV = power[i]; peakI = i; }
-  }
-  const peakHz = peakI * df;
+  const lo = Math.floor(38 / df), hi = Math.floor(54 / df);
+  let i0 = lo;
+  for (let i = lo; i < hi; i++) if (mid[i] > mid[i0]) i0 = i;
+  const a = Math.log(mid[i0 - 1] + 1e-30), b = Math.log(mid[i0] + 1e-30), c = Math.log(mid[i0 + 1] + 1e-30);
+  const delta = 0.5 * (a - c) / (a - 2 * b + c);
+  const peakHz = (i0 + delta) * df;
   const err = Math.abs(peakHz - 46);
   const { frames: nf } = analyzeWav(resolve(SAMP, "normal.wav"));
-  const np = nf[0].denoised.cleanPower;
-  let nPeakI = 0, nPeakV = 0;
-  for (let i = Math.floor(40 / df); i < Math.floor(55 / df); i++) {
-    if (np[i] > nPeakV) { nPeakV = np[i]; nPeakI = i; }
-  }
-  const nPeakHz = nPeakI * df;
-  record("GT06", err <= 1.0 ? "pass" : "not_run",
-    `汽蚀主频=${peakHz.toFixed(1)}Hz 误差=${err.toFixed(2)}Hz (≤1.0 合成阈值) | 正常主频=${nPeakHz.toFixed(1)}Hz (预期 48.3) — 合成频谱验证，非真机`);
+  const nmid = nf[Math.floor(nf.length / 2)].spec.power;
+  let ni = lo;
+  for (let i = lo; i < hi; i++) if (nmid[i] > nmid[ni]) ni = i;
+  const nPeakHz = ni * df;
+  record("GT06", err <= 0.3 ? "pass" : "not_run",
+    `汽蚀主频=${peakHz.toFixed(2)}Hz 误差=${err.toFixed(2)}Hz ≤ 0.3Hz（对数域抛物线插值，df=${df.toFixed(2)}Hz）| 正常样本主峰=${nPeakHz.toFixed(1)}Hz（预期 48.3）— 合成夹具，真实汽蚀待现场`);
 }
 
-// ====== GT07：次谐波不误判 — halfSnr < 6dB ======
-// 说明：合成正常信号无显式次谐波，FFT 泄漏导致的 halfSnr≈1.2dB 远低于 6dB
-//       真机上真实汽蚀的 halfSnr 会 >6dB，因此 6dB 阈值仍能正确区分
-{
-  const { frames } = analyzeWav(resolve(SAMP, "normal.wav"));
-  // 跳过第 0 帧（denoiser 刚初始化可能有短暂噪声），取第 1 帧开始
-  const feats = frames.slice(1).map((f) => f.feat);
-  const halfSnr = mean(feats.map((f) => f.orderSnr.half));
-  record("GT07", halfSnr < 6 ? "pass" : "not_run",
-    `次谐波 SNR=${halfSnr.toFixed(1)}dB (< 6) — 合成信号无次谐波，半阶次谱峰不显著；非真机`);
-}
+// ====== GT07：由真实录音验证（scripts/mimii-harness.mjs）======
+// 合成信号无真实噪声结构，halfSnr 判据对合成数据没有现实意义，故不在本脚本判定。
 
-// ====== GT08：基频跟踪 → 2900rpm 误差 <50rpm ======
+// ====== GT08：1500 rpm 跟踪（规格：1500rpm 且 ≥17 转）======
+// 30s × 25Hz = 750 转，远超 17 转要求；用生产 trackShaftFreq 锁定梳状谱
 {
-  const { frames } = analyzeWav(resolve(SAMP, "normal.wav"));
-  const feats = frames.slice(3).map((f) => f.feat); // 跳过 warm-up
-  const domHz = mean(feats.map((f) => f.dominantHz));
-  const rpm = domHz * 60;
-  const errRpm = Math.abs(rpm - 2900);
-  record("GT08", errRpm < 50 ? "pass" : "not_run",
-    `dominantHz=${domHz.toFixed(1)}Hz → rpm≈${rpm.toFixed(0)} 误差=${errRpm.toFixed(0)}rpm (应<50) — 合成信号 48.3Hz 基频跟踪；非真机 1500rpm 场景`);
+  const { frames } = analyzeWav(resolve(SAMP, "rpm1500.wav"));
+  const avg = new Float64Array(frames[0].spec.power.length);
+  for (const fr of frames) for (let i = 0; i < avg.length; i++) avg[i] += fr.spec.power[i] / frames.length;
+  const { powerToDb } = await import(fileUrl(resolve(ROOT, "src/audio/fft.ts")));
+  const { trackShaftFreq } = await import(fileUrl(resolve(ROOT, "src/audio/shaft-tracker.ts")));
+  const trk = trackShaftFreq(Array.from(powerToDb(avg)), SR, FFT_SIZE, 1500);
+  const revolutions = (frames.length * FRAME_HOP) / SR * 25;
+  const errRpm = Math.abs(trk.trackedF0 * 60 - 1500);
+  record("GT08", trk.reliable && errRpm < 50 && revolutions >= 17 ? "pass" : "not_run",
+    `1500rpm 夹具：观测 ${revolutions.toFixed(0)} 转（≥17）| trackShaftFreq reliable=${trk.reliable} f0=${trk.trackedF0.toFixed(2)}Hz → ${(trk.trackedF0 * 60).toFixed(0)}rpm 误差=${errRpm.toFixed(0)}rpm（<50）| combScore=${trk.combScore.toFixed(2)} — 合成夹具，真实转速基准待现场`);
 }
 
 // ====== GT09：低 SNR denoiser 保留基频峰 ======
@@ -160,57 +153,10 @@ record("GT12", "not_run", "180 天/500h 老化提示 — 合成数据无时间�
 record("GT13", "not_run", "placementDeviceId/placementRatio baseline.test.ts 逻辑层 pass；真实测点几何待真机");
 record("GT14", "not_run", "无基线 → low_confidence baseline.test.ts 逻辑层 pass；真实'无基线'场景待真机");
 
-// ====== GT28-30：复测可比/不可比 — 同一个 denoiser 顺序处理 ======
-// 真实场景：同一设备、同一环境、同一噪声底 → denoiser 收敛后基线/复测共享噪声估计
-{
-  const dn = analyzeSequenceDenoiser();
-  const base = analyzeWithDenoiser(resolve(SAMP, "baseline_A.wav"), dn);
-  const comp = analyzeWithDenoiser(resolve(SAMP, "retest_comp.wav"), dn);
-  const incomp = analyzeWithDenoiser(resolve(SAMP, "retest_incomp.wav"), dn);
-
-  // 跳过前 3 帧（denoiser warm-up）
-  function meanBandDb(frames) {
-    const skip = 3;
-    const bandFrames = frames.slice(skip).map((f) => f.feat.bandDb);
-    const n = bandFrames[0].length;
-    const m = new Array(n).fill(0);
-    for (const b of bandFrames) for (let i = 0; i < n; i++) m[i] += b[i];
-    for (let i = 0; i < n; i++) m[i] /= bandFrames.length;
-    return m;
-  }
-
-  function bandDeltaDb(a, b) {
-    let sum = 0;
-    for (let i = 0; i < a.length; i++) sum += Math.abs(a[i] - b[i]);
-    return sum / a.length;
-  }
-
-  const baseDb = meanBandDb(base.frames);
-  const compDb = meanBandDb(comp.frames);
-  const incompDb = meanBandDb(incomp.frames);
-  const dComp = bandDeltaDb(baseDb, compDb);
-  const dIncomp = bandDeltaDb(baseDb, incompDb);
-
-  // DEBUG：打印 bandDb 差异
-  if (dComp > 2) {
-    console.log("\n  [DEBUG] baseline_A bandDb:", baseDb.map((v) => v.toFixed(1)).join(", "));
-    console.log("  [DEBUG] retest_comp  bandDb:", compDb.map((v) => v.toFixed(1)).join(", "));
-    console.log(`  [DEBUG] delta per band: ${baseDb.map((v, i) => (v - compDb[i]).toFixed(1)).join(", ")}`);
-  }
-
-  record("GT28", dComp <= 1.5 ? "pass" : "not_run",
-    `复测≥200帧：合成 30s=86 帧，逻辑层 pass；真实复测帧数需求待真机`);
-  record("GT29", dIncomp >= 1.5 ? "pass" : "not_run",
-    `复测 1.6dB 不可比阻断：合成Δ=${dIncomp.toFixed(2)}dB (应≥1.5) — 逻辑层阈值实现正确；非真机`);
-  record("GT30", dComp <= 1.5 ? "pass" : "not_run",
-    `复测 1.4dB 可比：合成Δ=${dComp.toFixed(2)}dB (应≤1.5) — 逻辑层阈值实现正确；非真机`);
-}
-
-// ====== GT42-43：复测 Δ≤1.5 dB / 几何阻断 ======
-{
-  record("GT42", "pass", `复测 Δ≤1.5dB 可比阈值：合成 retest_comp bandΔ 应≈0.0dB (≤1.5) — 逻辑层阈值实现正确；非真机`);
-  record("GT43", "not_run", "复测几何/工况阻断 baseline.test.ts placementDeviceId 逻辑层 pass；真实复测场景待真机");
-}
+// ====== GT28-30 / GT42-43：复测判定改由真实录音验证 ======
+// 合成样本的噪声底完全同源，无法有说服力地证明"可比/不可比"，
+// 故这些条目一律交给 scripts/mimii-harness.mjs（真实 MIMII 泵录音 + 生产 compareRetest）。
+// 本脚本不再输出这几条的 verdict，避免出现两套口径。
 
 // ---------- 输出 ----------
 console.log("\n========== GT 样本验证结果（source=synthetic） ==========");
@@ -227,10 +173,10 @@ if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
 writeFileSync(resolve(OUT, "gt-verdict.json"), JSON.stringify({
   run_at: new Date().toISOString(),
   source: "synthetic",
-  samples: 7,
+  samples: 8,
   verdicts,
   pass_count: passC,
   not_run_count: nrC,
-  note: "用户授权：现阶段用合成数据模拟。逻辑层通过（pass）= 算法在合成 PCM 上正确；非真机（not_run）= 需要真实现场 PCM 验证频谱/转速/老化等",
+  note: "本脚本只判定合成夹具能证明的条目（GT06/GT08/GT09 及依赖时序/几何/老化的 not_run）。GT07/GT28-30/GT42-43 由 scripts/mimii-harness.mjs 用真实 MIMII 泵录音判定。",
 }, null, 2));
 console.log(`\n✅ gt-verdict.json → ${OUT}`);

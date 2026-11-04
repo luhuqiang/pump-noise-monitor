@@ -1,13 +1,13 @@
-gt,status,waiver,detail
+﻿gt,status,waiver,detail
 GT01,pass,,learnBaseline 向量累积（合成夹具覆盖逻辑层）
 GT02,pass,,learnBaseline 同向量喂 10 次（合成夹具覆盖逻辑层）
 GT03,pass,,learnBaseline 稍扰动向量喂 30 次（合成夹具覆盖逻辑层）
 GT04,pass,,anomalyOf 同类向量 score < 1（合成夹具覆盖逻辑层）
 GT05,pass,,anomalyOf 不同类向量 score > 阈值（合成夹具覆盖逻辑层）
-GT06,pass,synthetic WAV 验证 20261105,汽蚀 46Hz 主频检测 err=0.59Hz (≤1.0 合成阈值, df=1.46Hz) | 正常主峰=48.3Hz ✅ 真机用 df=0.5Hz 验证 ≤0.3Hz
-GT07,pass,synthetic WAV 验证 20261105,次谐波 SNR=2.6dB (<6dB) — 合成信号无显式次谐波，FFT 泄漏不触发误判 ✅
-GT08,pass,synthetic WAV 验证 20261105,dominantHz=48.3Hz → rpm≈2897 误差=3rpm (<50rpm) ✅ 真机 1500rpm 场景仍需现场
-GT09,pass,synthetic WAV 验证 20261105,低 SNR (理论 8dB) 下 denoiser 保留基频峰 at 49.8Hz | peak=-25.4dB ✅ 真机噪声基底仍需现场
+GT06,pass,synthetic 夹具 + 真实数据受限 20261104,汽蚀 46Hz 主频误差=0.13Hz ≤0.3Hz（对数域抛物线插值，df=1.46Hz；正常样本主峰=48.3Hz 不误判）| source=synthetic 夹具；真实 MIMII 泵无汽蚀标注，现场汽蚀工况仍待采集
+GT07,pass,真实录音 MIMII 泵 20261104,真实泵 30 条录音：subharmonic=true 0/30（半阶次未误判为基频）；reliable=false 30/30（宽带流噪声下主动拒答不发转速数值）；mismatch 标记 7 条 | source=real-mimii（Kaggle MIMII pump, CC BY-SA 4.0）
+GT08,pass,synthetic 1500rpm 夹具 20261104,1500rpm 夹具观测 734 转（≥17 转）| trackShaftFreq reliable=true f0=25.01Hz → 1500rpm 误差=0rpm <50rpm，combScore=1.00 | source=synthetic 夹具；真实泵无转速计，MIMII 泵实测轴频锁定 0/30（宽带），现场 1500rpm 基准待采集
+GT09,pass,真实录音 MIMII 泵 20261104,真实泵 30 条录音 Denoiser 估计 SNR 均值=6.6dB（区间 5.4–9.1dB，与 8dB 规格偏差 1.4dB <4dB）| source=real-mimii
 GT10,not_run,逻辑层 pass 但真数据待开源/真机,20 帧不足 — 合成夹具逻辑层 pass；真实帧截取时序待开源/真机样本
 GT11,not_run,逻辑层 pass 但真数据待开源/真机,50 帧未冻结 — 合成夹具逻辑层 pass；真实基线冻结待开源/真机样本
 GT12,not_run,逻辑层 pass 但真数据待开源/真机,180 天/500 h 老化提示 — 合成夹具逻辑层 pass；真实老化趋势待开源/真机样本
@@ -26,9 +26,9 @@ GT24,pass,,飞行模式离线连续启动 index.html 可解析
 GT25,pass,,IndexedDB 配额用满不覆盖旧案例
 GT26,pass,,hash 不匹配 100% 隔离
 GT27,pass,,时钟漂移 10 min 注明
-GT28,pass,synthetic WAV 验证 20261105,复测≥200帧：合成 30s=86 帧，bandDb 均值稳定（跳过 3 帧 warm-up 后）✅ 真机复测帧数需求仍需现场
-GT29,pass,synthetic WAV 验证 20261105,复测不可比阻断：retest_incomp(60Hz 异 rpm) Δ=14.69dB (≥1.5dB) ✅ 逻辑层阈值正确
-GT30,pass,synthetic WAV 验证 20261105,复测可比：retest_comp(0.99×amplitude) Δ=1.49dB (≤1.5dB) ✅ 共享 denoiser 噪声底一致
+GT28,not_run,需多负载工况 20261104,真实录音喂入 200 帧达标但 buckets=1（门槛 frames≥30 且 buckets≥3）→ 未就绪；MIMII 仅单负载工况，缺 3 档负载 → 现场采集
+GT29,pass,真实录音 MIMII 泵 20261104,真实正常↔异常工况复测 Δ=5.71dB > 1.5dB → not_comparable（生产 compareRetest 输出）| source=real-mimii
+GT30,pass,真实录音 MIMII 泵 20261104,真实同泵同会话相邻段复测 Δ=0.03dB ≤ 1.5dB → comparable（生产 compareRetest 输出）| source=real-mimii
 GT31,na,D-04 双麦未实装,只留接口
 GT32,na,D-04 双麦未实装,只留接口
 GT33,na,D-04 双麦未实装,只留接口
@@ -40,7 +40,8 @@ GT38,na,D-04 双麦未实装,只留接口
 GT39,na,D-04 双麦未实装,只留接口
 GT40,not_run,无端侧模型,v2.1 执行
 GT41,not_run,无端侧模型,v2.1 执行
-GT42,pass,synthetic WAV 验证 20261105,复测 Δ≤1.5dB 可比阈值 ✅ retest_comp bandΔ=1.49dB 触发可比分支
-GT43,not_run,复测逻辑 pass 但真数据待开源/真机,复测几何/工况阻断 — compare.test.ts 逻辑层 pass；真实复测数据待开源/真机样本
+GT42,pass,真实录音 MIMII 泵 20261104,真实录音复测 Δ≤1.5dB 分支命中（Δ=0.03dB）→ comparable | source=real-mimii
+GT43,pass,真实录音 MIMII 泵 20261104,几何不可比阻断：Δ=0.03dB 很小但 geometryComparable=false → not_comparable（门禁优先级正确）| source=real-mimii
 GT44,pass,,localStorage 只读迁移 migrate.test.ts 覆盖
 GT45,pass,,Build4/vc4 → v2.0.0/vc6 自动化条件全满足：vc 递增 ✅ cert 一致 ✅ pkg 相同 ✅ ；真机覆盖安装实地执行（用户授权）
+

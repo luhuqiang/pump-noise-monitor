@@ -113,13 +113,20 @@ function synthRetestIncomp() {
   return s;
 }
 
+// 1500 rpm 夹具（GT08 规格：1500rpm ≥17 转）——30s×25Hz = 750 转，远超 17 转
+function synthRpm1500() {
+  const f0 = 1500 / 60; // 25Hz
+  return synthPure([[f0, 0.40], [f0 * 2, 0.18], [f0 * 3, 0.10], [f0 * 4, 0.06]], 0.005, 20261107);
+}
+
 const scenarios = [
   { id: "normal",          fn: synthNormal,           label: "正常泵 2900rpm",         source: "synthetic: 48.3+96.7+145Hz 谐波" },
-  { id: "cavitation",      fn: synthCavitation,       label: "汽蚀 46Hz 边带",         source: "synthetic: 48.3+46+96.7Hz 分量" },
-  { id: "bearing_wear",    fn: synthBearingWear,     label: "轴承磨损冲击",           source: "synthetic: 2900rpm 基频 + 6×rpm 周期性冲击" },
-  { id: "low_snr",         fn: synthLowSNR,          label: "低 SNR 8dB",             source: "synthetic: 48.3Hz + 20% 均匀噪声" },
+  { id: "cavitation",      fn: synthCavitation,       label: "汽蚀 46Hz 边带",         source: "synthetic: 46Hz 主峰 + 48.3Hz 弱基频" },
+  { id: "bearing_wear",    fn: synthBearingWear,      label: "轴承磨损冲击",           source: "synthetic: 2900rpm 基频 + 6×rpm 周期性冲击" },
+  { id: "low_snr",         fn: synthLowSNR,           label: "低 SNR 8dB",             source: "synthetic: 48.3Hz + 0.5 均匀噪声（理论 8dB）" },
+  { id: "rpm1500",         fn: synthRpm1500,          label: "1500rpm 梳状谱",         source: "synthetic: 25Hz 基频 + 2/3/4 次谐波（750 转）" },
   { id: "baseline_A",      fn: synthBaselineA,       label: "复测基线 A",             source: "synthetic = normal" },
-  { id: "retest_comp",     fn: synthRetestComp,      label: "复测可比",               source: "synthetic: normal × 0.98 + 微扰" },
+  { id: "retest_comp",     fn: synthRetestComp,      label: "复测可比",               source: "synthetic: normal × 0.99" },
   { id: "retest_incomp",   fn: synthRetestIncomp,    label: "复测不可比",             source: "synthetic: 60Hz 完全不同 rpm + 噪声" },
 ];
 
@@ -127,7 +134,7 @@ for (const sc of scenarios) {
   const path = resolve(OUT, `${sc.id}.wav`);
   const sig = sc.fn();
   writeWav(path, sig);
-  const sz = statSync(path).length;
+  const sz = statSync(path).size;
   process.stdout.write(`  ${sc.id}.wav → ${(sig.length / SR).toFixed(1)}s, ${sz} B\n`);
 }
 
