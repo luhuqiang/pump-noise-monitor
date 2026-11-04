@@ -100,11 +100,15 @@ function loadFResults(stepNum) {
   if (!existsSync(csvPath)) return null;
   const rows = parseCsv(readFileSync(csvPath, "utf8"));
   const map = {};
+  const counts = { pass: 0, not_run: 0, waived: 0, fail: 0, other: 0 };
   for (const row of rows) {
     const id = (row.f ?? "").trim();
-    if (id) map[id] = (row.status ?? "").trim();
+    const st = (row.status ?? "").trim();
+    if (!id) continue;
+    map[id] = st;
+    if (st in counts) counts[st]++; else counts.other++;
   }
-  return { map, total: rows.length };
+  return { map, total: rows.length, ...counts };
 }
 
 const notRun = (ids, naIds = []) =>
@@ -163,7 +167,9 @@ const card = {
       ? { total: gtCsv.total, pass: gtCsv.pass, na: gtCsv.na, not_run: gtCsv.not_run, fail: gtCsv.fail }
       : { total: 45, pass: 0, na: 9, not_run: 36, fail: 0 },
     ac: { total: 24 },
-    f: fCsv ? { total: fCsv.total } : { total: 12 },
+    f: fCsv
+      ? { total: fCsv.total, pass: fCsv.pass, not_run: fCsv.not_run, waived: fCsv.waived, fail: fCsv.fail }
+      : { total: 12, pass: 0, not_run: 12, waived: 0, fail: 0 },
   },
 };
 
