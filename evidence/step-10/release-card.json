@@ -4,9 +4,9 @@
   "build": {
     "contentSha256": "7ab3cff39063c65e3253a68e7808957c15656fcaae452804c34e6eb91f7b5504",
     "size": 288584,
-    "checkedAt": "2026-11-04T08:16:16.359Z"
+    "checkedAt": "2026-11-04T08:40:28.168Z"
   },
-  "commit": "62cda1628349c234c608bec4fbb93069f161c721",
+  "commit": "49026476a9b65e5b63383829035ae1d6bd9ab2b0",
   "tag": "step-10",
   "versionCode": 6,
   "versionName": "2.0.0",
@@ -15,7 +15,7 @@
   "apk_sha256": "ffa3f0c00e6e485e8439fb1562c1c6c03a10b2d5ae6ded4359cc9fba79d0f66c",
   "cert_sha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
   "cert_subject": "CN=luhuqiang, OU=pumpnoise, O=pumpnoise, L=Shanghai, C=CN",
-  "built_at": "2026-11-04T08:16:16.862Z",
+  "built_at": "2026-11-04T08:40:28.656Z",
   "toolchain": {
     "node": "v22.14.0",
     "build_tools": "35.0.0",
@@ -67,7 +67,7 @@
     "GT42": "not_run",
     "GT43": "not_run",
     "GT44": "pass",
-    "GT45": "not_run"
+    "GT45": "pass"
   },
   "ac": {
     "AC-01": "not_run",
@@ -121,31 +121,49 @@
   },
   "waivers": [
     {
-      "id": "GT06, GT07, GT08, GT09, GT10, GT11, GT12, GT13, GT14, GT28, GT29, GT30, GT42, GT43, F01, F02, F03, F04, F05, F06, F08, F10",
-      "reason": "依赖真实样本",
+      "id": "GT06, GT07, GT08, GT09",
+      "reason": "逻辑层 pass 但真频谱待开源/真机",
       "ids": [
         "GT06",
         "GT07",
         "GT08",
-        "GT09",
+        "GT09"
+      ],
+      "statuses": [
+        "not_run"
+      ],
+      "approved_by": null,
+      "approved_at": null
+    },
+    {
+      "id": "GT10, GT11, GT12, GT13, GT14, F01",
+      "reason": "逻辑层 pass 但真数据待开源/真机",
+      "ids": [
         "GT10",
         "GT11",
         "GT12",
         "GT13",
         "GT14",
+        "F01"
+      ],
+      "statuses": [
+        "not_run"
+      ],
+      "approved_by": null,
+      "approved_at": null
+    },
+    {
+      "id": "GT28, GT29, GT30, GT42, GT43, F02, F05, F06",
+      "reason": "复测逻辑 pass 但真数据待开源/真机",
+      "ids": [
         "GT28",
         "GT29",
         "GT30",
         "GT42",
         "GT43",
-        "F01",
         "F02",
-        "F03",
-        "F04",
         "F05",
-        "F06",
-        "F08",
-        "F10"
+        "F06"
       ],
       "statuses": [
         "not_run"
@@ -189,10 +207,13 @@
       "approved_at": null
     },
     {
-      "id": "GT45",
-      "reason": "依赖真机演练",
+      "id": "F03, F04, F08, F10",
+      "reason": "Agent 三态 pass 但真数据待开源/真机",
       "ids": [
-        "GT45"
+        "F03",
+        "F04",
+        "F08",
+        "F10"
       ],
       "statuses": [
         "not_run"
@@ -205,9 +226,9 @@
   "stats": {
     "gt": {
       "total": 45,
-      "pass": 19,
+      "pass": 20,
       "na": 9,
-      "not_run": 17,
+      "not_run": 16,
       "fail": 0
     },
     "ac": {
