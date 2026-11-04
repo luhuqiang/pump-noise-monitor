@@ -1,0 +1,13 @@
+f,status,waiver,detail
+F01,not_run,依赖真实样本,实验室合成输入链路先验 OK；现场输入需 ≥300 段 PCM WAV 验证
+F02,not_run,依赖真实样本,复测可比/阻断 — 需现场 PCM WAV 验证
+F03,not_run,依赖真实样本,Agent 三态 + 现场基线 — 需现场 PCM WAV 验证
+F04,not_run,依赖真实样本,Agent 三态 + 现场基线 — 需现场 PCM WAV 验证
+F05,not_run,依赖真实样本,复测 Δ≤1.5 dB — 需现场 PCM WAV 验证
+F06,not_run,依赖真实样本,复测几何/工况阻断 — 需现场 PCM WAV 验证
+F07,pass,,无样本可跑：双麦接口未实装单元测试覆盖
+F08,not_run,依赖真实样本,Agent 三态 + 现场基线 — 需现场 PCM WAV 验证
+F09,waived,D-04 双麦未实装,只留接口
+F10,not_run,依赖真实样本,Agent 三态 + 现场基线 — 需现场 PCM WAV 验证
+F11,pass,,无样本可跑：飞行模式离线启动单元测试覆盖
+F12,pass,,无样本可跑：深色手动切换单元测试覆盖
