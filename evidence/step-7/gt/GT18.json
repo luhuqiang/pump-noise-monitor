@@ -1,0 +1,12 @@
+{
+  "gt": "GT18",
+  "title": "引用不存在的案例 → 拒绝；不伪造引用",
+  "steps": [
+    "readCase 在空 index 上对任意 keyword 返回 missing",
+    "decide 遇 toolResult.read_case=missing → ask + agent_missing_case，不编造任何案例内容"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/tools.ts readCase.run；src/agent/machine.ts decide 段 5)；agent.test.ts GT18 组 2 条全过",
+  "forbidden_check": "禁止伪造案例引用 → 未发现",
+  "timestamp": "2026-11-04"
+}

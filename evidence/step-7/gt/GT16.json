@@ -1,0 +1,12 @@
+{
+  "gt": "GT16",
+  "title": "工具抛错 → 明确失败；不猜测结果",
+  "steps": [
+    "decide() 遇 toolResult=error 立即返回 refuse + agent_tool_error",
+    "runTools() 捕获工具函数抛错，返回 status=error 而不向外抛出"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/machine.ts decide() 段 1)；src/agent/tools.ts runTools try/catch；agent.test.ts GT16 组 2 条全过",
+  "forbidden_check": "禁止在工具错误时猜测结论 → 未发现",
+  "timestamp": "2026-11-04"
+}

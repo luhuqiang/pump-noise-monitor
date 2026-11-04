@@ -1,0 +1,40 @@
+{
+  "gt": "GT42",
+  "scenario": "把片段过期时间拨到过去，重启",
+  "precondition": {
+    "clips_enabled": true,
+    "clips_in_store": [
+      {
+        "id": "c-expired-1",
+        "expires_at": 1000,
+        "kept_bytes": 2048
+      },
+      {
+        "id": "c-expired-2",
+        "expires_at": 1100,
+        "kept_bytes": 4096
+      },
+      {
+        "id": "c-active-1",
+        "expires_at": 9999999999,
+        "kept_bytes": 8192
+      }
+    ],
+    "now_ms": 1200
+  },
+  "action": "run cleanupExpiredClips()",
+  "observed": {
+    "removed": 2,
+    "kept": 1,
+    "expired_ids": [
+      "c-expired-1",
+      "c-expired-2"
+    ],
+    "audio_bytes_left": 0,
+    "index_entries_left": 0
+  },
+  "result": "pass",
+  "module": "src/clips/manage.ts#cleanupExpiredClips",
+  "test_ref": "compare.test.ts GT42",
+  "generated_at": "2026-11-04T06:43:52.572Z"
+}

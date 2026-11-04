@@ -1,0 +1,20 @@
+{
+  "gt": "GT43",
+  "scenario": "未二次确认直接导出片段",
+  "precondition": {
+    "clips_enabled": true,
+    "clip_exists": true,
+    "clip_expired": false,
+    "confirmed": false
+  },
+  "action": "调用 guardClipExport(confirmed=false, clips_enabled=true, clip)",
+  "observed": {
+    "error_name": "E_CLIP_CONFIRM_REQUIRED",
+    "blocked": true,
+    "can_export": false
+  },
+  "result": "pass",
+  "module": "src/clips/manage.ts#guardClipExport",
+  "test_ref": "compare.test.ts GT43",
+  "generated_at": "2026-11-04T06:43:52.572Z"
+}

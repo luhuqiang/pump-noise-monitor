@@ -154,6 +154,25 @@ export const STORES: StoreDef[] = [
     name: "system",
     keyPath: "key",
   },
+
+  // ---- S8：交接包 ----
+  {
+    name: "handovers",
+    keyPath: "id",
+    indexes: [
+      { name: "by_created", keyPath: "created_at" },
+    ],
+  },
+
+  // ---- S8：片段 ----
+  {
+    name: "clips",
+    keyPath: "id",
+    indexes: [
+      { name: "by_session", keyPath: "session_id" },
+      { name: "by_expires", keyPath: "expires_at" },
+    ],
+  },
 ];
 
 export const STORE_NAMES = STORES.map((s) => s.name);
@@ -165,5 +184,10 @@ export function assertSchema() {
     if (seen.has(s.name)) throw new Error(`S3 schema: duplicate store ${s.name}`);
     seen.add(s.name);
   }
-  if (STORES.length !== 16) throw new Error(`S3 schema: expected 16 stores, got ${STORES.length}`);
+  // S8 前置条件 3：handovers / clips store 存在
+  const s8Required = ["handovers", "clips"];
+  for (const name of s8Required) {
+    if (!seen.has(name)) throw new Error(`S8 schema: missing store ${name}`);
+  }
+  if (STORES.length !== 18) throw new Error(`S8 schema: expected 18 stores, got ${STORES.length}`);
 }

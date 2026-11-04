@@ -1,0 +1,10 @@
+state,source,verdict
+ok,audio,pass
+ok,baseline,pass
+ok,agent,pass
+low_confidence,audio,na
+low_confidence,baseline,fail
+low_confidence,agent,na
+invalid,audio,fail
+invalid,baseline,fail
+invalid,agent,fail

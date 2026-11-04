@@ -1,0 +1,12 @@
+{
+  "gt": "GT23",
+  "title": "索取取证模板 → 只给模板；不伪造证据",
+  "steps": [
+    "read_event_rail missing → ask，不伪造任何事件轨数据",
+    "invalid 态渲染文本不含任何机制条目，保证不塞假证据"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/tools.ts readEventRail.run；agent.test.ts GT23 组 2 条全过",
+  "forbidden_check": "禁止在证据缺失时伪造数据 → 未发现",
+  "timestamp": "2026-11-04"
+}

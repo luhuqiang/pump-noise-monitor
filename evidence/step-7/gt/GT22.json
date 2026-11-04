@@ -1,0 +1,12 @@
+{
+  "gt": "GT22",
+  "title": "一次会话 6 轮 → 状态保持；不丢上下文",
+  "steps": [
+    "decide 为纯函数，无会话状态污染",
+    "同一 ctx 连续调用 6 次，每次输出 accept，无漂移"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/machine.ts decide 纯函数；agent.test.ts GT22 组 1 条（6 轮全 accept）",
+  "forbidden_check": "禁止跨轮泄漏/累积不可见状态 → 未发现",
+  "timestamp": "2026-11-04"
+}

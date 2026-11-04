@@ -1,0 +1,9 @@
+{
+  "f": "F07",
+  "result": "pass",
+  "detail": "UI 显式展示「单麦 · 48k」，防止现场误判为双麦",
+  "evidence": [
+    "src/components/InstrumentPanel.tsx:163",
+    "src/components/Header.tsx:39"
+  ]
+}

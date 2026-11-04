@@ -1,0 +1,37 @@
+{
+  "f": "F06",
+  "title": "片段导出门禁",
+  "scenario": "开片段→录 10s→导出；默认关闭；导出前二次确认；可删",
+  "checks": [
+    {
+      "name": "clips_enabled 默认 false",
+      "expected": true,
+      "actual": true,
+      "pass": true,
+      "module": "src/clips/manage.ts#CLIPS_ENABLED_DEFAULT"
+    },
+    {
+      "name": "未确认导出阻断",
+      "expected": "E_CLIP_CONFIRM_REQUIRED",
+      "actual": "E_CLIP_CONFIRM_REQUIRED",
+      "pass": true,
+      "module": "src/clips/manage.ts#guardClipExport"
+    },
+    {
+      "name": "过期片段 guard",
+      "expected": "E_CLIP_EXPIRED",
+      "actual": "E_CLIP_EXPIRED",
+      "pass": true,
+      "module": "src/clips/manage.ts#guardClipExport"
+    },
+    {
+      "name": "cleanupExpiredClips 正确删除",
+      "expected": "removed=2 kept=1",
+      "actual": "removed=2 kept=1",
+      "pass": true,
+      "module": "src/clips/manage.ts#cleanupExpiredClips"
+    }
+  ],
+  "result": "pass",
+  "generated_at": "2026-11-04T06:43:52.575Z"
+}

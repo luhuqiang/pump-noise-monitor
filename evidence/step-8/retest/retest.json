@@ -1,0 +1,11 @@
+{
+  "delta_db": 1.23,
+  "geometry_comparable": true,
+  "condition_comparable": true,
+  "result": "comparable",
+  "threshold_db": 1.5,
+  "baseline_db": 70.1,
+  "retest_db": 71.33,
+  "note": "同摆位同工况复测，Δ=1.23≤1.5 判可比",
+  "generated_at": "2026-11-04T06:43:52.568Z"
+}

@@ -1,0 +1,28 @@
+{
+  "step": "S9",
+  "version": {
+    "versionCode": 6,
+    "versionName": "2.0.0"
+  },
+  "gt": {
+    "na": ["GT31", "GT32", "GT33", "GT34", "GT35", "GT36", "GT37", "GT38", "GT39"],
+    "not_run": ["GT40", "GT41"],
+    "pass": [],
+    "fail": []
+  },
+  "waivers": [
+    {
+      "id": "GT40",
+      "reason": "D-04 裁决 S9 只留双麦接口，不做实装；无真实双麦样本可供验收。v2.1 排期。",
+      "approvedBy": "产品",
+      "approvedAt": "2026-11-04"
+    },
+    {
+      "id": "GT41",
+      "reason": "D-04 裁决 S9 只留双麦接口，不做实装；无真实双麦样本可供验收。v2.1 排期。",
+      "approvedBy": "产品",
+      "approvedAt": "2026-11-04"
+    }
+  ],
+  "notes": "GT31–39 共 9 条全部 na（D-04）。GT40–41 not_run + waiver。双麦全部 11 条 v2.1 才能排期。"
+}
