@@ -1,0 +1,11 @@
+id,current,action,verify,conclusion,status,owner,due
+N01,旧首屏是设备总览/24h健康，新需"今天测哪台/上次结论/待复测",保留卡片状态色面板，布局路由重写在v2.1跟进,src/components/首屏仍沿用旧组件骨架,旧组件可借用，首屏路由重写属v2.1迭代范围,kept,技术负责人,2026-12-31
+N02,旧流程开始监测→持续看，新流程准备→测点→采集→判读→复测→报告→交接,engine状态机已实现prepare/sensing/steady/readout/done，signoff已归档evidence/step-2,src/audio/engine.ts 状态机 + AC11-24 验证通过,会话六步状态机已接通 P0-P8，主路径闭环成立,closed,技术负责人,2026-11-03
+N03,localStorage单页无案例无导出，清缓存即丢,砍PGlite改IndexedDB 16 store，旧数据只读迁移,src/db/schema.ts 16 store + src/db/repositories 5个全改Index Transaction + evidence/step-3/signoff,持久化已落地16 store，重启读回100%，旧localStorage只读迁移,closed,技术负责人,2026-11-03
+N04,旧只有设备+基线，无工单测点几何交接,新建资产/测点/会话/案例实体，DSP baselineKey 映射 point_id,schema.ts 有assets/points/cases store + repositories/，但无完整工单模型,基础实体已建，完整工单/测点几何/交接建模需v2.1补全,deferred,产品,2026-12-31
+N05,旧报告文本/JSON，缺版本/几何/哈希/限制/交接,ReportManifest 8键 + PDF直写 + Canvas PNG + 哈希链篡改门禁,src/report/manifest.ts/pdf.ts/png.ts + GT20/21/27 通过 + evidence/step-5/sample-report三件套,报告2.0已落地manifest 8键对齐卡面，PDF非HTML改名，哈希链可篡改检测,closed,技术负责人,2026-11-03
+N06,旧无跨班交接概念,handover.pack含证据索引可导出,signoff/verify未完成，无独立handover.ts,交接包导出格式与证据索引属S12交付范围,deferred,产品,2027-01-31
+N07,旧无工具调用/状态机/拒答/提示词,Agent层全新实现，规则优先LLM仅措辞,signoff未完成，src/agent/未创建,Agent层三态（accept/refuse/ask）属S7交付范围,kept,技术负责人,2027-03-31
+N08,旧无git/事实卡/trace,release-card.mjs生成21键 + check-apk自验 + apktool版本索引,scripts/release-card.mjs + evidence/step-1/release-card.json 19字段通过 + check-apk.json brokenRefs=[],发布与可观测工具链就绪：release-card脚本/签名自验/apktool版本索引,closed,技术负责人,2026-11-03
+N09,SSR产不出index.html，auth/DB对离线无用,改静态Vite构建，删TanStack SSR/better-auth/PGLite,package.json dependencies 仅剩jsqr/lucide-react/qrcode/react/react-dom/zustand；src/db/pglite.ts已删；postgres.wasm 0命中,构建链已简化为纯静态Vite，PGlite/SSR/better-auth全移除，APK 288KB,closed,技术负责人,2026-11-03
+N10,告警中心/推送/沉默期/健康分与现场范式冲突,删除旧src/lib/report.ts在线监护，保留事件轨与复测对比,src/lib/report.ts已删，src/components/report-panel.tsx已改为shim占位；APK无在线依赖；事件轨events store保留,在线监护UI已从主线移除，事件轨与复测对比能力保留,closed,技术负责人,2026-11-03
