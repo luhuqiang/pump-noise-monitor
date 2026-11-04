@@ -1,1 +1,53 @@
-{}
+{
+  "step": "S12",
+  "name": "发布与覆盖升级",
+  "verifiedAt": "2026-11-04T16:00:00+08:00",
+  "commit": "3cdbec32ca212c9b79f848035b4b17fdf6647a9e",
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0 }
+  },
+  "buildArtifacts": {
+    "apk": {
+      "path": "听诊仪.apk",
+      "size": 288584,
+      "sha256": "ffa3f0c00e6e485e8439fb1562c1c6c03a10b2d5ae6ded4359cc9fba79d0f66c",
+      "versionCode": 6,
+      "versionName": "2.0.0",
+      "package": "com.luhuqiang.pumpnoise",
+      "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+      "schemes": { "v1": false, "v2": true, "v3": true },
+      "checkApk": { "ok": true, "brokenRefs": [] }
+    }
+  },
+  "fourTuple": {
+    "commit": "3cdbec32ca212c9b79f848035b4b17fdf6647a9e",
+    "apkSha256": "ffa3f0c00e6e485e8439fb1562c1c6c03a10b2d5ae6ded4359cc9fba79d0f66c",
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+    "tag": null,
+    "status": "tag_pending"
+  },
+  "tag": {
+    "name": "v2.0.0",
+    "target": "3cdbec32ca212c9b79f848035b4b17fdf6647a9e",
+    "status": "not_created",
+    "rule": "tag 必须指向当前 HEAD；tag 后禁止重建 APK"
+  },
+  "gt45": {
+    "name": "Build4/vc4 → v2.0.0/vc6 覆盖安装演练",
+    "status": "not_run",
+    "reason": "需要真机 + Build4 基线包（vc4）执行覆盖安装，验证基线条数 ≥ 覆盖前",
+    "blocker": "真机未就绪 / Build4 基线包需确认位置"
+  },
+  "licenseGate": {
+    "rule": "D-03 禁止恢复授权门",
+    "grepLicenseGate": 0,
+    "grepLicenseGateToken": 0,
+    "status": "adhered"
+  },
+  "blockers": [
+    { "id": "B-S12-1", "kind": "hard", "desc": "GT45 真机覆盖演练未执行", "resolution": "真机 + Build4 基线包就位后执行" },
+    { "id": "B-S12-2", "kind": "soft", "desc": "v2.0.0 tag 未创建", "resolution": "当前 HEAD 已稳定，可随时打 tag；tag 后禁止重建" },
+    { "id": "B-S12-3", "kind": "dep", "desc": "依赖 S10 G4 + S11 G5 放行证据", "resolution": "样本 + 评审到位后重跑" }
+  ]
+}

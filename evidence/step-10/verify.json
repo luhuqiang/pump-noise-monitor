@@ -1,1 +1,66 @@
-{}
+{
+  "step": "S10",
+  "name": "样本 + 全量 GT/F 证据链",
+  "verifiedAt": "2026-11-04T15:49:00+08:00",
+  "commit": "3cdbec32ca212c9b79f848035b4b17fdf6647a9e",
+  "apk": {
+    "path": "听诊仪.apk",
+    "size": 288584,
+    "sha256": "ffa3f0c00e6e485e8439fb1562c1c6c03a10b2d5ae6ded4359cc9fba79d0f66c",
+    "checkApk": { "ok": true, "v2": true, "v3": true, "brokenRefs": [] },
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+    "versionCode": 6,
+    "versionName": "2.0.0"
+  },
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0, "suites": 24 }
+  },
+  "gtResults": {
+    "total": 45,
+    "pass": 19,
+    "na": 9,
+    "not_run": 17,
+    "fail": 0,
+    "passList": ["GT01","GT02","GT03","GT04","GT05","GT15","GT16","GT17","GT18","GT19","GT20","GT21","GT22","GT23","GT24","GT25","GT26","GT27","GT44"],
+    "naList": ["GT31","GT32","GT33","GT34","GT35","GT36","GT37","GT38","GT39"],
+    "notRunList": ["GT06","GT07","GT08","GT09","GT10","GT11","GT12","GT13","GT14","GT28","GT29","GT30","GT40","GT41","GT42","GT43","GT45"],
+    "failList": [],
+    "waiver": [
+      { "id": "GT31-39", "reason": "D-04 双麦未实装，只留接口", "type": "na" },
+      { "id": "GT40-41", "reason": "无端侧模型，v2.1 执行", "type": "not_run" }
+    ]
+  },
+  "fResults": {
+    "total": 12,
+    "pass": 3,
+    "not_run": 8,
+    "waived": 1,
+    "fail": 0,
+    "passList": ["F07","F11","F12"],
+    "notRunList": ["F01","F02","F03","F04","F05","F06","F08","F10"],
+    "waivedList": ["F09"]
+  },
+  "samples": {
+    "status": "not_run",
+    "required": "验收级 ≥300 段 MVA ≥60 段 PCM WAV 48kHz/24bit",
+    "available": 0,
+    "blocker": "现场样本未到位"
+  },
+  "acResults": {
+    "total": 24,
+    "status": "not_run",
+    "note": "AC 全量复测需真机样本支撑，当前按 §4.4 诚实 not_run"
+  },
+  "blockers": [
+    { "id": "B-S10-1", "kind": "hard", "desc": "真实现场样本 ≥300 段（3 类故障 × 100 + 正常 30）未到位，阻塞 GT06-14/28-30/42-43/45 + F01-06/F08/F10", "resolution": "S-S 样本任务并行推进，样本到位后重跑全量 GT/F" },
+    { "id": "B-S10-2", "kind": "hard", "desc": "GT40-41 端侧模型未接入", "resolution": "v2.1 范围" },
+    { "id": "B-S10-3", "kind": "hard", "desc": "GT45 Build4/vc4 → v2.0.0/vc6 覆盖安装演练未在真机执行", "resolution": "真机 + Build4 基线包就位后执行" }
+  ],
+  "honestLimitations": [
+    "19 条 pass GT 全部来自单元测试/合成夹具，不等同于真机现场验证",
+    "9 条 na 按 D-04 双麦接口预留，非失败",
+    "17 条 not_run 均有豁免/阻塞原因，无 unaccounted 项",
+    "0 fail — 未出现应过未过的条目"
+  ]
+}

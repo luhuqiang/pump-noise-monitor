@@ -1,34 +1,34 @@
 gt,status,waiver,detail
-GT01,pass,,baseline 测试已覆盖
-GT02,pass,,baseline 测试已覆盖
-GT03,pass,,baseline 测试已覆盖
-GT04,pass,,baseline 测试已覆盖
-GT05,pass,,baseline 测试已覆盖
-GT06,pass,,baseline 测试已覆盖
-GT07,pass,,baseline 测试已覆盖
-GT08,pass,,baseline 测试已覆盖
-GT09,pass,,baseline 测试已覆盖
-GT10,pass,,baseline 测试已覆盖
-GT11,pass,,baseline 测试已覆盖
-GT12,pass,,baseline 测试已覆盖
-GT13,pass,,baseline 测试已覆盖
-GT14,pass,,baseline 测试已覆盖
-GT15,pass,,Agent 三态测试已覆盖
-GT16,pass,,Agent 三态测试已覆盖
-GT17,pass,,Agent 三态测试已覆盖
-GT18,pass,,Agent 三态测试已覆盖
-GT19,pass,,Agent 三态测试已覆盖
-GT20,pass,,manifest 门禁 + 主路径
-GT21,pass,,manifest 门禁 + 主路径
-GT22,pass,,manifest 门禁 + 主路径
-GT23,pass,,manifest 门禁 + 主路径
-GT24,pass,,报告持久化/哈希链
-GT25,pass,,报告持久化/哈希链
-GT26,pass,,报告持久化/哈希链
-GT27,pass,,报告持久化/哈希链
-GT28,pass,,复测冻结
-GT29,pass,,复测冻结
-GT30,pass,,复测冻结
+GT01,pass,,无样本可跑：合成夹具覆盖 baseline 逻辑
+GT02,pass,,无样本可跑：合成夹具覆盖 baseline 逻辑
+GT03,pass,,无样本可跑：合成夹具覆盖 baseline 逻辑
+GT04,pass,,无样本可跑：合成夹具覆盖 baseline 逻辑
+GT05,pass,,无样本可跑：合成夹具覆盖 baseline 逻辑
+GT06,not_run,依赖真实样本,汽蚀 46 Hz 误差 ≤0.3 Hz — 需现场 PCM WAV 验证
+GT07,not_run,依赖真实样本,次谐波不误判 — 需现场 PCM WAV 验证
+GT08,not_run,依赖真实样本,1500 rpm ≥17 转 — 需现场 PCM WAV 验证
+GT09,not_run,依赖真实样本,SNR 8 dB — 需现场 PCM WAV 验证
+GT10,not_run,依赖真实样本,20 帧不足 — 需现场 PCM WAV 验证
+GT11,not_run,依赖真实样本,50 帧未冻结 — 需现场 PCM WAV 验证
+GT12,not_run,依赖真实样本,180 天/500 h 老化提示 — 需现场 PCM WAV 验证
+GT13,not_run,依赖真实样本,几何差异阻断 — 需现场 PCM WAV 验证
+GT14,not_run,依赖真实样本,无基线 → low_confidence — 需现场 PCM WAV 验证
+GT15,pass,,无样本可跑：Agent 三态单元测试覆盖
+GT16,pass,,无样本可跑：Agent 三态单元测试覆盖
+GT17,pass,,无样本可跑：Agent 三态单元测试覆盖
+GT18,pass,,无样本可跑：Agent 三态单元测试覆盖
+GT19,pass,,无样本可跑：Agent 三态单元测试覆盖
+GT20,pass,,无样本可跑：报告 manifest 门禁 + 哈希链单元测试覆盖
+GT21,pass,,无样本可跑：报告 manifest 门禁 + 哈希链单元测试覆盖
+GT22,pass,,无样本可跑：Agent 拒答三态单元测试覆盖
+GT23,pass,,无样本可跑：Agent 拒答三态单元测试覆盖
+GT24,pass,,无样本可跑：飞行模式离线连续启动
+GT25,pass,,无样本可跑：IndexedDB 配额用满不覆盖旧案例单元测试覆盖
+GT26,pass,,无样本可跑：hash 不匹配 100% 隔离单元测试覆盖
+GT27,pass,,无样本可跑：时钟漂移 10 min 注明单元测试覆盖
+GT28,not_run,依赖真实样本,复测 ≥200 帧 — 需现场 PCM WAV 验证
+GT29,not_run,依赖真实样本,复测 1.6 dB 不可比 — 需现场 PCM WAV 验证
+GT30,not_run,依赖真实样本,复测 1.4 dB 可比 — 需现场 PCM WAV 验证
 GT31,na,D-04 双麦未实装,只留接口
 GT32,na,D-04 双麦未实装,只留接口
 GT33,na,D-04 双麦未实装,只留接口
@@ -38,9 +38,9 @@ GT36,na,D-04 双麦未实装,只留接口
 GT37,na,D-04 双麦未实装,只留接口
 GT38,na,D-04 双麦未实装,只留接口
 GT39,na,D-04 双麦未实装,只留接口
-GT40,not_run,无真实双麦样本，v2.1 执行,
-GT41,not_run,无真实双麦样本，v2.1 执行,
-GT42,pass,,片段过期清理 + 二次确认测试已覆盖
-GT43,pass,,片段过期清理 + 二次确认测试已覆盖
-GT44,pass,,localStorage 只读迁移
-GT45,pass,,Build 4→v2.0.0 真机覆盖安装演练（vc4→vc6）
+GT40,not_run,无端侧模型,GT40-41 v2.1 执行
+GT41,not_run,无端侧模型,GT40-41 v2.1 执行
+GT42,not_run,依赖真实样本,复测 Δ≤1.5 dB 可比 — 需现场 PCM WAV 验证
+GT43,not_run,依赖真实样本,复测几何/工况阻断 — 需现场 PCM WAV 验证
+GT44,pass,,无样本可跑：localStorage 只读迁移单元测试覆盖
+GT45,not_run,依赖真机演练,Build4/vc4 → v2.0.0/vc6 覆盖安装 + 基线≥覆盖前
