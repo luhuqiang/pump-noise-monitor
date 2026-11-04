@@ -35,3 +35,4 @@ samples/
 # 本地截图与临时分享包
 .screenshots/
 .trae-html-share-packages/
+delivery/

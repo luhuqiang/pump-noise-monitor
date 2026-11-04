@@ -9,7 +9,7 @@
     "build": "tsc --noEmit && vite build && node scripts/postbuild-bom.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/audio/golden.test.ts src/audio/status-priority.test.ts",
+    "test": "node --experimental-strip-types --test src/audio/golden.test.ts src/audio/status-priority.test.ts src/audio/baseline.test.ts",
     "apk": "node scripts/build-apk.mjs",
     "check:apk": "node scripts/check-apk.mjs"
   },

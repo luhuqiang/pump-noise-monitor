@@ -25,6 +25,20 @@ import { applyStatusPriority, type PriorityContext } from "./status-priority.ts"
 import type { PumpTypeId } from "./scenarios.ts";
 import { currentCondition } from "../lib/settings.ts";
 export { currentCondition };
+import {
+  anomalyOf,
+  baselineInfo,
+  baselineKey as fpBaselineKey,
+  conditionBucket,
+  featureVector,
+  learnBaseline as fpLearnBaseline,
+  loadBaseline,
+  recordMaintenance,
+  resetBaseline as fpResetBaseline,
+  saveCrestGate,
+  updateBaselineAccess,
+  type Baseline,
+} from "./fingerprint.ts";
 
 export type MicStatus = "ok" | "silence" | "clip" | "agc" | "lost" | "drop";
 
@@ -276,6 +290,17 @@ export class Engine {
   private shaftAccum = new ShaftAccumulator();
   private eventRail = new EventRail();
 
+  /** S4：基线键（随 bgVersion 刷新重新算） */
+  private baselineKey = "";
+  /** S4：当前加载的基线（null = 尚未建立） */
+  private currentBaseline: Baseline | null = null;
+  /** S4：背景谱版本（每次 captureBackground +1） */
+  private bgVersion = 0;
+  /** S4：learnBaseline 节流 — 满 steady 后每 5 帧喂一次 */
+  private learnBaselineCounter = 0;
+  /** S4：features 快照（供占位方法 learnBaseline / 主循环 anomalyOf 使用） */
+  private lastFeatures: import("./features").SpectralFeatures | null = null;
+
   private startedAt = 0;
   private lastFeatAt = 0;
   private lastShaftAt = 0;
@@ -307,6 +332,12 @@ export class Engine {
     this.phaseTracker.reset();
     this.shaftAccum.reset();
     this.eventRail.reset();
+    // S4：加载基线（每 start 一次刷新一次，保证 engine.config 改动后 baselineKey 重新算）
+    this.baselineKey = this.computeBaselineKey();
+    this.currentBaseline = loadBaseline(this.baselineKey);
+    this.eventRail.setDevice(this.baselineKey);
+    this.eventRail.setGate(this.currentBaseline?.crestGate ?? null);
+    this.learnBaselineCounter = 0;
     this.shaftTrack = null;
     this.lastBandsDb = [];
     this.frozen = false;
@@ -386,19 +417,87 @@ export class Engine {
     if (this.peakDb.length > 0) this.peakDb.fill(-160);
   }
 
-  /** 旧版兼容：冻结 crest 事件门限 */
+  /** S4：冻结 crest 事件门限（commissionGate → saveCrestGate → setGate） */
   freezeCrestGate() {
-    // 暂不实现复杂的 crest gate 冻结，留空让 UI 不崩
+    if (!this.eventRail.historyReady) return;
+    const gate = this.eventRail.commissionGate(this.currentBaseline?.version ?? 1);
+    if (!gate) return;
+    const key = this.baselineKey;
+    // 写入已有基线（如果还没有基线，先建一个空桶 baseline）
+    if (!saveCrestGate(key, gate)) {
+      // 还没 baseline，先 learnBaseline 一次让 key 存在
+      this.learnBaseline();
+      saveCrestGate(key, gate);
+    }
+    this.currentBaseline = loadBaseline(key);
+    this.eventRail.setGate(gate);
   }
 
-  /** 旧版兼容：同步设备/背景谱版本 */
-  sync() { /* 空实现 */ }
-  /** 旧版兼容：学习基线 */
-  learnBaseline() { this.readout.baselineReady = true; this.readout.baselineFrames = 30; }
-  /** 旧版兼容：重置基线 */
-  resetBaseline() { this.readout.baselineReady = false; this.readout.baselineFrames = 0; }
-  /** 旧版兼容：采集背景谱 */
-  captureBackground() { this.readout.bgVersion = (this.readout.bgVersion || 0) + 1; }
+  /** S4：刷新 baseline 状态（baselineKey / bgVersion / eventRail.setGate） */
+  sync() {
+    this.baselineKey = this.computeBaselineKey();
+    this.currentBaseline = loadBaseline(this.baselineKey);
+    this.eventRail.setDevice(this.baselineKey);
+    this.eventRail.setGate(this.currentBaseline?.crestGate ?? null);
+  }
+
+  /**
+   * S4：学习基线 — 从当前帧 features 生成特征向量 + 工况档，喂给 fingerprint.learnBaseline。
+   * UI 手动触发；引擎 steady 时主循环也会每 5 帧自动喂一次。
+   */
+  learnBaseline() {
+    const f = this.lastFeatures;
+    if (!f) return;
+    if (this.readout.phase !== "steady") return;
+    // 25 带 bandDb 对齐 featureVector 需要的维度（fingerprint 用 SpectralFeatures.bandDb，也是 25 带）
+    const bucket = conditionBucket(this.readout.snrDb > 0 ? 1 : 0.8);
+    const vector = featureVector(
+      f,
+      this.readout.kurtosis || 3,
+      this.readout.crest || 3,
+    );
+    if (!vector.length) return;
+    this.baselineKey = this.computeBaselineKey();
+    this.currentBaseline = fpLearnBaseline(
+      this.baselineKey,
+      vector,
+      bucket,
+      {
+        crestGate: this.eventRail.gateFrozen
+          ? (this.currentBaseline?.crestGate ?? null)
+          : null,
+        deviceId: this.baselineKey,
+      },
+    );
+    this.eventRail.setGate(this.currentBaseline?.crestGate ?? null);
+  }
+
+  /** S4：重置基线（fpResetBaseline + recordMaintenance + eventRail.resetGate） */
+  resetBaseline() {
+    const oldKey = this.baselineKey;
+    fpResetBaseline(oldKey);
+    recordMaintenance(oldKey);
+    this.eventRail.setGate(null);
+    this.baselineKey = this.computeBaselineKey();
+    this.currentBaseline = null;
+  }
+
+  /** S4：采集背景谱（递增 bgVersion → 重新算 baselineKey → setDevice） */
+  captureBackground() {
+    this.bgVersion += 1;
+    this.baselineKey = this.computeBaselineKey();
+    this.currentBaseline = loadBaseline(this.baselineKey);
+    this.eventRail.setDevice(this.baselineKey);
+    this.eventRail.setGate(this.currentBaseline?.crestGate ?? null);
+  }
+
+  /** 计算当前测点的 baselineKey（engine.config + bgVersion → fingerprint.baselineKey） */
+  private computeBaselineKey(): string {
+    // deviceKey 需要 pumpType/model/distance/micDir，engine.config 只给了 pumpType
+    // 这里用 pumpType + 固定测点占位 + bgVersion；真机上由 Settings 传入完整参数
+    const device = `${this.config.pumpType}|default|0.3m|inlet`;
+    return fpBaselineKey(device, this.bgVersion);
+  }
   /** 旧版兼容：清除最大值保持 */
   resetMax() { this.resetPeak(); }
 
@@ -519,6 +618,17 @@ export class Engine {
         this.config.ratedRpm,
         this.config.blades,
       );
+      // S4：存快照供 learnBaseline / anomalyOf 使用
+      this.lastFeatures = features;
+
+      // S4：steady 段自动喂基线（节流 5 帧一次）
+      if (this.phaseTracker.phase === "steady") {
+        this.learnBaselineCounter++;
+        if (this.learnBaselineCounter >= 5) {
+          this.learnBaselineCounter = 0;
+          this.learnBaseline();
+        }
+      }
 
       // 事件轨（短帧冲击检测）
       this.eventRail.push(timeData, this.sampleRate, now, clip);
@@ -691,7 +801,6 @@ export class Engine {
       noiseFloorDb: noiseFloor,
       fidelity: Math.min(1, snr / 30),
       music: 0,
-      baselineReady: false,
       clipRate: clip ? 0.02 : 0,
       agc,
       droppedFrames: 0,
@@ -700,12 +809,37 @@ export class Engine {
       invalidReasons: [],
       sampleRateOk,
       sampleRateNote: sampleRateOk ? null : `非 48 kHz (${this.sampleRate} Hz)`,
-      baselineFrames: 0,
-      baselineBuckets: 0,
-      bgVersion: 0,
-      age: null,
-      anomaly: null,
-      placement: null,
+      // S4：从 fingerprint 实时读取基线状态（不再硬编码）
+      ...(() => {
+        const info = baselineInfo(this.currentBaseline);
+        const fv = this.lastFeatures;
+        const bucket = this.currentBaseline
+          ? conditionBucket(Number.isFinite(snr) ? Math.min(1.2, Math.max(0.6, snr / 30)) : 0.8)
+          : "常用负载";
+        // 生成 anomaly vector（featureVector 格式）
+        let vector: number[] = [];
+        if (fv) {
+          vector = featureVector(fv, this.eventRail.short.lastKurtosis || 3, this.eventRail.short.lastCrest || 3);
+        } else if (this.readout.bands.length) {
+          vector = this.readout.bands.slice(); // 退化：直接用 25 带
+        }
+        const anom = anomalyOf(vector, this.currentBaseline, bucket);
+        // 更新 baseline 访问状态（节流到 features 帧频）
+        if (fv) {
+          updateBaselineAccess(this.baselineKey, now, anom.score);
+          // 重新加载（updateBaselineAccess 落盘后读回）
+          this.currentBaseline = loadBaseline(this.baselineKey);
+        }
+        return {
+          baselineReady: info.ready,
+          baselineFrames: info.frames,
+          baselineBuckets: info.buckets,
+          bgVersion: this.bgVersion,
+          age: null, // S4 暂不实现 ageInfo，属 S6 旧债清理
+          anomaly: anom.score,
+          placement: null,
+        };
+      })(),
       weighting: "A",
       source: "mic",
       error: null,

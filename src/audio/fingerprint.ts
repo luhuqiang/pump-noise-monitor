@@ -219,7 +219,8 @@ export function learnBaseline(
     !!prev?.placementDeviceId && !!curDevice && prev.placementDeviceId !== curDevice;
   let placementRatio = deviceChanged ? null : (prev?.placementRatio ?? null);
   let placementLogStd = deviceChanged ? 0.12 : (prev?.placementLogStd ?? 0.12);
-  if (curRatio !== null) {
+  // 换机后跳过 placementRatio 写入 —— 让新设备的 placementRatio 在下一次 learnBaseline（无 deviceChanged）时自然初始化
+  if (curRatio !== null && !deviceChanged) {
     const n = prevFrames + 1;
     if (placementRatio === null) {
       placementRatio = curRatio;
