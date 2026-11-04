@@ -1,0 +1,10 @@
+{
+  "gt": "GT28",
+  "input": "saveCrestGate 对已存在 baseline key 写入 median=3.5 scale=0.8 crestGateZ=2.6 version=1",
+  "expected": "saveCrestGate 返回 true，loadBaseline 读到 crestGate.crestGateZ=2.6 version=1",
+  "actual": "saveCrestGate=true，crestGate.crestGateZ=2.6，crestGate.version=1",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L289-297 assert.equal(ok,true) assert.ok(b.crestGate!==null) assert.equal(crestGateZ,2.6) assert.equal(version,1)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

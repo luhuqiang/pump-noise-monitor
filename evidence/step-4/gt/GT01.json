@@ -1,0 +1,10 @@
+{
+  "gt": "GT01",
+  "input": "首次喂入向量 makeVector(20, -42)",
+  "expected": "buckets 新建，mean=vector，variance≈0.01，n=1",
+  "actual": "frames=1，buckets['常用负载'].n=1，mean 长度=20，所有元素=-42",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L54-62 assert.equal(b.frames,1) assert.equal(b.buckets['常用负载'].n,1) mean.every(x→|-42|<1e-9)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

@@ -1,0 +1,10 @@
+{
+  "gt": "GT14",
+  "input": "baselineKey('dev-A',0) vs baselineKey('dev-A',1)",
+  "expected": "换 bgVersion 生成不同 key",
+  "actual": "k1 !== k2",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L270-274 assert.notEqual(k1,k2)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

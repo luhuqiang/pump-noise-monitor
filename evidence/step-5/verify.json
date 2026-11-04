@@ -1,0 +1,167 @@
+﻿[
+    {
+        "Detail":  "依赖已在 S1 用 npm ci 验证；本步不重装",
+        "Status":  "N/A",
+        "Check":  "npm-ci"
+    },
+    {
+        "Detail":  "exit=0",
+        "Status":  "Pass",
+        "Check":  "typecheck"
+    },
+    {
+        "Detail":  "pass=103 fail=0 need\u003e=52",
+        "Status":  "Pass",
+        "Check":  "tests"
+    },
+    {
+        "Detail":  "exit=0 dist/index.html=True",
+        "Status":  "Pass",
+        "Check":  "vite-build"
+    },
+    {
+        "Detail":  "apk exists=True (manual run before verify)",
+        "Status":  "Pass",
+        "Check":  "apk-build"
+    },
+    {
+        "Detail":  "exit=0 ok=true brokenRefs=[]",
+        "Status":  "Pass",
+        "Check":  "check-apk"
+    },
+    {
+        "Detail":  "vc=6 vn=2.0.0 expect=6/2.0.0",
+        "Status":  "Pass",
+        "Check":  "version"
+    },
+    {
+        "Detail":  "cert=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f baseline=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+        "Status":  "Pass",
+        "Check":  "cert-sha256"
+    },
+    {
+        "Detail":  "281.8 KB (need 300-900)",
+        "Status":  "Fail",
+        "Check":  "apk-size"
+    },
+    {
+        "Detail":  "403744B32AAB91333879A7398477DD337EC7D29CA892F9575C37808B4DD420D8",
+        "Status":  "Pass",
+        "Check":  "apk-sha256"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Fail",
+        "Check":  "string:生成报告"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "forbidden-entry:postgres.wasm"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:AndroidManifest.xml"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:classes.dex"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:assets/www/index.html"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "no-pglite"
+    },
+    {
+        "Detail":  "S5 不依赖现场样本；F01 现场部分在 S10 回填",
+        "Status":  "N/A",
+        "Check":  "samples"
+    },
+    {
+        "Detail":  "评审 12/15/16 在 S11",
+        "Status":  "N/A",
+        "Check":  "reviews"
+    },
+    {
+        "Detail":  "dirty=3",
+        "Status":  "Fail",
+        "Check":  "git-clean-code"
+    },
+    {
+        "Detail":  "evidence/step-S5",
+        "Status":  "Pass",
+        "Check":  "evidence-dir"
+    },
+    {
+        "Detail":  ".\\src\\report\\manifest.ts",
+        "Status":  "Pass",
+        "Check":  "report-module:manifest.ts"
+    },
+    {
+        "Detail":  ".\\src\\report\\pdf.ts",
+        "Status":  "Pass",
+        "Check":  "report-module:pdf.ts"
+    },
+    {
+        "Detail":  ".\\src\\report\\png.ts",
+        "Status":  "Pass",
+        "Check":  "report-module:png.ts"
+    },
+    {
+        "Detail":  "8/8",
+        "Status":  "Pass",
+        "Check":  "manifest-8-source"
+    },
+    {
+        "Detail":  "pages=2",
+        "Status":  "Pass",
+        "Check":  "pdf-pages"
+    },
+    {
+        "Detail":  ".\\evidence\\step-5\\sample-report\\report.png",
+        "Status":  "Pass",
+        "Check":  "png-file"
+    },
+    {
+        "Detail":  "8/8",
+        "Status":  "Pass",
+        "Check":  "manifest-8-json"
+    },
+    {
+        "Detail":  "00070224e15fba6d34b3a0e0320decbc5b2fed2b6e6a7625cf66dcb2b1aace22",
+        "Status":  "Pass",
+        "Check":  "manifest-sha256"
+    },
+    {
+        "Detail":  "raw_available=false",
+        "Status":  "Pass",
+        "Check":  "raw-available-false"
+    },
+    {
+        "Detail":  ".\\evidence\\step-5\\gt\\GT20.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT20"
+    },
+    {
+        "Detail":  ".\\evidence\\step-5\\gt\\GT21.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT21"
+    },
+    {
+        "Detail":  ".\\evidence\\step-5\\gt\\GT27.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT27"
+    },
+    {
+        "Detail":  ".\\evidence\\step-5\\AC-22.png",
+        "Status":  "Pass",
+        "Check":  "AC-22-evidence"
+    }
+]

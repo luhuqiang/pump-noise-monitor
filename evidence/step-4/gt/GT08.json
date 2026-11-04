@@ -1,0 +1,10 @@
+{
+  "gt": "GT08",
+  "input": "anomalyOf(makeVector(20,-42), base, '过载')——跨 bucket 查询",
+  "expected": "返回对象（不崩）",
+  "actual": "r !== null",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L172-175 assert.ok(r !== null)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

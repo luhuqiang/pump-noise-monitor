@@ -1,0 +1,10 @@
+{
+  "gt": "GT04",
+  "input": "三个 bucket 各喂 10 次，center 分别 -42/-38/-46",
+  "expected": "3 个 bucket 独立累积，frames=30，各自 mean 偏离 center<1dB",
+  "actual": "Object.keys(buckets).length=3，frames=30，各 bucket mean 偏离 center<1",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L95-112 assert.equal(keys,3) assert.equal(frames,30) assert.ok(|mean-center|<1)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

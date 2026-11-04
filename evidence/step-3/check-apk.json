@@ -1,0 +1,47 @@
+﻿
+> stethoscope@2.0.0 check:apk
+> node scripts/check-apk.mjs .\听诊仪.apk
+
+node.exe : DOES NOT VERIFY
+At D:\Dev\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (DOES NOT VERIFY:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ERROR: Missing META-INF/MANIFEST.MF
+{
+  "ok": false,
+  "apk": "D:\\Users\\Documents\\Trae-CN\\pump-noise-monitor\\听诊仪.apk",
+  "checkedAt": "2026-11-04T07:41:52.670Z",
+  "size": 281535,
+  "sha256": "3e32253bf4add412e5c5288d86ea7f3398c65d8c9474f8d29177478d1aab74fe",
+  "build": {
+    "package": "com.luhuqiang.pumpnoise",
+    "versionCode": 6,
+    "versionName": "2.0.0",
+    "contentSha256": "7ab3cff39063c65e3253a68e7808957c15656fcaae452804c34e6eb91f7b5504"
+  },
+  "entries": {
+    "index": true,
+    "js": [
+      "assets/www/assets/index-C7VGkU09.js"
+    ],
+    "css": [
+      "assets/www/assets/index-D8Q6fIGo.css"
+    ],
+    "manifest": false,
+    "referenced": [
+      "assets/index-C7VGkU09.js",
+      "assets/index-D8Q6fIGo.css"
+    ],
+    "brokenRefs": []
+  },
+  "signature": {
+    "tool": "D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools\\35.0.0\\lib\\apksigner.jar",
+    "schemes": null,
+    "certSha256": null,
+    "error": "Command failed: java -jar D:\\Users\\Documents\\Trae-CN\\default\\android-sdk\\build-tools\\35.0.0\\lib\\apksigner.jar verify -v --print-certs D:\\Users\\Documents\\Trae-CN\\pump-noise-monitor\\听诊仪.apk\nDOES NOT VERIFY\r\nERROR: Missing META-INF/MANIFEST.MF\r\n"
+  }
+}
+

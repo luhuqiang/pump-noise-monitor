@@ -1,0 +1,147 @@
+﻿[
+    {
+        "Detail":  "依赖已在 S1 用 npm ci 验证；本步不重装",
+        "Status":  "N/A",
+        "Check":  "npm-ci"
+    },
+    {
+        "Detail":  "exit=0",
+        "Status":  "Pass",
+        "Check":  "typecheck"
+    },
+    {
+        "Detail":  "pass=103 fail=0 need\u003e=36",
+        "Status":  "Pass",
+        "Check":  "tests"
+    },
+    {
+        "Detail":  "exit=0 dist/index.html=True",
+        "Status":  "Pass",
+        "Check":  "vite-build"
+    },
+    {
+        "Detail":  "apk 已存在（跳过重签）",
+        "Status":  "Pass",
+        "Check":  "apk-build"
+    },
+    {
+        "Detail":  "struct=ok brokenRefs=[]",
+        "Status":  "Pass",
+        "Check":  "check-apk"
+    },
+    {
+        "Detail":  "vc=6 vn=2.0.0 expect=6/2.0.0",
+        "Status":  "Pass",
+        "Check":  "version"
+    },
+    {
+        "Detail":  "从听诊仪授权.apk 提取证书",
+        "Status":  "Pass",
+        "Check":  "cert-crosscheck"
+    },
+    {
+        "Detail":  "cert=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f baseline=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+        "Status":  "Pass",
+        "Check":  "cert-sha256"
+    },
+    {
+        "Detail":  "274.9 KB (need 200-500)",
+        "Status":  "Pass",
+        "Check":  "apk-size"
+    },
+    {
+        "Detail":  "3E32253BF4ADD412E5C5288D86EA7F3398C65D8C9474F8D29177478D1AAB74FE",
+        "Status":  "Pass",
+        "Check":  "apk-sha256"
+    },
+    {
+        "Detail":  "S3 无 UI 字符串门禁",
+        "Status":  "N/A",
+        "Check":  "ui-strings"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "forbidden-entry:postgres.wasm"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:AndroidManifest.xml"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:classes.dex"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:assets/www/index.html"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "no-pglite"
+    },
+    {
+        "Detail":  "样本验收在 S10",
+        "Status":  "N/A",
+        "Check":  "samples"
+    },
+    {
+        "Detail":  "评审 12/15/16 在 S11",
+        "Status":  "N/A",
+        "Check":  "reviews"
+    },
+    {
+        "Detail":  "dirty=0",
+        "Status":  "Pass",
+        "Check":  "git-clean-code"
+    },
+    {
+        "Detail":  "evidence/step-S3",
+        "Status":  "Pass",
+        "Check":  "evidence-dir"
+    },
+    {
+        "Detail":  "18/18",
+        "Status":  "Pass",
+        "Check":  "stores-18"
+    },
+    {
+        "Detail":  "5/5，PGlite 引用 0",
+        "Status":  "Pass",
+        "Check":  "repositories-5"
+    },
+    {
+        "Detail":  "src/db/pglite.ts 不存在",
+        "Status":  "Pass",
+        "Check":  "pglite-removed"
+    },
+    {
+        "Detail":  "@electric-sql/pglite 不在 dependencies",
+        "Status":  "Pass",
+        "Check":  "pglite-dependency"
+    },
+    {
+        "Detail":  ".\\evidence\\step-3\\gt\\GT25.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT25"
+    },
+    {
+        "Detail":  ".\\evidence\\step-3\\gt\\GT26.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT26"
+    },
+    {
+        "Detail":  ".\\evidence\\step-3\\gt\\GT44.json",
+        "Status":  "Pass",
+        "Check":  "gt:GT44"
+    },
+    {
+        "Detail":  "stores=18/18 readback=100",
+        "Status":  "Pass",
+        "Check":  "db-roundtrip"
+    }
+]

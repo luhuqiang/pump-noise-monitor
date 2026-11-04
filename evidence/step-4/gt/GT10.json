@@ -1,0 +1,10 @@
+{
+  "gt": "GT10",
+  "input": "baselineInfo(baseline 仅 10 帧)——帧不足 MIN_BASELINE_FRAMES=30",
+  "expected": "ready=false",
+  "actual": "info.ready=false",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L189-210 assert.equal(info.ready,false)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

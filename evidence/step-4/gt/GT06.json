@@ -1,0 +1,10 @@
+{
+  "gt": "GT06",
+  "input": "anomalyOf(makeVector(20,-42), base, '常用负载')——同类向量",
+  "expected": "score 接近 0（<1）",
+  "actual": "score 为有限数且 <1",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L161-165 Number.isFinite(r.score) && r.score < 1",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

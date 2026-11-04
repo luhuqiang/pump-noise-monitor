@@ -1,0 +1,10 @@
+{
+  "gt": "GT29",
+  "input": "saveCrestGate 对不存在的 key 'nonexistent:key'",
+  "expected": "返回 false（不新建空基线）",
+  "actual": "ok=false",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L299-302 assert.equal(ok,false)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

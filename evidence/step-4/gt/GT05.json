@@ -1,0 +1,10 @@
+{
+  "gt": "GT05",
+  "input": "conditionBucket(1.0/1.5/0.4)",
+  "expected": "1.0→常用负载，1.5→高负载，0.4→低负载",
+  "actual": "conditionBucket(1.0)='常用负载' conditionBucket(1.5)='高负载' conditionBucket(0.4)='低负载'",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L114-118 assert.equal ×3",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

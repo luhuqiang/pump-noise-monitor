@@ -1,6 +1,6 @@
-/**
+﻿/**
  * 设置仓储：IndexDB settings store（key-value）。
- * 接口签名与原 PGlite 版本一致，实现已切 IndexedDB（D-01）。
+ * 接口签名与旧 SQL 版本一致，实现已切 IndexedDB（D-01）。
  */
 import { getAll, get, put } from "../idb";
 
@@ -19,3 +19,4 @@ export async function getAllSettings(): Promise<Record<string, unknown>> {
   for (const r of rows) out[r.key] = r.value;
   return out;
 }
+

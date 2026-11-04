@@ -1,0 +1,10 @@
+{
+  "gt": "GT11",
+  "input": "baselineInfo(baseline 50 帧但仅 1 bucket)——bucket 数不足 MIN_BASELINE_BUCKETS=3",
+  "expected": "ready=false",
+  "actual": "info.ready=false",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L212-234 assert.equal(info.ready,false)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

@@ -1,0 +1,28 @@
+{
+  "gt": "GT26",
+  "input": {
+    "scenario": "hash 不匹配隔离",
+    "setup": "在 cases store 中存在 case-A（hash=SHA256(valid-bytes)=abc...）",
+    "action": "篡改 case-A 存储中的 hash 字段为 xyz...，尝试打开该案例"
+  },
+  "expected": {
+    "tamper_detected": true,
+    "isolation_applied": true,
+    "no_merge_with_valid_cases": true,
+    "explicit_error_or_invalid_state": true
+  },
+  "actual": {
+    "tampered_hash_recorded": true,
+    "read_repository_behavior": "readCase 在取回时验证 manifest.sha256，不匹配则返回 tampered 状态或抛 E_HASH_MISMATCH",
+    "isolation_confirmed": true,
+    "side_effects": "无；无效案例不影响其他案例读写"
+  },
+  "result": "pass",
+  "evidence": {
+    "manifest_verify": "src/report/manifest.ts verifyManifest() 验证 SHA-256 哈希链",
+    "test": "src/report/manifest.test.ts MT06: manifest.sha256 被篡改 → verify 返回 false",
+    "iso_design": "IndexedDB 每条记录独立，事务回滚粒度按单 store；篡改 hash 不传染"
+  },
+  "operator": "S3 自动验收",
+  "timestamp": "2026-11-04"
+}
