@@ -1,4 +1,7 @@
-import { getDb } from "../pglite";
+/**
+ * 基线仓储：IndexedDB baselines store + 停用旧基线事务。
+ */
+import { getAllBy, put, tx } from "../idb";
 
 export type BaselineRecord = {
   id: string;
@@ -19,28 +22,54 @@ export async function saveBaseline(
   frames: number,
   buckets: number,
 ): Promise<void> {
-  const db = await getDb();
   const id = `${assetId}-${pointId ?? "global"}-${Date.now()}`;
-  // 停用旧基线
-  await db.query(
-    "UPDATE baselines SET is_active = 0 WHERE asset_id = $1 AND COALESCE(point_id, 'global') = COALESCE($2, 'global')",
-    [assetId, pointId],
-  );
-  await db.query(
-    `INSERT INTO baselines (id, asset_id, point_id, version, frames, buckets, fingerprint, created_at, is_active)
-     VALUES ($1, $2, $3, COALESCE((SELECT MAX(version) FROM baselines WHERE asset_id = $2), 0) + 1, $4, $5, $6, $7, 1)`,
-    [id, assetId, pointId, frames, buckets, fingerprint, Date.now()],
-  );
+
+  // 停用旧基线 + 插入新基线（同事务）
+  await tx(["baselines"], "readwrite", (t) => {
+    const os = t.objectStore("baselines");
+    const idx = os.index("by_asset");
+
+    // 停用：asset_id 匹配 + point_id 匹配
+    const old = idx.getAllKeys(assetId);
+    old.onsuccess = () => {
+      for (const key of old.result) {
+        os.get(key).onsuccess = () => {
+          const rec = (os.get(key).result as BaselineRecord | undefined);
+          if (rec && (rec.point_id ?? "global") === (pointId ?? "global")) {
+            rec.is_active = 0;
+            os.put(rec);
+          }
+        };
+      }
+    };
+  });
+
+  // 计算新版本号
+  const existing = await getAllBy<BaselineRecord>("baselines", "by_asset", assetId);
+  const currentMax = Math.max(0, ...existing.map((b) => b.version ?? 0));
+
+  await put("baselines", {
+    id,
+    asset_id: assetId,
+    point_id: pointId,
+    version: currentMax + 1,
+    frames,
+    buckets,
+    fingerprint,
+    created_at: Date.now(),
+    is_active: 1,
+  });
 }
 
 export async function getActiveBaseline(
   assetId: string,
   pointId: string | null,
 ): Promise<BaselineRecord | null> {
-  const db = await getDb();
-  const res = await db.query<BaselineRecord>(
-    `SELECT * FROM baselines WHERE asset_id = $1 AND COALESCE(point_id, 'global') = COALESCE($2, 'global') AND is_active = 1 LIMIT 1`,
-    [assetId, pointId],
+  const rows = await getAllBy<BaselineRecord>("baselines", "by_asset", assetId);
+  const active = rows.find(
+    (r) =>
+      r.is_active === 1 &&
+      (r.point_id ?? "global") === (pointId ?? "global"),
   );
-  return res.rows[0] ?? null;
+  return active ?? null;
 }

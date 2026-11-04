@@ -14,7 +14,6 @@
     "check:apk": "node scripts/check-apk.mjs"
   },
   "dependencies": {
-    "@electric-sql/pglite": "^0.2.0",
     "jsqr": "^1.4.0",
     "lucide-react": "^1.66.0",
     "qrcode": "^1.5.4",
