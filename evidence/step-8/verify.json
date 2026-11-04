@@ -1,0 +1,42 @@
+{
+  "step": "S8",
+  "name": "复测、交接与片段",
+  "verifiedAt": "2026-11-04T00:00:00+08:00",
+  "commit": "2378e43",
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0, "threshold": "≥70" }
+  },
+  "retest": {
+    "modules": ["compare.ts", "export.ts", "manage.ts"],
+    "delta": 1.23,
+    "deltaThreshold": 1.5,
+    "comparable": true,
+    "geometryMatch": true,
+    "conditionMatch": true
+  },
+  "handover": {
+    "format": ".tzcase",
+    "requiredEntries": ["manifest.json", "report.pdf", "evidence/index.csv"],
+    "entriesCount": 3,
+    "zipType": "STORE (no compress, CRC32)"
+  },
+  "clips": {
+    "defaultEnabled": false,
+    "constant": "CLIPS_ENABLED_DEFAULT = false"
+  },
+  "gtPass": {
+    "list": ["GT42", "GT43"],
+    "count": 2
+  },
+  "schemaStore": {
+    "total": 18,
+    "includes": ["handovers", "clips"]
+  },
+  "apk": {
+    "postgresWasm": 0,
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f"
+  },
+  "conclusion": "PASS",
+  "manual": "AC-20/F02/F05/F06 依赖真机待补"
+}

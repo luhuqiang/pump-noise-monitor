@@ -1,0 +1,35 @@
+{
+  "name": "stethoscope",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "听诊仪 — 泵体噪声现场诊断（纯本地，Android WebView 壳）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/postbuild-bom.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/audio/golden.test.ts src/audio/status-priority.test.ts src/audio/baseline.test.ts src/report/manifest.test.ts src/retest/compare.test.ts src/agent/agent.test.ts",
+    "apk": "node scripts/build-apk.mjs",
+    "check:apk": "node scripts/check-apk.mjs"
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "lucide-react": "^1.66.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^26.6.6",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.7.0",
+    "vite": "^8.2.0"
+  }
+}

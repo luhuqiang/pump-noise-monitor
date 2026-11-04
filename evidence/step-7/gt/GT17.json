@@ -1,0 +1,12 @@
+{
+  "gt": "GT17",
+  "title": "低置信输入 → low_confidence；无排名/百分比",
+  "steps": [
+    "引擎 low_confidence 输入 → decide 返回 ask + engine_low",
+    "renderDecision 生成 low_confidence 文本后，scanForbidden 确认不含禁止词（正常 / % / 排名 / 百分比 / 概率）"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/prompt.ts LOW_CONFIDENCE_FORBIDDEN_WORDS + scanForbidden + stripForbidden；agent.test.ts GT17 组 3 条全过",
+  "forbidden_check": "禁止 low_confidence 输出 正常 / % / 排名 / 百分比 / 概率 → 0 hit",
+  "timestamp": "2026-11-04"
+}

@@ -1,0 +1,41 @@
+{
+  "step": "S6",
+  "name": "N01-N10 旧债台账清理",
+  "verifiedAt": "2026-11-04T00:00:00+08:00",
+  "commit": "e437c10",
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0, "threshold": "≥58" }
+  },
+  "nLedger": {
+    "file": "evidence/step-6/n-ledger.csv",
+    "rows": 10,
+    "open": 0,
+    "closed": 6,
+    "deferred": 4,
+    "items": ["N01-kept", "N02-closed", "N03-closed", "N04-deferred", "N05-closed", "N06-deferred", "N07-kept", "N08-closed", "N09-closed", "N10-closed"]
+  },
+  "criticalFilesPreserved": [
+    "src/audio/engine.ts",
+    "src/report/index.ts",
+    "src/components/InstrumentPanel.tsx",
+    "tests/golden.test.ts",
+    "tests/status-priority.test.ts"
+  ],
+  "cleanupEvidence": {
+    "pgliteDependency": false,
+    "idbGrepHits": 0,
+    "pgliteTsRemoved": true,
+    "libReportTsRemoved": true,
+    "beforeAfterMdPresent": true
+  },
+  "apk": {
+    "sizeKB": 281.8,
+    "postgresWasm": 0,
+    "versionCode": 6,
+    "versionName": "2.0.0",
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f"
+  },
+  "conclusion": "PASS",
+  "notes": "APK 体积 281.8 KB 略低于卡面估算下限 300 KB，壳轻量无膨胀，signoff 已标注为非缺陷"
+}

@@ -1,0 +1,15 @@
+构建命令: npm run apk
+时间: 2026-11-04T07:13:38Z
+exit_code: 0
+APK: 听诊仪.apk (288584 B)
+versionCode: 6
+versionName: 2.0.0
+package: com.luhuqiang.pumpnoise
+certSha256: 4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f
+certSubject: CN=luhuqiang, OU=pumpnoise, O=pumpnoise, L=Shanghai, C=CN
+schemes: v2=true, v3=true
+build_tools: 35.0.0
+apktool: 2.9.3
+apksigner: 35.0.0
+node: v22.14.0
+commit: 3cdbec32ca212c9b79f848035b4b17fdf6647a9e

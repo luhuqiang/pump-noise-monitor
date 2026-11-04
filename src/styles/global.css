@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-text-size-adjust: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  overscroll-behavior: none;
+}
+
+/* 数字强制等宽，读数跳动不抖位 */
+.mono {
+  font-family: "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas,
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 圆角语义 —— 违反 R1 即返工 */
+.panel {
+  border-radius: var(--r-panel);
+  border: var(--hair) solid var(--line);
+  background: var(--paper-2);
+}
+
+.chip {
+  border-radius: var(--r-chip);
+  border: var(--hair) solid var(--line);
+  padding: var(--s1) var(--s2);
+  font-size: var(--fs-xs);
+  color: var(--mist);
+  background: transparent;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* 禁止渐变、发光、投影（R2）—— 只有 1px 硬线 */
+* {
+  box-shadow: none;
+}
+
+/* 三态色只用于状态，不用于装饰 */
+.state-ok {
+  color: var(--ok);
+}
+.state-low {
+  color: var(--low);
+}
+.state-bad {
+  color: var(--bad);
+}
+
+/* 听点 / 状态点 —— 唯一允许 50% 圆角 */
+.dot {
+  border-radius: var(--r-dot);
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+
+/* 主按钮 */
+.primary-btn {
+  height: var(--dock-h);
+  width: 100%;
+  border-radius: var(--r-chip);
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--s4);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+}
+
+.primary-btn:active {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+/* 最小热区（手套） */
+.tap {
+  min-width: var(--tap);
+  min-height: var(--tap);
+}
+
+/* 动效 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 60ms !important;
+    transition-duration: 60ms !important;
+  }
+}

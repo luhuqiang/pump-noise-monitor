@@ -1,0 +1,37 @@
+﻿!!brut.androlib.meta.MetaInfo
+apkFileName: 听诊仪.apk
+compressionType: false
+doNotCompress:
+- AndroidManifest.xml
+- classes.dex
+- resources.arsc
+- assets/www/index.html
+- jpg
+- assets/www/favicon.svg
+- assets/www/assets/routes-DXfZevl-.js
+- assets/www/assets/styles-D9CVXCCt.css
+- assets/www/assets/index-DTOXxC2K.js
+- png
+- assets/www/__grok/install/styles.css
+- assets/www/__grok/install/assets/homescreen/plus.svg
+- assets/www/__grok/install/assets/homescreen/glass-puzzle.svg
+- assets/www/__grok/install/assets/homescreen/glass-share.svg
+- assets/www/__grok/install/assets/homescreen/logo-grok.svg
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '24'
+  targetSdkVersion: '35'
+sharedLibrary: false
+sparseResources: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.7.0-dirty
+versionInfo:
+  versionCode: '6'
+  versionName: '2.0.0'

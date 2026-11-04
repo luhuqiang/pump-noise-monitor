@@ -1,0 +1,5 @@
+AC-12 无渐变/发光/投影扫描（src/**/*.{ts,tsx,css}）
+扫描文件数	75
+命中数	0
+唯一允许项：global.css 的 *{box-shadow:none} 兜底（命中行不计）
+结论	PASS

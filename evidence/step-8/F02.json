@@ -1,0 +1,47 @@
+{
+  "f": "F02",
+  "title": "复测 Δ 判定",
+  "scenario": "同点同工况复测，Δ≤1.5dB 标可比；>1.5dB 标不可比",
+  "cases": [
+    {
+      "baseline_db": 70,
+      "retest_db": 71.23,
+      "expected_delta": 1.23,
+      "expected_result": "comparable",
+      "pass": true
+    },
+    {
+      "baseline_db": 70,
+      "retest_db": 71.4,
+      "expected_delta": 1.4,
+      "expected_result": "comparable",
+      "pass": true
+    },
+    {
+      "baseline_db": 70,
+      "retest_db": 71.5,
+      "expected_delta": 1.5,
+      "expected_result": "comparable",
+      "pass": true
+    },
+    {
+      "baseline_db": 70,
+      "retest_db": 71.6,
+      "expected_delta": 1.6,
+      "expected_result": "not_comparable",
+      "pass": true
+    },
+    {
+      "baseline_db": 70,
+      "retest_db": 70,
+      "expected_delta": 0,
+      "expected_result": "comparable",
+      "pass": true
+    }
+  ],
+  "threshold_db": 1.5,
+  "all_pass": true,
+  "result": "pass",
+  "module": "src/retest/compare.ts#compareRetest",
+  "generated_at": "2026-11-04T06:43:52.573Z"
+}

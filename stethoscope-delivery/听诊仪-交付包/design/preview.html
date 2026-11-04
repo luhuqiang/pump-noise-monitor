@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>听诊仪 · 应用图标与视觉基调</title>
+<style>
+:root{
+  --ink:#1B211E; --paper:#EFECE3; --darkplate:#141816; --mist:#5C635C;
+  --brass:#9C7B3F; --page:#FBFAF5; --line:#DAD5C6; --soft:#8A8578;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{
+  background:var(--page); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  font-size:15px; line-height:1.75; letter-spacing:.01em;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:72px 40px 96px}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-variant-numeric:tabular-nums}
+svg{display:block;width:100%;height:100%}
+
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  border-bottom:2px solid var(--ink);padding-bottom:20px}
+h1{font-size:26px;font-weight:600;letter-spacing:.06em}
+h1 small{display:block;font-size:12px;font-weight:400;letter-spacing:.22em;color:var(--soft);
+  text-transform:uppercase;margin-top:8px}
+.mail{font-size:12px;color:var(--soft);text-align:right;line-height:1.9}
+.mail b{display:block;color:var(--ink);font-weight:500;letter-spacing:.04em}
+
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+.sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:28px}
+.sechead .no{font-size:11px;letter-spacing:.2em;color:var(--soft)}
+.sechead h2{font-size:16px;font-weight:600;letter-spacing:.08em}
+.sechead .hint{margin-left:auto;font-size:12px;color:var(--soft)}
+
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:start}
+.heroMain{display:flex;gap:22px}
+.heroMain .big{width:288px;height:288px;border-radius:6px;overflow:hidden}
+.heroMain .side{display:flex;flex-direction:column;gap:14px}
+.heroMain .side .ios{width:150px;height:150px;border-radius:34px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.heroMain .side .dark{width:150px;height:150px;border-radius:6px;overflow:hidden}
+.statement{margin-top:30px;font-size:19px;line-height:2;letter-spacing:.04em}
+.statement em{font-style:normal;background:linear-gradient(180deg,transparent 58%,#E6DCC0 58%);padding:0 2px}
+.notes{font-size:13px;color:var(--soft);margin-top:18px;max-width:520px}
+.kv{display:grid;grid-template-columns:96px 1fr;gap:8px 16px;font-size:13px;align-content:start}
+.kv dt{color:var(--soft)}
+.kv dd{color:var(--ink)}
+
+.tile{overflow:hidden;display:grid;place-items:center;border-radius:4px}
+.plate{background:var(--paper)}
+.plate.dark{background:var(--darkplate)}
+.sizeRow{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap;padding:26px 0 6px}
+.szcol{display:flex;flex-direction:column;align-items:center;gap:10px}
+.px{font-size:11px;color:var(--soft);letter-spacing:.06em}
+
+.adaRow{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+.adaItem{display:flex;flex-direction:column;gap:12px;font-size:12px;color:var(--soft)}
+.maskSquare,.maskCircle,.maskSquircle{width:176px;height:176px;border-radius:4px;overflow:hidden;
+  background:var(--paper);display:block}
+.maskCircle{border-radius:50%}
+.maskSquircle{border-radius:34px}
+.layerRow{display:flex;gap:26px;align-items:center;margin-top:34px;padding-top:26px;border-top:1px dashed var(--line)}
+.layer{width:120px;height:120px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.layer--fg{background:repeating-conic-gradient(#e7e3d6 0% 25%, #f4f1e9 0% 50%) 50%/16px 16px}
+
+.gridRow{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
+.diagram{width:300px;height:300px;border-radius:4px;overflow:hidden}
+.diagram.adapt{width:300px;height:300px}
+.legend{font-size:12.5px;color:#4A5049;display:grid;gap:9px}
+.legend div{display:flex;gap:10px;align-items:baseline}
+.legend i{flex:0 0 26px;height:0;border-top:2px dashed var(--soft);position:relative;top:-3px}
+.legend i.solid{border-top-style:solid;border-color:var(--brass)}
+
+.swGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.sw{border:1px solid var(--line);border-radius:5px;overflow:hidden;background:#fff}
+.chip{height:96px;display:flex;align-items:flex-end;padding:9px;font-size:11px;letter-spacing:.08em}
+.sinfo{padding:10px 11px 12px;display:grid;gap:2px}
+.sinfo strong{font-size:12.5px;font-weight:600}
+.sinfo span{font-size:11px;color:var(--soft);line-height:1.5}
+.sinfo em{font-style:normal;font-size:10.5px;color:var(--brass);letter-spacing:.06em;margin-top:4px}
+
+.uimock{display:grid;grid-template-columns:380px 1fr;gap:44px;align-items:start}
+.phone{background:var(--paper);border-radius:12px;padding:22px 22px 30px;border:1px solid #DDD8C9}
+.uitop{display:flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.14em;color:var(--soft);
+  padding-bottom:14px;border-bottom:1px solid #DCD7C8}
+.uidot{width:9px;height:9px;border-radius:50%;background:var(--brass)}
+.uibody{display:flex;align-items:center;gap:20px;padding:38px 0 30px}
+.uidotBig{width:64px;height:64px;border-radius:50%;background:var(--ink);flex:0 0 auto}
+.uistick{width:2px;height:86px;background:#CFC8B6;flex:0 0 auto}
+.uival{font-family:"SFMono-Regular",Consolas,monospace;font-size:30px;letter-spacing:.02em}
+.uival span{font-size:11px;color:var(--soft);letter-spacing:.1em}
+.uirule{width:100%;height:1px;background:#D5D0C1;margin:22px 0 16px}
+.uitag{font-size:11.5px;letter-spacing:.16em;color:var(--soft)}
+.uitag b{color:var(--ink);font-weight:500}
+
+.cGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.concept{border:1px solid var(--line);border-radius:5px;padding:18px;background:#fff}
+.cthumb{width:132px;height:132px;border-radius:3px;overflow:hidden;margin-bottom:16px}
+.cmeta{display:flex;align-items:baseline;gap:9px}
+.cl{font-size:12px;letter-spacing:.16em;color:var(--soft)}
+.cmeta h3{font-size:15px;font-weight:600;letter-spacing:.06em}
+.tag{margin-left:auto;font-size:10px;letter-spacing:.14em;color:var(--brass);border:1px solid var(--brass);
+  padding:2px 7px;border-radius:2px}
+.cline{margin-top:10px;font-size:14px;letter-spacing:.03em}
+.cdesc{margin-top:8px;font-size:12.5px;color:var(--soft);line-height:1.8}
+
+footer{display:flex;justify-content:space-between;align-items:baseline;padding-top:34px;font-size:12px;color:var(--soft)}
+footer b{color:var(--ink);font-weight:500}
+@media (max-width:860px){
+  .wrap{padding:44px 22px 64px}
+  .hero,.gridRow,.uimock{grid-template-columns:1fr}
+  .swGrid{grid-template-columns:repeat(2,1fr)}
+  .cGrid{grid-template-columns:1fr}
+  header{flex-direction:column;align-items:flex-start}
+  .mail{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>听诊仪<small>App Icon &amp; Brand Tone</small></h1>
+  <div class="mail"><b>luhuqiang@foxmail.com</b>现场诊断 · 图标与视觉基调<br>2026 · 含蓄简约</div>
+</header>
+
+<section>
+  <div class="sechead"><span class="no">01</span><h2>推荐方向 · 贴合</h2>
+    <span class="hint">单色 / 两个形状 / 一次接触</span></div>
+  <div class="hero">
+    <div>
+      <div class="heroMain">
+        <div class="big"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m9" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m9)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>
+        <div class="side">
+          <div class="ios"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m10" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" rx="229" fill="#EFECE3"/><g mask="url(#m10)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>
+          <div class="dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m11" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#141816"/><g mask="url(#m11)"><rect x="0" y="0" width="1024" height="1024" fill="#E7E4DB"/></g></svg></div>
+        </div>
+      </div>
+      <p class="statement">圆是<em>听点</em>，竖壁是<em>设备立面</em>；两者相切，刚好贴住，不再有第三个形状。</p>
+      <p class="notes">图标里没有声音，也没有仪器零件：把关系画出来就够了。整个标记只有 2 个形状、1 种颜色、0 个渐变。</p>
+    </div>
+    <dl class="kv">
+      <dt>画布</dt><dd class="mono">1024 × 1024</dd>
+      <dt>听点</dt><dd class="mono">r 200 @ (432, 512)</dd>
+      <dt>立面</dt><dd class="mono">146 × 560 · r 28</dd>
+      <dt>相切点</dt><dd class="mono">x = 632</dd>
+      <dt>标识外框</dt><dd class="mono">540 × 560</dd>
+      <dt>覆盖率</dt><dd class="mono">约 19.7% 画布面积</dd>
+      <dt>颜色</dt><dd class="mono">1 色（含负空间共 2 值）</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="no">02</span><h2>尺寸阶梯</h2><span class="hint">浅色底 / 深色底</span></div>
+  <div class="sizeRow"><div class="szcol"><div class="tile plate" style="width:192px;height:192px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m12" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m12)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">192px</span></div><div class="szcol"><div class="tile plate" style="width:128px;height:128px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m13" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m13)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">128px</span></div><div class="szcol"><div class="tile plate" style="width:96px;height:96px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m14" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m14)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">96px</span></div><div class="szcol"><div class="tile plate" style="width:64px;height:64px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m15" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m15)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">64px</span></div><div class="szcol"><div class="tile plate" style="width:48px;height:48px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m16" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m16)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">48px</span></div><div class="szcol"><div class="tile plate" style="width:32px;height:32px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m17" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m17)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">32px</span></div><div class="szcol"><div class="tile plate" style="width:24px;height:24px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m18" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m18)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">24px</span></div><div class="szcol"><div class="tile plate" style="width:16px;height:16px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m19" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m19)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div><span class="px">16px</span></div></div>
+  <div class="sizeRow"><div class="szcol"><div class="tile plate dark" style="width:192px;height:192px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m20" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#141816"/><g mask="url(#m20)"><rect x="0" y="0" width="1024" height="1024" fill="#E7E4DB"/></g></svg></div><span class="px">192px</span></div><div class="szcol"><div class="tile plate dark" style="width:96px;height:96px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m21" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#141816"/><g mask="url(#m21)"><rect x="0" y="0" width="1024" height="1024" fill="#E7E4DB"/></g></svg></div><span class="px">96px</span></div><div class="szcol"><div class="tile plate dark" style="width:48px;height:48px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m22" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#141816"/><g mask="url(#m22)"><rect x="0" y="0" width="1024" height="1024" fill="#E7E4DB"/></g></svg></div><span class="px">48px</span></div><div class="szcol"><div class="tile plate dark" style="width:24px;height:24px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m23" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#141816"/><g mask="url(#m23)"><rect x="0" y="0" width="1024" height="1024" fill="#E7E4DB"/></g></svg></div><span class="px">24px</span></div></div>
+  <p class="notes">24px 以下只保留“点 / 面”两个体块与它们的关系：相切的一瞬在栅格化后变成一条干净的接缝，形状本身不碎。</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="no">03</span><h2>Android 自适应图标</h2>
+    <span class="hint">前景层 + 背景层 · 108dp</span></div>
+  <div class="adaRow">
+    <div class="adaItem"><div class="maskCircle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108"><rect x="0" y="0" width="108" height="108" fill="#EFECE3"/><defs><mask id="a23" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><g transform="translate(54,54) scale(0.094) translate(-502,-512)" mask="url(#a23)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>圆形遮罩</div>
+    <div class="adaItem"><div class="maskSquircle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108"><rect x="0" y="0" width="108" height="108" fill="#EFECE3"/><defs><mask id="a24" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><g transform="translate(54,54) scale(0.094) translate(-502,-512)" mask="url(#a24)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>方形圆角遮罩</div>
+    <div class="adaItem"><div class="maskSquare"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108"><rect x="0" y="0" width="108" height="108" fill="#EFECE3"/><defs><mask id="a25" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><g transform="translate(54,54) scale(0.094) translate(-502,-512)" mask="url(#a25)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>完整 108dp 画布</div>
+  </div>
+  <div class="layerRow">
+    <div class="adaItem"><div class="layer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108"><rect x="0" y="0" width="108" height="108" fill="#EFECE3"/></svg></div>背景层：米白纯色</div>
+    <div class="adaItem"><div class="layer layer--fg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108"><defs><mask id="a27" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><g transform="translate(54,54) scale(0.094) translate(-502,-512)" mask="url(#a27)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>前景层：透明底标记</div>
+    <p class="notes" style="margin:0;max-width:420px">前景内容按 72dp 可见区缩放（s = 0.094），缩放后对角半径 35.9dp，四角仍在可见区内；背景层不带任何图形，只负责底色。</p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="no">04</span><h2>网格与安全区</h2><span class="hint">Keyline / Safe zone</span></div>
+  <div class="gridRow">
+    <div><svg viewBox="0 0 1024 1024" class="diagram">
+  <rect x="0" y="0" width="1024" height="1024" fill="#F7F5EF"/>
+  <rect x="0.5" y="0.5" width="1023" height="1023" fill="none" stroke="#C9C3B2"/>
+  <circle cx="512" cy="512" r="360" fill="none" stroke="#B4AD9A" stroke-width="2" stroke-dasharray="10 10"/>
+  <rect x="232" y="232" width="540" height="560" fill="none" stroke="#8E8776" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="512" y1="120" x2="512" y2="904" stroke="#D2CCBB" stroke-width="2"/>
+  <line x1="120" y1="512" x2="904" y2="512" stroke="#D2CCBB" stroke-width="2"/>
+  <circle cx="632" cy="512" r="9" fill="#9C7B3F"/>
+  <mask id="gm" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask>
+  <g mask="url(#gm)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E" opacity="0.92"/></g>
+</svg></div>
+    <div>
+      <div class="legend">
+        <div><i></i><span>720 直径 keyline 圆（r 360）：作为尺度参照；标记高 560，约为圆的 78%</span></div>
+        <div><i></i><span>标识外框 540 × 560（虚线）：上下留白 232，左右留白 232 / 252（整体光学左移 10）</span></div>
+        <div><i class="solid"></i><span>相切点 (632, 512)：唯一的“接触”位置，也是图标的光学重心</span></div>
+      </div>
+      <div style="display:flex;gap:34px;margin-top:32px;align-items:flex-start">
+        <div>
+          <div class="diagram adapt"><svg viewBox="0 0 108 108" class="diagram">
+  <rect x="0" y="0" width="108" height="108" fill="#EFECE3"/>
+  
+  <rect x="0.5" y="0.5" width="107" height="107" fill="none" stroke="#C9C3B2"/>
+  <circle cx="54" cy="54" r="36" fill="none" stroke="#B4AD9A" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <circle cx="54" cy="54" r="33" fill="none" stroke="#8E8776" stroke-width="1.2" stroke-dasharray="1.5 2.5"/>
+  <mask id="am" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask>
+  <g transform="translate(54,54) scale(0.094) translate(-502,-512)" mask="url(#am)">
+    <rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g>
+</svg></div>
+          <p class="notes" style="margin-top:12px;max-width:300px">
+          <span class="mono">108dp</span> 画布 · 虚线圆 72dp 为可见区 · 点线圆 66dp 为安全区。
+          标记按可见区缩放，未触碰安全区外的裁切边界。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="no">05</span><h2>色彩规范</span><span class="hint">一色为主体，黄铜只做状态</span></div>
+  <div class="swGrid"><div class="sw">
+          <div class="chip" style="background:#1B211E;color:#EFECE3">#1B211E</div>
+          <div class="sinfo"><strong>墨 Ink</strong><span>标记、正文、图标主体</span><em>图标 20%</em></div></div><div class="sw">
+          <div class="chip" style="background:#EFECE3;color:#1B211E">#EFECE3</div>
+          <div class="sinfo"><strong>仪器米白 Paper</strong><span>图标底、界面底</span><em>图标 80%</em></div></div><div class="sw">
+          <div class="chip" style="background:#141816;color:#EFECE3">#141816</div>
+          <div class="sinfo"><strong>深底 Dark Plate</strong><span>深色桌面 / 深色模式底</span><em>—</em></div></div><div class="sw">
+          <div class="chip" style="background:#5C635C;color:#EFECE3">#5C635C</div>
+          <div class="sinfo"><strong>雾灰 Mist</strong><span>分隔线、次要文字</span><em>界面 2.5%</em></div></div><div class="sw">
+          <div class="chip" style="background:#9C7B3F;color:#EFECE3">#9C7B3F</div>
+          <div class="sinfo"><strong>黄铜 Brass</strong><span>仅状态点：采集中</span><em>≤0.5%</em></div></div></div>
+  <p class="notes">图标只用前两色：墨 20% / 米白 80%（面积比）。界面里米白约占 88%，墨 9%，雾灰 2.5%，黄铜不超过 0.5%——只在“正在采集”的状态点上出现一次。</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="no">06</span><h2>从图标到界面</h2><span class="hint">同一个“点”</span></div>
+  <div class="uimock">
+    <div class="phone">
+      <div class="uitop"><span class="uidot"></span>2 号泵房 · 采集 00:12</div>
+      <div class="uibody">
+        <div class="uidotBig"></div>
+        <div class="uistick"></div>
+        <div class="uival">74.2 <span>dB(A)</span></div>
+      </div>
+      <div class="uirule"></div>
+      <div class="uitag">判读：<b>有把握</b>　·　留存证据 3 条</div>
+    </div>
+    <div>
+      <p class="statement" style="font-size:16px">图标里的圆，就是界面里正在采集的那个点。</p>
+      <p class="notes">界面里没有波形、没有仪表盘、没有渐变按钮：一张米白纸，几条细线，一组等宽数字，一个会呼吸的点。判断结论只用两种写法——<span class="mono">有把握</span> / <span class="mono">不确定</span>，与图标一样，用“有”或“没有”来说话。</p>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:none">
+  <div class="sechead"><span class="no">07</span><h2>三个方向</h2><span class="hint">都已绘制，比较后取 A</span></div>
+  <div class="cGrid"><article class="concept">
+      <div class="cthumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m29" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><circle cx="432" cy="512" r="200" fill="#fff"/><rect x="626" y="232" width="146" height="560" rx="28" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m29)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>
+      <div class="cmeta"><span class="cl">A</span><h3>贴合</h3><span class="tag">推荐</span></div>
+      <p class="cline">「把一点贴到面上」</p>
+      <p class="cdesc">圆是听点，竖壁是设备立面，两者相切。全图只有两个形状、一次接触，没有声音符号。</p>
+    </article><article class="concept">
+      <div class="cthumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m30" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><rect x="280" y="232" width="464" height="560" rx="96" fill="#fff"/><circle cx="512" cy="512" r="128" fill="#000"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m30)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>
+      <div class="cmeta"><span class="cl">B</span><h3>采样孔</h3></div>
+      <p class="cline">「面板上的一个开口」</p>
+      <p class="cdesc">体块做设备面板，圆形负空间是采集口。更像仪表硬件，但方形+圆孔接近相机/录制的通用语法。</p>
+    </article><article class="concept">
+      <div class="cthumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><mask id="m31" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect x="0" y="0" width="1024" height="1024" fill="#000"/><rect x="272" y="532" width="480" height="80" rx="40" fill="#fff"/><rect x="592" y="412" width="80" height="200" rx="40" fill="#fff"/></mask></defs><rect x="0" y="0" width="1024" height="1024" fill="#EFECE3"/><g mask="url(#m31)"><rect x="0" y="0" width="1024" height="1024" fill="#1B211E"/></g></svg></div>
+      <div class="cmeta"><span class="cl">C</span><h3>单读数</h3></div>
+      <p class="cline">「一条基线，一道刻度」</p>
+      <p class="cdesc">声音不出现，只留下一次读数。最理性，但在 24px 下会退化成通用的仪表符号。</p>
+    </article></div>
+</section>
+
+<footer>
+  <div>听诊仪 · 应用图标与视觉基调</div>
+  <div>作者邮箱 <b>luhuqiang@foxmail.com</b></div>
+</footer>
+
+</div>
+</body>
+</html>

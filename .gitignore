@@ -1,0 +1,38 @@
+# S0 基线 .gitignore（依据 推进计划.md S0 产出要求）
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# 密钥与敏感文件（绝不入库）
+secrets/
+stethoscope-keys/
+stethoscope-keys.zip
+*.jks
+*.pem
+*.p12
+
+# APK 构建中间产物与产物
+apkwork/build/
+apkwork/_inspect/
+apkwork/unzip-check/
+apkwork/tools/
+apkwork/*.png
+*.apk
+*.idsig
+!apkwork/monitor/**
+apkwork/monitor/assets/www/
+apkwork/monitor/build/
+
+# 样本与本地数据（样本走 samples/，见 推进计划 §4）
+samples/
+*.sqlite
+*.db
+
+# 归档介质（迁冷存储，见 evidence/step-0/asset-inventory.csv）
+*.zip
+
+# 本地截图与临时分享包
+.screenshots/
+.trae-html-share-packages/
+delivery/

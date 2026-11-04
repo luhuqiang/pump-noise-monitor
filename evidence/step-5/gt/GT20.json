@@ -1,0 +1,17 @@
+{
+  "gt": "GT20",
+  "desc": "缺 geometry 字段 → validateManifestInput 拒绝，不生成正式报告",
+  "result": "pass",
+  "manifestInput": {
+    "geometry": null,
+    "algorithmVersion": "2.0.0",
+    "sampleRateTrue": 48000,
+    "micPosition": "inlet",
+    "reportBytes": "占位"
+  },
+  "missingKeys": [
+    "geometry"
+  ],
+  "expect": "门禁拒绝，不写 unknown geometry",
+  "got": "validateManifestInput 返回 missing=['geometry'] → buildManifest throw → UI 留草稿"
+}

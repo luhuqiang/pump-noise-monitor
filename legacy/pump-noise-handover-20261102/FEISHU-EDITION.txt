@@ -1,0 +1,8 @@
+飞书精简版说明
+
+为满足飞书单文件 20 MB 限制，本包仅移除了 apkwork/tools/apktool.jar（约 23 MB）。
+源码、文档、APK、签名密钥、apktool 工作目录、aapt2/zipalign/apksigner 均完整保留。
+apktool.jar 获取方式见 apkwork/tools/GET-APKTOOL.txt。
+
+完整包（34 MB）仍在本地工作区：/workspace/pump-noise-handover-20261102.zip
+SHA-256：296e45c6fa5451bf5c9b4dcebe420282a2446d3e48ce3ba677a39b3bf6194933

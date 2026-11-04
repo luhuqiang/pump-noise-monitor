@@ -1,0 +1,152 @@
+﻿[
+    {
+        "Detail":  "exit=0",
+        "Status":  "Pass",
+        "Check":  "npm-ci"
+    },
+    {
+        "Detail":  "exit=0",
+        "Status":  "Pass",
+        "Check":  "typecheck"
+    },
+    {
+        "Detail":  "pass=30 fail=0 need\u003e=30",
+        "Status":  "Pass",
+        "Check":  "tests"
+    },
+    {
+        "Detail":  "exit=0 dist/index.html=True",
+        "Status":  "Pass",
+        "Check":  "vite-build"
+    },
+    {
+        "Detail":  "exit=0 apk=True",
+        "Status":  "Pass",
+        "Check":  "apk-build"
+    },
+    {
+        "Detail":  "exit=0 ok=true brokenRefs=[]",
+        "Status":  "Pass",
+        "Check":  "check-apk"
+    },
+    {
+        "Detail":  "vc=6 vn=2.0.0 expect=6/2.0.0",
+        "Status":  "Pass",
+        "Check":  "version"
+    },
+    {
+        "Detail":  "com.luhuqiang.pumpnoise",
+        "Status":  "Pass",
+        "Check":  "package-name"
+    },
+    {
+        "Detail":  "v2=true v3=true",
+        "Status":  "Pass",
+        "Check":  "signature-v2-v3"
+    },
+    {
+        "Detail":  "cert=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f baseline=4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f",
+        "Status":  "Pass",
+        "Check":  "cert-sha256"
+    },
+    {
+        "Detail":  "136.5 KB (need 120-200)",
+        "Status":  "Pass",
+        "Check":  "apk-size"
+    },
+    {
+        "Detail":  "B0CBEC4658385A935C006FAA40065107A95378F6388B3452D056146353804F96",
+        "Status":  "Pass",
+        "Check":  "apk-sha256"
+    },
+    {
+        "Detail":  "S1 无 UI 字符串门禁；字符串门禁自 S2 起",
+        "Status":  "N/A",
+        "Check":  "ui-strings"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "forbidden-entry:.jks"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "forbidden-entry:.pem"
+    },
+    {
+        "Detail":  "hits=0",
+        "Status":  "Pass",
+        "Check":  "forbidden-entry:stethoscope-keys/"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:AndroidManifest.xml"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:classes.dex"
+    },
+    {
+        "Detail":  "hits=1",
+        "Status":  "Pass",
+        "Check":  "required-entry:assets/www/index.html"
+    },
+    {
+        "Detail":  "S1 只改构建/版本；PGlite 移除属 S3",
+        "Status":  "N/A",
+        "Check":  "no-pglite"
+    },
+    {
+        "Detail":  "样本验收在 S10（≥300 段）",
+        "Status":  "N/A",
+        "Check":  "samples"
+    },
+    {
+        "Detail":  "评审 12/15/16 在 S11",
+        "Status":  "N/A",
+        "Check":  "reviews"
+    },
+    {
+        "Detail":  "dirty=0",
+        "Status":  "Pass",
+        "Check":  "git-clean-code"
+    },
+    {
+        "Detail":  "evidence/step-1",
+        "Status":  "Pass",
+        "Check":  "evidence-dir"
+    },
+    {
+        "Detail":  "2.0.0",
+        "Status":  "Pass",
+        "Check":  "package-version"
+    },
+    {
+        "Detail":  "D:\\Users hits=0",
+        "Status":  "Pass",
+        "Check":  "no-abs-path"
+    },
+    {
+        "Detail":  "19/19 非空",
+        "Status":  "Pass",
+        "Check":  "release-card-19"
+    },
+    {
+        "Detail":  "21/21 键存在",
+        "Status":  "Pass",
+        "Check":  "release-card-structure"
+    },
+    {
+        "Detail":  "apk_sha256/cert_sha256 与实算一致",
+        "Status":  "Pass",
+        "Check":  "release-card-hash"
+    },
+    {
+        "Detail":  "签名由 npm run apk 流水线完成；人工补签由 §8 禁止",
+        "Status":  "Pass",
+        "Check":  "no-manual-sign"
+    }
+]

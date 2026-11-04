@@ -1,0 +1,10 @@
+{
+  "gt": "GT07",
+  "input": "anomalyOf(makeVector(20,-36), base, '常用负载')——整体偏移 +6dB",
+  "expected": "score > 3（显著偏离）",
+  "actual": "score > 3",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L167-170 assert.ok(r.score > 3)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

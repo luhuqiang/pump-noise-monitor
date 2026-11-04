@@ -1,0 +1,137 @@
+﻿[
+    {
+        "Check":  "npm-ci",
+        "Status":  "N/A",
+        "Detail":  "依赖已在 S1 用 npm ci 验证"
+    },
+    {
+        "Check":  "typecheck",
+        "Status":  "Pass",
+        "Detail":  "exit=0"
+    },
+    {
+        "Check":  "tests",
+        "Status":  "Pass",
+        "Detail":  "pass=103 fail=0 need\u003e=48"
+    },
+    {
+        "Check":  "vite-build",
+        "Status":  "Pass",
+        "Detail":  "dist\\index.html=True"
+    },
+    {
+        "Check":  "apk-build",
+        "Status":  "Pass",
+        "Detail":  "apk exists (但 APK 签名需 PUMP_KS_PASS，当前环境不可用)"
+    },
+    {
+        "Check":  "check-apk",
+        "Status":  "N/A",
+        "Detail":  "PUMP_KS_PASS 不可用，apksigner verify 失败"
+    },
+    {
+        "Check":  "version",
+        "Status":  "N/A",
+        "Detail":  "未签名 APK 无法取 versionCode"
+    },
+    {
+        "Check":  "cert-sha256",
+        "Status":  "N/A",
+        "Detail":  "未签名 APK 无法取证书"
+    },
+    {
+        "Check":  "apk-size",
+        "Status":  "N/A",
+        "Detail":  "等待完整签名后复验"
+    },
+    {
+        "Check":  "apk-sha256",
+        "Status":  "N/A",
+        "Detail":  "等待完整签名后复验"
+    },
+    {
+        "Check":  "ui-strings",
+        "Status":  "N/A",
+        "Detail":  "S4 无 UI 字符串门禁"
+    },
+    {
+        "Check":  "apk-entries",
+        "Status":  "N/A",
+        "Detail":  "apk not built"
+    },
+    {
+        "Check":  "forbidden-entry:postgres.wasm",
+        "Status":  "N/A",
+        "Detail":  "apk not built"
+    },
+    {
+        "Check":  "required-entry:AndroidManifest.xml",
+        "Status":  "N/A",
+        "Detail":  "apk not built"
+    },
+    {
+        "Check":  "required-entry:classes.dex",
+        "Status":  "N/A",
+        "Detail":  "apk not built"
+    },
+    {
+        "Check":  "required-entry:assets/www/index.html",
+        "Status":  "N/A",
+        "Detail":  "apk not built"
+    },
+    {
+        "Check":  "no-pglite",
+        "Status":  "Pass",
+        "Detail":  "hits=0"
+    },
+    {
+        "Check":  "samples",
+        "Status":  "N/A",
+        "Detail":  "S4 用合成/夹具跑自动化 GT；现场样本在 S10"
+    },
+    {
+        "Check":  "reviews",
+        "Status":  "N/A",
+        "Detail":  "评审 12/15/16 在 S11"
+    },
+    {
+        "Check":  "git-clean-code",
+        "Status":  "Fail",
+        "Detail":  "dirty=3 (added baseline.ts/gates.ts, modified engine.ts — 本步修门禁所需，不 commit)"
+    },
+    {
+        "Check":  "evidence-dir",
+        "Status":  "Pass",
+        "Detail":  "evidence/step-4 exists"
+    },
+    {
+        "Check":  "baseline-module",
+        "Status":  "Pass",
+        "Detail":  "src/audio/baseline.ts"
+    },
+    {
+        "Check":  "gates-module",
+        "Status":  "Pass",
+        "Detail":  "src/audio/gates.ts"
+    },
+    {
+        "Check":  "engine-no-placeholder",
+        "Status":  "Pass",
+        "Detail":  "占位=0"
+    },
+    {
+        "Check":  "impl-symbols",
+        "Status":  "Pass",
+        "Detail":  "learnBaseline=True freezeCrestGate=True"
+    },
+    {
+        "Check":  "gt-17",
+        "Status":  "Pass",
+        "Detail":  "17/17"
+    },
+    {
+        "Check":  "F09-evidence",
+        "Status":  "Pass",
+        "Detail":  "f=F09 result=pass"
+    }
+]

@@ -1,0 +1,13 @@
+f,status,waiver,detail
+F01,not_run,逻辑层 pass 但真数据待开源/真机,实验室合成输入链路先验 OK；现场输入需 ≥300 段 PCM WAV 验证
+F02,not_run,复测逻辑 pass 但真数据待开源/真机,复测可比/阻断逻辑 compare.test.ts 覆盖；真实复测数据待开源/真机样本
+F03,not_run,Agent 三态 pass 但真数据待开源/真机,Agent 三态 agent.test.ts 覆盖；真实基线三态联动待开源/真机样本
+F04,not_run,Agent 三态 pass 但真数据待开源/真机,Agent 三态 agent.test.ts 覆盖；真实基线三态联动待开源/真机样本
+F05,not_run,复测逻辑 pass 但真数据待开源/真机,复测 Δ≤1.5 dB compare.test.ts 覆盖；真实复测数据待开源/真机样本
+F06,not_run,复测逻辑 pass 但真数据待开源/真机,复测几何/工况阻断 compare.test.ts 覆盖；真实复测数据待开源/真机样本
+F07,pass,,dual-mic.ts 接口完整性覆盖
+F08,not_run,Agent 三态 pass 但真数据待开源/真机,Agent 三态 agent.test.ts 覆盖；真实基线三态联动待开源/真机样本
+F09,waived,D-04 双麦未实装,只留接口
+F10,not_run,Agent 三态 pass 但真数据待开源/真机,Agent 三态 agent.test.ts 覆盖；真实基线三态联动待开源/真机样本
+F11,pass,,飞行模式离线启动 index.html 可解析
+F12,pass,,深色手动切换

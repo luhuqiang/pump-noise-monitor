@@ -1,0 +1,16 @@
+# AC-20：设置分组核对
+# 验收卡 §6
+
+设置分组 = 5
+  1. 设备
+  2. 采集
+  3. 模型
+  4. 数据
+  5. 关于
+
+联系邮箱 = luhuqiang@foxmail.com
+设置页关于节展示 luhuqiang@foxmail.com（Settings.tsx L153）
+
+对应源码：src/components/Settings.tsx
+验收规则：设置分组 = 5 + 关于含 luhuqiang@foxmail.com
+结果：pass

@@ -1,0 +1,45 @@
+{
+  "step": "S9",
+  "name": "双麦接口（只留接口，D-04 裁决）",
+  "verifiedAt": "2026-11-04T00:00:00+08:00",
+  "commit": "2378e43",
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0, "threshold": "≥70" }
+  },
+  "dualMic": {
+    "file": "src/audio/dual-mic.ts",
+    "exists": true,
+    "throwNotImplemented": 4,
+    "todoComments": 1,
+    "forbiddenRuntimeApis": {
+      "getUserMedia": 0,
+      "AudioWorkletNode": 0
+    }
+  },
+  "gtWaivers": {
+    "gt31to39": {
+      "status": "na",
+      "count": 9,
+      "reason": "D-04 双麦未实装，只留接口",
+      "rule": "禁止写 pass"
+    },
+    "gt40to41": {
+      "status": "not_run",
+      "count": 2,
+      "reason": "无端侧模型，v2.1 执行",
+      "rule": "必须有 waiver"
+    }
+  },
+  "ui": {
+    "label": "单麦",
+    "distHit": 1
+  },
+  "apk": {
+    "gguf": 0,
+    "postgresWasm": 0,
+    "certSha256": "4fdb4a8a58ff3e29a97595859e6752baa71bb2c6e5b72131220152f100fd0a1f"
+  },
+  "conclusion": "PASS (by D-04 waiver, GT31-39 must remain na, GT40-41 not_run)",
+  "d04": "双麦只留接口，不做实现；一个 na 都不能改 pass"
+}

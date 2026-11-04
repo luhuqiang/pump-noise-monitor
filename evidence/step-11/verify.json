@@ -1,0 +1,36 @@
+{
+  "step": "S11",
+  "name": "评审证据回填（12/15/16）",
+  "verifiedAt": "2026-11-04T15:55:00+08:00",
+  "verifyScope": "证据台账完整性，非评审内容质量",
+  "commit": "3cdbec32ca212c9b79f848035b4b17fdf6647a9e",
+  "globalGates": {
+    "typecheck": { "ok": true, "errors": 0 },
+    "npmTest": { "ok": true, "pass": 103, "fail": 0 }
+  },
+  "reviewsIndex": {
+    "file": "evidence/reviews/index.csv",
+    "rows": 3,
+    "requiredTopics": [12, 15, 16],
+    "statuses": {
+      "recovered": 0,
+      "recreated": 0,
+      "missing": 3
+    },
+    "rows": [
+      { "review_id": 12, "topic": "双麦接口评审", "reviewer": null, "date": null, "conclusion": null, "status": "missing", "file": null, "sha256": null },
+      { "review_id": 15, "topic": "复测冻结策略评审", "reviewer": null, "date": null, "conclusion": null, "status": "missing", "file": null, "sha256": null },
+      { "review_id": 16, "topic": "发布门禁合流评审", "reviewer": null, "date": null, "conclusion": null, "status": "missing", "file": null, "sha256": null }
+    ]
+  },
+  "blockers": [
+    { "id": "B-S11-1", "kind": "hard", "desc": "评审人未到场，12/15/16 三条均为 missing 状态", "resolution": "评审人到场后重新评审，补评审必须有新日期 + 2 名签字，status=recreated" },
+    { "id": "B-S11-2", "kind": "dependency", "desc": "S10 G4 放行前评审对象（GT/F 证据）未冻结", "resolution": "S10 G4 放行后，证据冻结，方可启动评审" }
+  ],
+  "rulesAdhered": [
+    "✓ 无伪造历史评审日期/签字",
+    "✓ missing 记录未写成 recovered",
+    "✓ 评审对象版本 SHA 必须与 S10 证据一致",
+    "✓ 补充评审必须有新日期"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "gt": "GT19",
+  "title": "冲突证据 → 标冲突；不合并成结论",
+  "steps": [
+    "decide 遇 toolResult.read_baseline=conflict → ask + agent_conflict",
+    "renderDecision 仅输出「证据冲突」，不尝试合并"
+  ],
+  "result": "pass",
+  "evidence": "src/agent/machine.ts decide 段 5) conflict 优先于 missing；agent.test.ts GT19 组 1 条过",
+  "forbidden_check": "禁止冲突证据合并为单一结论 → 未发现",
+  "timestamp": "2026-11-04"
+}

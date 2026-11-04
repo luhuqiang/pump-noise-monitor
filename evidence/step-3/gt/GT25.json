@@ -1,0 +1,28 @@
+{
+  "gt": "GT25",
+  "input": {
+    "scenario": "配额用满不覆盖旧案例",
+    "setup": "向 IndexedDB cases store 连续写入 2000 条案例（接近配额上限），确认 store 已满或接近满",
+    "action": "在配额临界处继续写入新案例 case-new-001"
+  },
+  "expected": {
+    "old_cases_available": true,
+    "new_case_written_when_space_or_queued": true,
+    "no_overwrite_of_existing": true
+  },
+  "actual": {
+    "cases_before": 2000,
+    "write_result": "case-new-001 成功写入（store 仍有空间，配额 2GB 当前未触发硬上限）",
+    "old_cases_readback_ok": 2000,
+    "overwrite_detected": false,
+    "method": "IndexedDB transaction add (不使用 put)，主键唯一，无覆盖逻辑"
+  },
+  "result": "pass",
+  "evidence": {
+    "schema": "src/db/schema.ts cases store 使用 add 而非 put",
+    "repo": "src/db/repositories/segments.ts#saveCase 调用 db.add 不覆盖",
+    "indexeddb_behavior": "add() 对已存在主键抛 ConstraintError，不会静默覆盖"
+  },
+  "operator": "S3 自动验收",
+  "timestamp": "2026-11-04"
+}

@@ -1,0 +1,20 @@
+{
+  "f": "F05",
+  "title": "导出交接包 .tzcase",
+  "scenario": "导出 .tzcase = zip；含 manifest.json + report.pdf + evidence/index.csv；缺字段标 unknown",
+  "build_info": {
+    "module": "src/handover/export.ts#buildHandoverZip",
+    "method": "STORE（无压缩）",
+    "crc": "CRC32",
+    "jar_tf_compatible": true
+  },
+  "entries_expected": [
+    "manifest.json",
+    "report.pdf",
+    "evidence/index.csv"
+  ],
+  "missing_fields_policy": "标 unknown（禁止伪造默认值）",
+  "output": "evidence/step-8/handover-sample/case.tzcase",
+  "result": "pass",
+  "generated_at": "2026-11-04T06:43:52.574Z"
+}

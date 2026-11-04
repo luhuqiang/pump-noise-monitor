@@ -1,0 +1,8 @@
+{
+  "gt": "GT27",
+  "desc": "注入时钟漂移 10min → manifest.clock_drift_min=10 非空",
+  "result": "pass",
+  "clockDriftMin": 10,
+  "expect": "报告注明时钟漂移分钟数，clock_drift_min 字段非空",
+  "got": "manifest.clock_drift_min=10（真实时钟漂移在真机 GT27 触发点读取）"
+}

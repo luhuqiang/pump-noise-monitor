@@ -1,0 +1,7 @@
+apktool.jar 未放入飞书版（单文件超 20 MB 限制）。
+
+获取方式（任选其一）：
+1. 从完整交接包 pump-noise-handover-20261102.zip 的 apkwork/tools/ 取出；
+2. 官方下载：https://github.com/iBotPeaches/Apktool/releases （apktool 2.9.3，文件名 apktool_2.9.3.jar，重命名为 apktool.jar 放到本目录）。
+
+其余打包步骤见 handover-docs/02-build-and-apk.md。

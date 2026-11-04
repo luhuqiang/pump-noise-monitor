@@ -1,0 +1,86 @@
+/**
+ * dual-mic.ts —— 双麦接口（只声明，不实现）
+ *
+ * 本文件仅保留 type / interface 契约，为后续双麦实装（v2.1）预留签名。
+ * 禁止任何实际采集 / DSP / 真实 API 调用（接口仅占位，所有方法抛错）。
+ * S9 验收卡要求：GT31–GT39 全部 na；GT40–GT41 not_run + waiver。
+ *
+ * TODO: dual mic —— 本文件只为接口占位，所有方法调用都会 throw。
+ */
+
+/** 双麦输入模式枚举 */
+export type DualMicMode = "aec-reference" | "beamforming" | "stereo";
+
+/** 双麦配置 */
+export interface DualMicConfig {
+  /** 主麦 deviceId（底部主麦） */
+  primaryDeviceId?: string;
+  /** 辅麦 deviceId（顶部/听筒麦） */
+  secondaryDeviceId?: string;
+  /** 采样率，默认 48k */
+  sampleRate?: number;
+  /** 声道数，固定 2 */
+  channelCount?: 2;
+  /** 处理模式 */
+  mode?: DualMicMode;
+}
+
+/** 单帧双麦原始音频 */
+export interface DualMicFrame {
+  /** 主麦 PCM（单声道交错） */
+  primary: Float32Array;
+  /** 辅麦 PCM */
+  secondary: Float32Array;
+  /** 时间戳（ms，AudioContext.currentTime * 1000） */
+  timestampMs: number;
+}
+
+/** 双麦读数（供仪表台消费） */
+export interface DualMicReadout {
+  /** 运行状态 */
+  running: boolean;
+  /** 主麦 A 计权声级 dBFS */
+  primaryDb: number;
+  /** 辅麦 A 计权声级 dBFS */
+  secondaryDb: number;
+  /** 两麦相位差估计（度） */
+  phaseDiffDeg: number;
+  /** 相干度 0–1 */
+  coherence: number;
+  /** 当前模式 */
+  mode: DualMicMode;
+  /** 错误（null 表示无错） */
+  error: string | null;
+}
+
+/**
+ * DualMic —— 双麦采集接口
+ *
+ * 全部方法抛出 "not implemented"。v2.1 才填实。
+ */
+export interface DualMic {
+  /** 打开双麦采集（未实现） */
+  start(cfg: DualMicConfig): Promise<void>;
+  /** 停止采集（未实现） */
+  stop(): Promise<void>;
+  /** 读当前双麦读数（未实现） */
+  getReadout(): DualMicReadout;
+  /** 读最新一帧原始 PCM（未实现） */
+  getLatestFrame(): DualMicFrame | null;
+}
+
+/** 默认未实现实例 —— 任何调用都抛错，防止误用 */
+export const dualMic: DualMic = {
+  async start(_cfg: DualMicConfig): Promise<void> {
+    throw new Error("not implemented: dual mic reserved for v2.1");
+  },
+  async stop(): Promise<void> {
+    throw new Error("not implemented: dual mic reserved for v2.1");
+  },
+  getReadout(): DualMicReadout {
+    throw new Error("not implemented: dual mic reserved for v2.1");
+  },
+  getLatestFrame(): DualMicFrame | null {
+    throw new Error("not implemented: dual mic reserved for v2.1");
+  },
+};

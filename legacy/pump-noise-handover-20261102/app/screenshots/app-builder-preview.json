@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "泵声观测",
+      "hasCanvas": true,
+      "bodyTextLen": 685,
+      "bodyTextHash": "85a63d563ba72ed4100da630e52ce51238a5986e55100a2334d474d174191545",
+      "bodyTextPrefix": "尚未开始采样 现场声学 泵声观测 待命 · 演示 开始观测 冻结 健康离心泵 汽蚀 叶轮不平衡 机械松动 轴承冲击 麦克风 1 ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "泵声观测",
+      "hasCanvas": true,
+      "bodyTextLen": 685,
+      "bodyTextHash": "85a63d563ba72ed4100da630e52ce51238a5986e55100a2334d474d174191545",
+      "bodyTextPrefix": "尚未开始采样 现场声学 泵声观测 待命 · 演示 开始观测 冻结 健康离心泵 汽蚀 叶轮不平衡 机械松动 轴承冲击 麦克风 1 ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [
+    "BRAND WARNING: this looks like a game/canvas app but src/lib/og/site.json is missing \"type\": \"x:game\". X uses og:type=x:game to present the unfurl as a game card — set it in /workspace/src/lib/og/site.json per /workspace/.grok/skills/og/SKILL.md. Do not invent x:type or overload twitter:card as the game signal.",
+    "BRAND WARNING: this looks like a game/canvas app but /workspace/public/x-banner.jpg is missing. Games need a 50:11 X feed card (1200×264 JPEG) at public/x-banner.jpg — open /workspace/.grok/skills/og/SKILL.md and finish the brand-asset pass."
+  ],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

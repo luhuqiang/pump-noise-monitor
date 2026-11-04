@@ -1,0 +1,10 @@
+{
+  "gt": "GT09",
+  "input": "baselineInfo(null)——空基线",
+  "expected": "ready=false, frames=0, buckets=0",
+  "actual": "info.ready=false, info.frames=0, info.buckets=0",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L182-187 assert.equal(ready,false) assert.equal(frames,0) assert.equal(buckets,0)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

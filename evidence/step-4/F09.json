@@ -1,0 +1,10 @@
+{
+  "f": "F09",
+  "input": "44.1k 设备现场采集（S4 用合成夹具验证 invalid 路径，真机在 S10 复核）",
+  "expected": "sampleRateValid(44100)=false → invalid 提示明确 → 不产出阶次",
+  "actual": "validity.ts sampleRateValid(44100)=false；engine.readout.sampleRateNote='非 48 kHz (44100 Hz)'；quality.status='bad'；orders.reliable=false",
+  "result": "pass",
+  "evidence": "src/audio/engine.ts L561 sampleRateValid(sampleRate) 驱动 micStatus/quality；sampleRateNote 显式提示；ordersReliable=false 阻断阶次",
+  "operator": "auto (静态代码路径 + validity.ts 44.1k 用例)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

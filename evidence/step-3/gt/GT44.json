@@ -1,0 +1,29 @@
+{
+  "gt": "GT44",
+  "input": {
+    "scenario": "localStorage 只读迁移",
+    "setup": "localStorage 存在六类键：sessions_legacy、segments_legacy、evidence_legacy、baselines_legacy、settings_legacy、reports_legacy",
+    "action": "首次启动 IndexedDB → 调用 src/db/migrate.ts#migrateFromLocalStorage"
+  },
+  "expected": {
+    "six_keys_migrated_to_indexeddb": true,
+    "old_localStorage_keys_unchanged": true,
+    "migrate_is_readonly_on_source": true,
+    "no_dual_write_bug": true
+  },
+  "actual": {
+    "migrated_stores": ["sessions", "segments", "evidence", "baselines", "reports", "settings"],
+    "source_keys_read_only": true,
+    "source_keys_deleted": false,
+    "migration_error_handling": "try/finally 包裹，迁移失败回滚不影响源数据",
+    "test_coverage": "src/db/migrate.ts 读取 localStorage.getItem 仅一次，成功后已可从 IndexedDB 查询"
+  },
+  "result": "pass",
+  "evidence": {
+    "migration_script": "src/db/migrate.ts#migrateFromLocalStorage 顺序 add() 不写回 localStorage",
+    "source_immutable": "localStorage 只读，无 setItem/removeItem 调用",
+    "verify": "迁移后读 IndexedDB 可查到旧条目；localStorage 原键仍在"
+  },
+  "operator": "S3 自动验收",
+  "timestamp": "2026-11-04"
+}

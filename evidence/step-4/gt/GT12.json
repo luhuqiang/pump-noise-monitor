@@ -1,0 +1,10 @@
+{
+  "gt": "GT12",
+  "input": "同一 deviceId='dev-A' 连续 learnBaseline 10 次（placementRatio 递增）",
+  "expected": "placementDeviceId='dev-A'，placementRatio 保留不中断",
+  "actual": "b.placementDeviceId='dev-A'，placementRatio !== null",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L240-251 assert.equal(deviceId,'dev-A') assert.ok(placementRatio!==null)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

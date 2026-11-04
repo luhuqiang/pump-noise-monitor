@@ -1,0 +1,67 @@
+{
+  "readyState": "complete",
+  "rootChildren": 1,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "bodyTextLen": 228,
+  "primaryBtn": {
+    "w": 350,
+    "h": 64,
+    "y": 705,
+    "bottomGap": 75
+  },
+  "guideSheetRatio": null,
+  "guideBtnVisible": null,
+  "modulesVisible": [
+    "spectrum",
+    "quality",
+    "order"
+  ],
+  "tapTargets": [
+    {
+      "label": "设置",
+      "w": 56,
+      "h": 56
+    },
+    {
+      "label": "切换测点",
+      "w": 107,
+      "h": 44
+    },
+    {
+      "label": "频谱",
+      "w": 25,
+      "h": 46
+    },
+    {
+      "label": "质量灯",
+      "w": 37,
+      "h": 46
+    },
+    {
+      "label": "阶次",
+      "w": 25,
+      "h": 46
+    },
+    {
+      "label": "质量状态",
+      "w": 45,
+      "h": 44
+    },
+    {
+      "label": "切换模块",
+      "w": 44,
+      "h": 44
+    },
+    {
+      "label": "开始听诊",
+      "w": 350,
+      "h": 64
+    }
+  ],
+  "theme": "light",
+  "storage": {
+    "guide": "1",
+    "modules": "[\"spectrum\",\"quality\",\"order\"]"
+  }
+}

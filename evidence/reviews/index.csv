@@ -1,0 +1,4 @@
+﻿review_id,topic,reviewer,date,conclusion,status,file,sha256
+12,S11 双麦接口评审,团队技术评审,2026-11-04,通过（D-04 裁决遵守）,recovered,REV-12-20261104-团队.md,03159551aa06d22ac568f52684060fbf2811c4ebdebeef3411b4511fb6a0cb03
+15,S11 复测冻结策略评审,团队技术评审,2026-11-04,通过（Δ≤1.5dB 阈值保守，实地校准）,recovered,REV-15-20261104-团队.md,49e4552dd6278427f873f8c0c58646079f56f715b85bb97db550f0cafa7d812c
+16,S11 发布门禁合流评审,团队技术评审,2026-11-04,通过（四元组一致+证书不变+D-03 遵守）,recovered,REV-16-20261104-团队.md,d0cd798c1d44a91ac7e5d4b453895cdcf7bd6ebc2ed40a3863253eedff7b6c7d

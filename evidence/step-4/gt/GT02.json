@@ -1,0 +1,10 @@
+{
+  "gt": "GT02",
+  "input": "同向量 makeVector(20,-42) 喂 10 次",
+  "expected": "n=10，mean 不变，variance 收敛到 0",
+  "actual": "buckets['常用负载'].n=10，variance 所有分量 |x|<0.05",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L64-73 assert.equal(n,10) variance.every(|x|<0.05)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

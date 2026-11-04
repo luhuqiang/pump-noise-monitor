@@ -1,0 +1,22 @@
+[
+  {"id": "F01", "desc": "引擎 ok + 基线 ok + 工具 ok", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "accept"},
+  {"id": "F02", "desc": "引擎 low_confidence", "input": {"audioTone": "low_confidence", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F03", "desc": "引擎 invalid", "input": {"audioTone": "invalid", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "refuse"},
+  {"id": "F04", "desc": "ok + 基线未冻结", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": false, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F05", "desc": "ok + 基线不足", "input": {"audioTone": "ok", "baselineReady": false, "baselineFrozen": false, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F06", "desc": "ok + read_baseline error", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_baseline": "error"}, "inputValid": true, "inputLength": 100}, "expect_state": "refuse"},
+  {"id": "F07", "desc": "ok + read_baseline missing", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_baseline": "missing"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F08", "desc": "ok + read_baseline conflict", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_baseline": "conflict"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F09", "desc": "ok + read_case missing", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_case": "missing"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F10", "desc": "ok + read_case conflict", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_case": "conflict"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F11", "desc": "空输入 → refuse", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 0}, "expect_state": "refuse"},
+  {"id": "F12", "desc": "超长输入 → refuse", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 2001}, "expect_state": "refuse"},
+  {"id": "F13", "desc": "invalid inputValid=false → refuse", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": false, "inputLength": 50}, "expect_state": "refuse"},
+  {"id": "F14", "desc": "invalid 优先级最高（覆盖基线/工具 ok）", "input": {"audioTone": "invalid", "baselineReady": true, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "refuse"},
+  {"id": "F15", "desc": "ok + 双工具 missing", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_case": "missing", "read_event_rail": "missing"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F16", "desc": "low_confidence + 基线未冻结", "input": {"audioTone": "low_confidence", "baselineReady": true, "baselineFrozen": false, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F17", "desc": "low_confidence + 工具 conflict", "input": {"audioTone": "low_confidence", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_case": "conflict"}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F18", "desc": "ok + 工具 error 覆盖基线 ok", "input": {"audioTone": "ok", "baselineReady": true, "baselineFrozen": true, "toolResults": {"suggest_next_step": "error"}, "inputValid": true, "inputLength": 100}, "expect_state": "refuse"},
+  {"id": "F19", "desc": "ok + 基线未就绪 + 工具 ok", "input": {"audioTone": "ok", "baselineReady": false, "baselineFrozen": true, "toolResults": {}, "inputValid": true, "inputLength": 100}, "expect_state": "ask"},
+  {"id": "F20", "desc": "invalid + 工具 error → 按 invalid 拒答", "input": {"audioTone": "invalid", "baselineReady": true, "baselineFrozen": true, "toolResults": {"read_baseline": "error"}, "inputValid": true, "inputLength": 100}, "expect_state": "refuse"}
+]

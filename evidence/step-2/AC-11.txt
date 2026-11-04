@@ -1,0 +1,19 @@
+AC-11 对比度实测（WCAG 2.1 相对亮度，色值取自 src/styles/tokens.css）
+浅色 ink/paper	#1b211e on #efece3	13.86:1	需≥4.5:1	PASS
+浅色 ink/paper-2	#1b211e on #e6e2d6	12.64:1	需≥4.5:1	PASS
+浅色 mist/paper	#5c635c on #efece3	5.24:1	需≥4.5:1	PASS
+浅色 mist/paper-2	#5c635c on #e6e2d6	4.78:1	需≥4.5:1	PASS
+浅色 ok/paper	#33584a on #efece3	6.75:1	需≥4.5:1	PASS
+浅色 low/paper	#7a5c24 on #efece3	5.25:1	需≥4.5:1	PASS
+浅色 bad/paper	#8a3f32 on #efece3	6.26:1	需≥4.5:1	PASS
+浅色 paper/ink(主按钮文字)	#efece3 on #1b211e	13.86:1	需≥4.5:1	PASS
+深色 ink/paper	#e7e4db on #141816	14.09:1	需≥4.5:1	PASS
+深色 ink/paper-2	#e7e4db on #1b211e	12.88:1	需≥4.5:1	PASS
+深色 mist/paper	#8c948c on #141816	5.74:1	需≥4.5:1	PASS
+深色 mist/paper-2	#8c948c on #1b211e	5.25:1	需≥4.5:1	PASS
+深色 ok/paper	#82ae97 on #141816	7.21:1	需≥4.5:1	PASS
+深色 low/paper	#cba46a on #141816	7.73:1	需≥4.5:1	PASS
+深色 bad/paper	#c98b7e on #141816	6.38:1	需≥4.5:1	PASS
+深色 paper/ink(主按钮文字)	#141816 on #e7e4db	14.09:1	需≥4.5:1	PASS
+brass 用途	仅 7px 状态点/3px 顶帽，不用于文字（tokens.css 注释与组件走查一致）	PASS
+结论	PASS

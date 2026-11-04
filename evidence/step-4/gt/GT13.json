@@ -1,0 +1,10 @@
+{
+  "gt": "GT13",
+  "input": "先 dev-A，再换 dev-B 调用 learnBaseline",
+  "expected": "placementDeviceId='dev-B'，placementRatio=null，placementDriftStreak=0",
+  "actual": "placementDeviceId='dev-B'，placementRatio=null，placementDriftStreak=0",
+  "result": "pass",
+  "evidence": "src/audio/baseline.test.ts L253-268 assert.equal(deviceId,'dev-B') assert.equal(placementRatio,null) assert.equal(driftStreak,0)",
+  "operator": "auto (node --experimental-strip-types --test)",
+  "timestamp": "2026-11-04T00:00:00.000Z"
+}

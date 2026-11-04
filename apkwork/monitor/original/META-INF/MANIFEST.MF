@@ -1,0 +1,56 @@
+Manifest-Version: 1.0
+
+Name: AndroidManifest.xml
+SHA-256-Digest: xYGAe2HVbCHG8C1i4R5bzPwQe77icHr0lO1ksdhP5z0=
+
+Name: assets/www/__grok/icon-180.png
+SHA-256-Digest: PPXRfSlLUcbMpshgcDCbiFVLetcCsEEujicJoBmQvIo=
+
+Name: assets/www/__grok/install/assets/homescreen/glass-puzzle.svg
+SHA-256-Digest: pnfJNWwj0eaZVZ3b/6yXzRNcJ4LNiT+zTzc49tEb7hc=
+
+Name: assets/www/__grok/install/assets/homescreen/glass-share.svg
+SHA-256-Digest: 760bS1B6aMHxr0qtLJPowkB2Ikqlk9qGZ3aX9UPQJtY=
+
+Name: assets/www/__grok/install/assets/homescreen/logo-grok.svg
+SHA-256-Digest: BlTj5ZzOaYVvOFJcv+SrOp71LUtkyFMt0LwaPzT8tbE=
+
+Name: assets/www/__grok/install/assets/homescreen/ob-ipad.png
+SHA-256-Digest: TJsJpGYMZis5RZfVUaBBJCk7Djenp8cicd0pSMRJmhQ=
+
+Name: assets/www/__grok/install/assets/homescreen/ob-phone.png
+SHA-256-Digest: gOCl7eYU2bkgxn18t5yAp5E0aHsfyfVgOE6JaojjAts=
+
+Name: assets/www/__grok/install/assets/homescreen/plus.svg
+SHA-256-Digest: wslL5Gqiw8L9qV18by/G0LZW0fWEeCjV2Vtagab08g0=
+
+Name: assets/www/__grok/install/styles.css
+SHA-256-Digest: fo6IEwL1jlSpwH5745VpLT3iD9qifONYUxzI3MpHLLY=
+
+Name: assets/www/assets/index-DTOXxC2K.js
+SHA-256-Digest: UQN9wI37RY2g0GvQm/uOiOTn+d5Qc5d1DCIuTrHANJM=
+
+Name: assets/www/assets/routes-DXfZevl-.js
+SHA-256-Digest: EDSxIUJic+u1DkP0B0kyaUKGYku4VINB1e4PPMLXYR0=
+
+Name: assets/www/assets/styles-D9CVXCCt.css
+SHA-256-Digest: VWdEzHDV4WNAsYU5uxXKTy3St1ap0xtZVTZ/6Zxqo8c=
+
+Name: assets/www/favicon.svg
+SHA-256-Digest: pee/FAQxgd4grjA9ZnqQwZZLaAUSXKOvBMDzxHxPHww=
+
+Name: assets/www/index.html
+SHA-256-Digest: v7x8kvZSgA5DWqPjDQNak/qOa3XgF+CQm39vkvXwVuI=
+
+Name: assets/www/og.jpg
+SHA-256-Digest: C/g/i6SS7PAjeB1wwpS1Tb1ClUwjjek3OIkgpm4u7qw=
+
+Name: classes.dex
+SHA-256-Digest: WIphH3Y5ODkXiugvu6qQRmRJ1tUiLjk2ReEibkOR6Ng=
+
+Name: res/mipmap-xxxhdpi-v4/ic_launcher.png
+SHA-256-Digest: CrznzBEKmbBVrXfMiWqAnkW511vn8nSMUTlBf3C04LI=
+
+Name: resources.arsc
+SHA-256-Digest: yQcvvzWHCoZmJYtGUQINhm4nybgmmaTYNYPHNu30C6w=
+
