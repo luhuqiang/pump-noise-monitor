@@ -86,14 +86,17 @@ function loadGtResults(stepNum) {
   const rows = parseCsv(readFileSync(csvPath, "utf8"));
   const map = {};
   const counts = { pass: 0, na: 0, not_run: 0, fail: 0 };
+  const waiversRaw = [];
   for (const row of rows) {
     const id = (row.gt ?? "").trim();
     const st = (row.status ?? "").trim();
+    const wv = (row.waiver ?? "").trim();
     if (!id) continue;
     map[id] = st;
     if (st in counts) counts[st]++;
+    if (wv) waiversRaw.push({ id, status: st, reason: wv });
   }
-  return { map, total: rows.length, ...counts };
+  return { map, total: rows.length, ...counts, waiversRaw };
 }
 function loadFResults(stepNum) {
   const csvPath = resolve(ROOT, `evidence/step-${stepNum}/f-results.csv`);
@@ -101,14 +104,38 @@ function loadFResults(stepNum) {
   const rows = parseCsv(readFileSync(csvPath, "utf8"));
   const map = {};
   const counts = { pass: 0, not_run: 0, waived: 0, fail: 0, other: 0 };
+  const waiversRaw = [];
   for (const row of rows) {
     const id = (row.f ?? "").trim();
     const st = (row.status ?? "").trim();
+    const wv = (row.waiver ?? "").trim();
     if (!id) continue;
     map[id] = st;
     if (st in counts) counts[st]++; else counts.other++;
+    if (wv) waiversRaw.push({ id, status: st, reason: wv });
   }
-  return { map, total: rows.length, ...counts };
+  return { map, total: rows.length, ...counts, waiversRaw };
+}
+
+// 聚合 waiver 条目：按 reason 去重合并 ids
+function aggregateWaivers(gtCsv, fCsv) {
+  const raw = [];
+  if (gtCsv?.waiversRaw) raw.push(...gtCsv.waiversRaw);
+  if (fCsv?.waiversRaw) raw.push(...fCsv.waiversRaw);
+  const groups = {};
+  for (const w of raw) {
+    if (!groups[w.reason]) groups[w.reason] = { ids: [], statuses: new Set() };
+    groups[w.reason].ids.push(w.id);
+    groups[w.reason].statuses.add(w.status);
+  }
+  return Object.entries(groups).map(([reason, g]) => ({
+    id: g.ids.join(", "),
+    reason,
+    ids: g.ids,
+    statuses: Array.from(g.statuses),
+    approved_by: null,
+    approved_at: null,
+  }));
 }
 
 const notRun = (ids, naIds = []) =>
@@ -160,7 +187,7 @@ const card = {
   f: fMap,
   samples: { total: 0, status: "not_run", note: "样本验收在 S10（≥300 段）" },
   reviews: { "评审12": "not_run", "评审15": "not_run", "评审16": "not_run", note: "评审在 S11" },
-  waivers: [],
+  waivers: aggregateWaivers(gtCsv, fCsv),
   evidence_dir: evidenceDir,
   stats: {
     gt: gtCsv
