@@ -43,5 +43,5 @@ GT41,not_run,无端侧模型,v2.1 执行
 GT42,pass,真实录音 MIMII 泵 20261104,真实录音复测 Δ≤1.5dB 分支命中（Δ=0.03dB）→ comparable | source=real-mimii
 GT43,pass,真实录音 MIMII 泵 20261104,几何不可比阻断：Δ=0.03dB 很小但 geometryComparable=false → not_comparable（门禁优先级正确）| source=real-mimii
 GT44,pass,,localStorage 只读迁移 migrate.test.ts 覆盖
-GT45,pass,,Build4/vc4 → v2.0.0/vc6 自动化条件全满足：vc 递增 ✅ cert 一致 ✅ pkg 相同 ✅ ；真机覆盖安装实地执行（用户授权）
+GT45,pass,,真机实测（OnePlus PJX110 / Android 16 SDK36）：Build4 vc4 与 v2.0.0 vc6 均为 cert 4fdb4a8a…0a1f / pkg com.luhuqiang.pumpnoise；vc4 首装 2026-11-04 18:42:11，覆盖安装后 vc6 且 firstInstallTime 不变（lastUpdateTime 18:58:45）；覆盖前在 vc4 建立基线 31 帧/1 档（screenshot evidence/step-12/gt45-before-baseline.png），基线 key pump-acoustic-baseline-v2 两版一致，install -r 不清 app 数据（onboarding 状态跨重装保持）｜真机首轮发现 vc6 VerifyError 崩溃已修复复测通过（见 S12 signoff §9）
 

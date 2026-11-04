@@ -41,7 +41,7 @@
 
 # virtual methods
 .method public onPermissionRequest(Landroid/webkit/PermissionRequest;)V
-    .locals 5
+    .locals 7
 
     .line 90
     nop

@@ -108,7 +108,7 @@ localStorage 用内存桩（Node 无浏览器环境，只替换存储层）。
 | 飞行模式 | GT24 | App 离线启动 |
 | IndexedDB | GT25-26 | idb.test.ts |
 | localStorage 迁移 | GT44 | migrate.test.ts |
-| 覆盖安装 | GT45 | Build4 vc4→vc6 + cert 一致 + pkg 相同 ✅（自动化条件） |
+| 覆盖安装 | GT45 | Build4 vc4→v2.0.0 vc6 **真机实测**（Android 16）：vc 递增 + cert 一致 + pkg 相同 + firstInstallTime 不变 + 基线 key 未变（详情见 S12 signoff §4/§9） |
 
 ## 6. F 12 条分布
 
