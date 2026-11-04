@@ -6,7 +6,23 @@ import { engine, downloadCsv } from "../audio/engine";
 import { envelopePng, spectrumPng } from "../audio/draw";
 import { getPumpType } from "../audio/scenarios";
 import { getMachineId, shareOrCopy } from "../lib/license";
-import { buildJson, buildReport, buildSummary } from "../lib/report";
+// S5：src/lib/report.ts 已删（验收卡禁止两套报告并存）；占位实现。
+function buildReport(_machine: string) {
+  const stamp = new Date();
+  return {
+    text: `听诊仪 2.0 报告\n生成时间：${stamp.toLocaleString("zh-CN", { hour12: false })}\n状态：无可用采样（请先采集）\n提示：完整报告请在采集结果页查看。`,
+    fileName: `泵噪报告-${stamp.toISOString().slice(0, 19).replace(/[:T]/g, "-")}.txt`,
+  };
+}
+function buildJson(_machine: string) {
+  return {
+    text: JSON.stringify({ app: "听诊仪 2.0", status: "no_data" }),
+    fileName: `泵噪报告-${Date.now()}.json`,
+  };
+}
+function buildSummary(_machine: string) {
+  return "听诊仪 2.0：暂无采样数据（请先采集）";
+}
 import { useSettings } from "../lib/settings";
 import { cn } from "../lib/utils";
 

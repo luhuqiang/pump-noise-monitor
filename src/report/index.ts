@@ -286,28 +286,29 @@ export type ReportBundle = {
   manifest: ReportManifest;
 };
 
-/** 带 Manifest 的报告构造：同时持久化到 IndexedDB reports store。 */
+/** 带 Manifest 的报告构造（JSON 输出）：同时持久化到 IndexedDB reports store。 */
 export async function buildWithManifest(
   readout: Readout,
   ctx: ReportContext,
-  manifestInput: Omit<ManifestInput, "reportJson">,
+  manifestInput: Omit<ManifestInput, "reportBytes">,
 ): Promise<ReportBundle> {
   const report = buildReport(readout, ctx);
   const reportJson = toJson(report);
-  const manifest = await buildManifest({ ...manifestInput, reportJson });
+  const bytes = new TextEncoder().encode(reportJson) as unknown as Uint8Array<ArrayBufferLike>;
+  const manifest = await buildManifest({ ...manifestInput, reportBytes: bytes });
 
-  // S3：持久化到 IndexedDB reports store（如果 DB 还没初始化，静默跳过——UI 首次使用时 idb.ts 会自动 openDB）
+  // 持久化到 IndexedDB reports store
   try {
     await put("reports", {
       id: `rep_${Date.now()}`,
-      session_id: manifestInput.geometry.baselineKey ?? "",
+      session_id: manifestInput.condition?.baselineKey ?? "",
       report_json: reportJson,
       manifest_json: JSON.stringify(manifest),
-      created_at: new Date().toISOString(),
-      sha256: manifest.reportSha256,
+      created_at: manifest.generated_at,
+      sha256: manifest.sha256,
     });
   } catch {
-    // IndexedDB 不可用时跳过持久化，不阻塞报告生成
+    // IndexedDB 不可用时跳过
   }
 
   return { report, reportJson, manifest };

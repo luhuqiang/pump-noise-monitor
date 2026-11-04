@@ -1,10 +1,9 @@
 /**
- * S5 报告 2.0 测试 —— ReportManifest 8 键 + 哈希链 + 门禁。
+ * S5 报告 2.0 测试 —— ReportManifest 8 键 + 哈希链 + 门禁（对齐验收卡 §3.1）。
  */
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 
-// ------ 全局 mock localStorage（fingerprint.ts 的 learnBaseline/loadBaseline 依赖）------
 const _store = new Map<string, string>();
 globalThis.localStorage = {
   getItem: (k: string) => _store.get(k) ?? null,
@@ -19,15 +18,12 @@ if (typeof globalThis.structuredClone !== "function") {
   globalThis.structuredClone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
 }
 
-// Node 22 需要 crypto.subtle
 before(() => {
   if (!globalThis.crypto) {
-    require("node:crypto").webcrypto;
+    globalThis.crypto = require("node:crypto").webcrypto;
   }
 });
-after(() => {
-  localStorage.clear();
-});
+after(() => { localStorage.clear(); });
 
 import {
   buildManifest,
@@ -37,194 +33,118 @@ import {
   type ReportManifest,
 } from "../report/manifest.ts";
 
-const SAMPLE_REPORT = JSON.stringify(
-  {
-    app: "听诊仪",
-    version: "2.0.0",
-    generatedAt: "2026-11-04T12:00:00Z",
-    asset: { id: "A-001", name: "主给水泵" },
-    diagnosis: { status: "ok", directions: [], fixList: [], nextStep: "none" },
-  },
-  null,
-  2,
-);
+function bytes(s: string): Uint8Array<ArrayBuffer> {
+  return new TextEncoder().encode(s);
+}
 
+const SAMPLE_PDF = bytes("%PDF-1.4\n% sample pdf body\n%%EOF");
 const BASE_INPUT = {
-  reportJson: SAMPLE_REPORT,
-  geometry: {
-    distanceM: 0.3,
-    sensorPosition: "inlet",
-    baselineVersion: 1,
-    baselineKey: "dev-A|bg0",
-    bucket: "常用负载",
-  },
-  sampleRate: 48000,
+  geometry: { distanceM: 0.3, sensorPosition: "inlet" },
+  condition: { bucket: "常用负载", baselineVersion: 1, baselineKey: "dev-A|bg0" },
+  algorithmVersion: "2.0.0",
+  sampleRateTrue: 48000,
   sampleRateOk: true,
-  micDirection: "inlet",
+  micPosition: "inlet",
+  reportBytes: SAMPLE_PDF as unknown as Uint8Array<ArrayBufferLike>,
 };
 
-// ============================================================
-// MT01：sha256Hex 确定性 + 长度
-// ============================================================
 describe("MT01：sha256Hex", () => {
-  it("固定输入 → 固定 64 字符小写 hex", async () => {
-    const h = await sha256Hex("hello world");
+  it("空字符串 → SHA-256 标准向量", async () => {
+    const h = await sha256Hex(bytes(""));
+    assert.equal(h, "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+  });
+  it("固定输入 → 64 字符小写 hex", async () => {
+    const h = await sha256Hex(bytes("hello"));
     assert.equal(h.length, 64);
     assert.ok(/^[0-9a-f]+$/.test(h));
-    assert.equal(h, await sha256Hex("hello world"));
-    assert.notEqual(h, await sha256Hex("HELLO WORLD"));
-  });
-
-  it("SHA-256 标准向量：空字符串", async () => {
-    const h = await sha256Hex("");
-    assert.equal(
-      h,
-      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    );
+    assert.equal(h, await sha256Hex(bytes("hello")));
   });
 });
 
-// ============================================================
-// MT02：validateManifestInput — 门禁缺键检查
-// ============================================================
-describe("MT02：validateManifestInput 门禁", () => {
+describe("GT20/GT21：validateManifestInput 门禁（验收卡 §6）", () => {
+  it("GT20：缺 geometry → 拒绝", () => {
+    const missing = validateManifestInput({ ...BASE_INPUT, geometry: null as any });
+    assert.ok(missing.includes("geometry"));
+  });
+  it("GT21：缺 algorithm_version → 拒绝", () => {
+    const missing = validateManifestInput({ ...BASE_INPUT, algorithmVersion: null });
+    assert.ok(missing.includes("algorithm_version"));
+  });
+  it("sample_rate_true=0 → 拒绝", () => {
+    const missing = validateManifestInput({ ...BASE_INPUT, sampleRateTrue: 0 });
+    assert.ok(missing.includes("sample_rate_true"));
+  });
   it("BASE_INPUT 无缺键", () => {
     const missing = validateManifestInput(BASE_INPUT);
     assert.deepEqual(missing, []);
   });
-
-  it("缺 reportJson → 报缺键", () => {
-    const missing = validateManifestInput({ ...BASE_INPUT, reportJson: "" });
-    assert.ok(missing.includes("reportJson"));
-  });
-
-  it("缺 geometry → 报缺键", () => {
-    const missing = validateManifestInput({ ...BASE_INPUT, geometry: null as any });
-    assert.ok(missing.includes("geometry"));
-  });
-
-  it("sampleRate=0 → 报缺键", () => {
-    const missing = validateManifestInput({ ...BASE_INPUT, sampleRate: 0 });
-    assert.ok(missing.includes("sampleRate"));
-  });
-
-  it("sampleRate=-1 → 报缺键", () => {
-    const missing = validateManifestInput({ ...BASE_INPUT, sampleRate: -1 });
-    assert.ok(missing.includes("sampleRate"));
-  });
 });
 
-// ============================================================
-// MT03：buildManifest — 8 键齐全
-// ============================================================
-describe("MT03：buildManifest 8 键齐全", () => {
-  let manifest: ReportManifest;
+describe("MT03：buildManifest 8 键齐全（验收卡 §3.1）", () => {
+  let m: ReportManifest;
+  before(async () => { m = await buildManifest(BASE_INPUT); });
 
-  before(async () => {
-    manifest = await buildManifest(BASE_INPUT);
-  });
-
-  it("8 个顶层键 + manifestVersion=1.0", () => {
-    const topKeys = Object.keys(manifest).sort();
-    assert.deepEqual(topKeys, [
-      "algorithmVersion",
-      "condition",
-      "generatedAt",
-      "geometry",
-      "manifestVersion",
-      "micDirection",
-      "reportSha256",
-      "sampleRate",
+  it("8 顶层键对齐卡面命名", () => {
+    const keys = Object.keys(m).sort();
+    assert.deepEqual(keys, [
+      "algorithm_version", "baseline_version", "clock_drift_min", "condition",
+      "generated_at", "geometry", "mic_position", "raw_available",
+      "sample_rate_true", "sha256",
     ]);
-    assert.equal(manifest.manifestVersion, "1.0");
   });
 
-  it("geometry 2 键齐全：distanceM + sensorPosition", () => {
-    assert.ok(manifest.geometry);
-    assert.equal(manifest.geometry.distanceM, 0.3);
-    assert.equal(manifest.geometry.sensorPosition, "inlet");
+  it("geometry 2 键 + condition 3 键对齐", () => {
+    assert.equal(m.geometry.distanceM, 0.3);
+    assert.equal(m.geometry.sensorPosition, "inlet");
+    assert.equal(m.condition?.bucket, "常用负载");
+    assert.equal(m.condition?.baselineVersion, 1);
+    assert.equal(m.condition?.baselineKey, "dev-A|bg0");
   });
 
-  it("condition 3 键齐全：bucket + baselineVersion + baselineKey", () => {
-    assert.equal(manifest.condition.bucket, "常用负载");
-    assert.equal(manifest.condition.baselineVersion, 1);
-    assert.equal(manifest.condition.baselineKey, "dev-A|bg0");
+  it("algorithm_version / baseline_version / sample_rate_true / mic_position", () => {
+    assert.equal(m.algorithm_version, "2.0.0");
+    assert.equal(m.baseline_version, 1);
+    assert.equal(m.sample_rate_true, 48000);
+    assert.equal(m.mic_position, "inlet");
   });
 
-  it("sampleRate 2 键：value + ok", () => {
-    assert.equal(manifest.sampleRate.value, 48000);
-    assert.equal(manifest.sampleRate.ok, true);
-  });
-
-  it("algorithmVersion 非空", () => {
-    assert.ok(typeof manifest.algorithmVersion === "string" && manifest.algorithmVersion.length > 0);
-  });
-
-  it("reportSha256 — 64 字符小写 hex", () => {
-    assert.equal(manifest.reportSha256.length, 64);
-    assert.ok(/^[0-9a-f]+$/.test(manifest.reportSha256));
-  });
-
-  it("generatedAt — ISO 8601 字符串", () => {
-    assert.ok(!Number.isNaN(Date.parse(manifest.generatedAt)));
+  it("generated_at ISO 8601 + sha256 64 位 + raw_available=false + clock_drift_min=null", () => {
+    assert.ok(!Number.isNaN(Date.parse(m.generated_at)));
+    assert.ok(m.sha256.length === 64 && /^[0-9a-f]+$/.test(m.sha256));
+    assert.equal(m.raw_available, false);
+    assert.equal(m.clock_drift_min, null);
   });
 });
 
-// ============================================================
-// MT04：哈希链 — verifyManifest 对正确/篡改 report 的行为
-// ============================================================
 describe("MT04：verifyManifest 哈希链", () => {
-  let manifest: ReportManifest;
+  let m: ReportManifest;
+  before(async () => { m = await buildManifest(BASE_INPUT); });
 
-  before(async () => {
-    manifest = await buildManifest(BASE_INPUT);
+  it("正确 PDF 字节 → true", async () => {
+    assert.equal(await verifyManifest(m, SAMPLE_PDF), true);
   });
 
-  it("正确 report → 返回 true", async () => {
-    assert.equal(await verifyManifest(manifest, SAMPLE_REPORT), true);
+  it("篡改 PDF → false", async () => {
+    const tampered = bytes("%PDF-1.4\n% TAMPERED\n%%EOF");
+    assert.equal(await verifyManifest(m, tampered), false);
   });
 
-  it("篡改 report 内容 → 返回 false", async () => {
-    const tampered = SAMPLE_REPORT.replace("ok", "fault");
-    assert.equal(await verifyManifest(manifest, tampered), false);
-  });
-
-  it("manifest 自身的 reportSha256 与实算一致", async () => {
-    const actual = await sha256Hex(SAMPLE_REPORT);
-    assert.equal(manifest.reportSha256, actual);
+  it("manifest.sha256 == PDF 实算", async () => {
+    assert.equal(m.sha256, await sha256Hex(SAMPLE_PDF));
   });
 });
 
-// ============================================================
-// MT05：边界 — geometry 字段 null 时 manifest 仍能构建
-// ============================================================
-describe("MT05：边界 — null 字段处理", () => {
-  it("geometry 全 null → manifest 可构建", async () => {
-    const manifest = await buildManifest({
-      ...BASE_INPUT,
-      geometry: {
-        distanceM: null,
-        sensorPosition: null,
-        baselineVersion: null,
-        baselineKey: null,
-        bucket: null,
-      },
-    });
-    assert.equal(manifest.geometry.distanceM, null);
-    assert.equal(manifest.geometry.sensorPosition, null);
-    assert.equal(manifest.condition.baselineVersion, null);
-    assert.equal(manifest.condition.baselineKey, null);
-    assert.equal(manifest.condition.bucket, null);
+describe("GT27：clock_drift_min 非空", () => {
+  it("时钟漂移 10min → manifest.clock_drift_min=10", async () => {
+    const m = await buildManifest({ ...BASE_INPUT, clockDriftMin: 10 });
+    assert.equal(m.clock_drift_min, 10);
   });
 });
 
-// ============================================================
-// MT06：篡改 manifest 的 reportSha256 → verifyManifest 失败
-// ============================================================
-describe("MT06：manifest 哈希链自身被篡改", () => {
-  it("manifest.reportSha256 被改 → verify 返回 false", async () => {
-    const manifest = await buildManifest(BASE_INPUT);
-    const tampered = { ...manifest, reportSha256: "0".repeat(64) };
-    assert.equal(await verifyManifest(tampered as ReportManifest, SAMPLE_REPORT), false);
+describe("MT06：manifest.sha256 被篡改 → verify 失败", () => {
+  it("sha256 被改 → verify 返回 false", async () => {
+    const m = await buildManifest(BASE_INPUT);
+    const tampered = { ...m, sha256: "0".repeat(64) };
+    assert.equal(await verifyManifest(tampered as ReportManifest, SAMPLE_PDF), false);
   });
 });

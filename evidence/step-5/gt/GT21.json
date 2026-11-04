@@ -1,0 +1,20 @@
+{
+  "gt": "GT21",
+  "desc": "缺 algorithm_version → validateManifestInput 拒绝",
+  "result": "pass",
+  "manifestInput": {
+    "geometry": {
+      "distanceM": 0.3,
+      "sensorPosition": "inlet"
+    },
+    "algorithmVersion": null,
+    "sampleRateTrue": 48000,
+    "micPosition": "inlet",
+    "reportBytes": "占位"
+  },
+  "missingKeys": [
+    "algorithm_version"
+  ],
+  "expect": "门禁拒绝，不写 unknown algorithm_version",
+  "got": "validateManifestInput 返回 missing=['algorithm_version'] → buildManifest throw"
+}
